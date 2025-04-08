@@ -1,35 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>br.com.fiap</groupId>
 	<artifactId>restaurante</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<name>restaurante</name>
-	<description>Projeto Tech Challenge GP21 - FIAP</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+
+	<packaging>jar</packaging>
+
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+
+	<description>Projeto Tech Challenge GP21 - FIAP</description>
+
+	<url>https://github.com/aschneider12/tech21</url>
+
+	<licenses>
+		<license/>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>aschneider12</name>
+			<url>https://github.com/aschneider12</url>
+		</developer>
+		<developer>
+			<name>danzobiss</name>
+			<url>https://github.com/danzobiss</url>
+		</developer>
+		<developer>
+			<name>EduYeager</name>
+			<url>https://github.com/EduardoSerafim</url>
+		</developer>
+		<developer>
+			<name>Raquel Morabito</name>
+			<url>https://github.com/raquelmorabito</url>
+		</developer>
+		<developer>
+			<name>Tunechi</name>
+			<url>https://github.com/Tune-SKT</url>
+		</developer>
+
+	</developers>
+
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -41,16 +68,19 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
