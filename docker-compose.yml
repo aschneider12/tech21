@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-restaurante
+    restart: always
+    environment:
+      POSTGRES_DB: restaurante
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: spring-restaurante
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/restaurante
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - default
+
+volumes:
+  pgdata:
