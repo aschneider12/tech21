@@ -5,6 +5,8 @@ import br.com.fiap.restaurante.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 /**
  * Camada de serviço, toda lógica de negócios deve ser inserida aqyi.
  */
@@ -15,7 +17,9 @@ public class UsuarioService {
     UsuarioRepository repository;
 
     public Usuario salvar(Usuario usuario) {
-        usuario.atualizarDataAlteracao();
+
+        usuario.setDataUltimaAlteracao(LocalDate.now());
+
         return repository.save(usuario);
     }
 }

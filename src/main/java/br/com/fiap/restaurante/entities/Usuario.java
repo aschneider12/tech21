@@ -22,10 +22,6 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
-    public void atualizarDataAlteracao() {
-        this.dataUltimaAlteracao = LocalDate.now();
-    }
-
 	public Long getId() {
 		return id;
 	}
