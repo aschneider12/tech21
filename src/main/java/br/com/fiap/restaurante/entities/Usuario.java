@@ -14,12 +14,14 @@ public class Usuario {
     private String email;
     private String login;
     private String senha;
+
     private LocalDate dataUltimaAlteracao;
 
-    @Embedded
+	//TODO- marcado como transient para evitar erros, criar uma nova tabela?
+    @Transient
     private Endereco endereco;
 
-    @Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
 	public Long getId() {

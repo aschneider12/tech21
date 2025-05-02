@@ -34,3 +34,10 @@ Endpoint para atualizar dados do usuário
 Endpoint para troca de senha 
 Endpoint para validação de login
 ...
+
+Para rodar o pgAdmin e inspecionar o banco rodar separado
+    * caso não tenha o pgAdmin instalado localmente
+> docker-compose -f .\compose-pgadmin.yml up -d
+
+Acessar em: http://localhost:5050/login?next=/
+Para conectar usar: como server <postgres> não <localhost>

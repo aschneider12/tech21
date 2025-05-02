@@ -1,8 +1,6 @@
-version: '3.9'
-
 services:
   postgres:
-    image: postgres:16
+    image: postgres:15
     container_name: postgres-restaurante
     restart: always
     environment:
@@ -11,6 +9,8 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
+    networks:
+      - shared_network
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -26,7 +26,13 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
     networks:
-      - default
+      - shared_network
 
 volumes:
   pgdata:
+
+networks:
+  shared_network:
+    name: tech_shared_network
+    external: false
+    driver: bridge

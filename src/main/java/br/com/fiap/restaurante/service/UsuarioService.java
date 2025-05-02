@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Camada de serviço, toda lógica de negócios deve ser inserida aqyi.
@@ -18,8 +19,13 @@ public class UsuarioService {
 
     public Usuario salvar(Usuario usuario) {
 
-        usuario.setDataUltimaAlteracao(LocalDate.now());
+        //validações necessárias
 
+        usuario.setDataUltimaAlteracao(LocalDate.now());
         return repository.save(usuario);
+    }
+
+    public List<Usuario> buscarTodosUsuarios() {
+        return repository.findAll();
     }
 }
