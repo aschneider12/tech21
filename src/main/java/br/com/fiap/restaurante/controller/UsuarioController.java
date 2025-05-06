@@ -3,12 +3,11 @@ package br.com.fiap.restaurante.controller;
 import br.com.fiap.restaurante.entities.Usuario;
 import br.com.fiap.restaurante.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 
-/**
-    Camada de comunicação com a web.
-*/
+import java.util.List;
+
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -16,9 +15,21 @@ public class UsuarioController {
     @Autowired
     UsuarioService service;
 
-    //TODO - cadastrar usuario
+    @PostMapping
+    public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
+        Usuario salvo = service.salvar(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
+    }
 
-    //TODO -alterar dados do usuario
-    //TODO - alterarSenha
-    //TODO - validacao do login
+    @PutMapping
+    public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario) {
+        Usuario atualizado = service.salvar(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(atualizado);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Usuario>> buscarTodos() {
+        List<Usuario> all = service.buscarTodosUsuarios();
+        return ResponseEntity.status(HttpStatus.OK).body(all);
+    }
 }
