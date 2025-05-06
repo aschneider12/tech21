@@ -21,11 +21,21 @@ public class UsuarioService {
 
         //validações necessárias
 
+        //senha forte?
+        //login ja existe?
+        //senha igual anterior?
+
         usuario.setDataUltimaAlteracao(LocalDate.now());
+
         return repository.save(usuario);
+    }
+    public void deletar(Long id) {
+        if(id != null)
+          repository.deleteById(id);
     }
 
     public List<Usuario> buscarTodosUsuarios() {
         return repository.findAll();
     }
+
 }
