@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "09f521d8-f39e-4335-841b-33181f6951e2",
+		"name": "usuario",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21463207",
+		"_collection_link": "https://gold-space-462811.postman.co/workspace/tech21~165a8f77-c2b6-4a4b-80c3-1578696d1468/collection/21463207-09f521d8-f39e-4335-841b-33181f6951e2?action=share&source=collection_link&creator=21463207"
+	},
+	"item": [
+		{
+			"name": "GET USUARIOS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST USUARIO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Denis The Brave\",\r\n    \"email\": \"denis@cold.com\",\r\n    \"login\": \"denis\",\r\n    \"senha\": \"denis\",\r\n    \"endereco\": null,\r\n    \"tipoUsuario\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT USUARIO",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 4,\r\n    \"nome\": \"Denis The Brave Man\",\r\n    \"email\": \"denis@cold.com\",\r\n    \"login\": \"denis\",\r\n    \"senha\": \"denis\",\r\n    \"dataUltimaAlteracao\": \"2025-05-01\",\r\n    \"endereco\": null,\r\n    \"tipoUsuario\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE USUARIO",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuario/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
