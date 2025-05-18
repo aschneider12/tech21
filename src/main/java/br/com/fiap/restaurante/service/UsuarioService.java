@@ -1,6 +1,8 @@
 package br.com.fiap.restaurante.service;
 
+import br.com.fiap.restaurante.DTO.MudarSenhaDTO;
 import br.com.fiap.restaurante.entities.Usuario;
+import br.com.fiap.restaurante.exceptions.SenhaIncorretaException;
 import br.com.fiap.restaurante.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,4 +40,12 @@ public class UsuarioService {
         return repository.findAll();
     }
 
+    public void mudarSenha(MudarSenhaDTO mudarSenhaDTO, Long id) {
+        var usuario = repository.findById(id).orElse(null);
+        if (usuario.getSenha().equals(mudarSenhaDTO.senhaAntiga())) {
+            repository.mudarSenha(mudarSenhaDTO.senhaNova(),id);
+        }else{
+            throw new SenhaIncorretaException("Senha incorreta");
+        }
+    }
 }

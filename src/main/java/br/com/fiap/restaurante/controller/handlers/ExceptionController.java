@@ -1,5 +1,7 @@
 package br.com.fiap.restaurante.controller.handlers;
 
+import br.com.fiap.restaurante.DTO.SenhaIncorretaDTO;
+import br.com.fiap.restaurante.exceptions.SenhaIncorretaException;
 import br.com.fiap.restaurante.exceptions.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +36,12 @@ public class ExceptionController {
         });
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
+    }
+
+    @ExceptionHandler(SenhaIncorretaException.class)
+    public ResponseEntity<SenhaIncorretaDTO> handleSenhaIncorretaException(SenhaIncorretaException e){
+        var status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status).body(new SenhaIncorretaDTO(status.value(), e.getMessage()));
+
     }
 }
