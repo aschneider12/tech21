@@ -44,7 +44,6 @@ public class UsuarioService {
     private Usuario salvar(Usuario usuario) {
 
         //outras validações necessárias
-        //So deve validar as senhas iguais quando for alteracao de senha
 
         //senha forte?
         if (!senhaForte(usuario.getSenha())) {
@@ -74,9 +73,9 @@ public class UsuarioService {
     public void mudarSenha(MudarSenhaDTO mudarSenhaDTO, Long id) {
         var usuario = repository.findById(id).orElse(null);
         if (usuario.getSenha().equals(mudarSenhaDTO.senhaAntiga())) {
-            repository.mudarSenha(mudarSenhaDTO.senhaNova(),id);
+            repository.mudarSenha(mudarSenhaDTO.senhaNova(), id);
         }else{
-            throw new ValidationException("Senha incorreta");
+            throw new ValidationException("Senha antiga incorreta");
         }
     }
     // Implementação da validação da senha
