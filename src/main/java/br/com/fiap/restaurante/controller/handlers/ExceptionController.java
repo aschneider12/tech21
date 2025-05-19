@@ -1,6 +1,5 @@
 package br.com.fiap.restaurante.controller.handlers;
 
-import br.com.fiap.restaurante.exceptions.ErrorResponse;
 import br.com.fiap.restaurante.exceptions.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +37,4 @@ public class ExceptionController {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
     }
-
-
-
-
-
-
 }

@@ -1,14 +1,9 @@
 package br.com.fiap.restaurante.controller;
 
-import br.com.fiap.restaurante.dtos.UsuarioRequestDTO;
-import br.com.fiap.restaurante.dtos.UsuarioResponseDTO;
 import br.com.fiap.restaurante.entities.Usuario;
 import br.com.fiap.restaurante.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
@@ -63,5 +58,11 @@ public class UsuarioController {
     public ResponseEntity<List<Usuario>> buscarTodos() {
         List<Usuario> all = service.buscarTodosUsuarios();
         return ResponseEntity.status(HttpStatus.OK).body(all);
+    }
+
+    @PatchMapping("/mudar-senha/{id}")
+    public ResponseEntity<Void> mudarSenha(@RequestBody MudarSenhaDTO mudarSenhaDTO, @PathVariable Long id) {
+        this.service.mudarSenha(mudarSenhaDTO, id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -10,6 +10,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE usuario SET senha = :senha WHERE id = :id", nativeQuery = true)
+    public void mudarSenha(@Param("senha") String senhaNova, @Param("id") Long id);
+
+
     boolean existsByLogin(String login);
 
     boolean existsByEmail(String email);

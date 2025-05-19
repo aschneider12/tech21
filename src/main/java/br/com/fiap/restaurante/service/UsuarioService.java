@@ -2,6 +2,7 @@ package br.com.fiap.restaurante.service;
 
 import br.com.fiap.restaurante.dtos.UsuarioRequestDTO;
 import br.com.fiap.restaurante.dtos.UsuarioResponseDTO;
+import br.com.fiap.restaurante.DTO.MudarSenhaDTO;
 import br.com.fiap.restaurante.entities.Usuario;
 import br.com.fiap.restaurante.exceptions.ValidationException;
 import br.com.fiap.restaurante.repositories.UsuarioRepository;
@@ -70,6 +71,14 @@ public class UsuarioService {
         return repository.findAll();
     }
 
+    public void mudarSenha(MudarSenhaDTO mudarSenhaDTO, Long id) {
+        var usuario = repository.findById(id).orElse(null);
+        if (usuario.getSenha().equals(mudarSenhaDTO.senhaAntiga())) {
+            repository.mudarSenha(mudarSenhaDTO.senhaNova(),id);
+        }else{
+            throw new ValidationException("Senha incorreta");
+        }
+    }
     // Implementação da validação da senha
     private boolean senhaForte(String senha) {
 
