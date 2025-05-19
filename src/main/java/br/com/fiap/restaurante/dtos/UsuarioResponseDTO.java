@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.dtos;
 
 import br.com.fiap.restaurante.entities.TipoUsuario;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -11,6 +12,7 @@ public record UsuarioResponseDTO(
         String nome,
         String email,
         String login,
+        @Schema(description = "Data da última alteração realizada no cadastro.")
         LocalDate dataUltimaAlteracao,
         TipoUsuario tipoUsuario
 ) {}

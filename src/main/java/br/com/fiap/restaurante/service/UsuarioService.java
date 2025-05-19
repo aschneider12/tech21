@@ -3,14 +3,14 @@ package br.com.fiap.restaurante.service;
 import br.com.fiap.restaurante.dtos.UsuarioRequestDTO;
 import br.com.fiap.restaurante.dtos.UsuarioResponseDTO;
 import br.com.fiap.restaurante.entities.Usuario;
-import br.com.fiap.restaurante.exceptions.LoginExistsException;
-import br.com.fiap.restaurante.exceptions.SenhaFracaException;
+import br.com.fiap.restaurante.exceptions.ValidationException;
 import br.com.fiap.restaurante.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Camada de serviço, toda lógica de negócios deve ser inserida aqyi.
@@ -21,63 +21,46 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository repository;
 
-    // Método que converte DTO de requisição para entidade
-    public Usuario converterParaEntidade(UsuarioRequestDTO dto) {
-        Usuario usuario = new Usuario();
-        usuario.setNome(dto.nome());
-        usuario.setEmail(dto.email());
-        usuario.setLogin(dto.login());
-        usuario.setSenha(dto.senha());
-        usuario.setTipoUsuario(dto.tipoUsuario());
-        usuario.setDataUltimaAlteracao(LocalDate.now()); // define data atual
-        // Se tiver endereço ou outros campos, trate aqui também
-        return usuario;
+    public UsuarioResponseDTO cadastrar(UsuarioRequestDTO usuarioDTO) {
+
+        Usuario usuario = converterParaEntidade(new Usuario(), usuarioDTO);
+        return converterParaDTO(usuario);
     }
 
+    public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO usuarioDTO) {
+        Optional<Usuario> usrBD = repository.findById(id);
 
+        if(usrBD.isEmpty())
+            throw new ValidationException("Usuário com ID "+id+" não encontrado!");
 
+        Usuario usuario = converterParaEntidade(usrBD.get(), usuarioDTO);
 
-    // Método que converte entidade para DTO de resposta
-    public UsuarioResponseDTO converterParaDTO(Usuario usuario) {
-        return new UsuarioResponseDTO(
-                usuario.getId(),
-                usuario.getNome(),
-                usuario.getEmail(),
-                usuario.getLogin(),
-                usuario.getDataUltimaAlteracao(),
-                usuario.getTipoUsuario()
-        );
+        salvar(usuario);
+
+        return converterParaDTO(usuario);
     }
 
+    private Usuario salvar(Usuario usuario) {
 
-
-
-
-
-
-    public Usuario salvar(Usuario usuario) {
-
-        //validações necessárias
+        //outras validações necessárias
+        //So deve validar as senhas iguais quando for alteracao de senha
 
         //senha forte?
         if (!senhaForte(usuario.getSenha())) {
-            throw new SenhaFracaException("Senha fraca. " +
+            throw new ValidationException("Senha fraca. " +
                     "A senha deve ter pelo menos 8 caracteres e conter números.");
         }
 
         //login ja existe?
         if (repository.existsByLogin(usuario.getLogin())) {
-            throw new LoginExistsException("Login já existe, verifique");
+            throw new ValidationException("Login já existe, verifique");
         }
-
-
-
-        //senha igual anterior?
 
         usuario.setDataUltimaAlteracao(LocalDate.now());
 
         return repository.save(usuario);
     }
+
     public void deletar(Long id) {
         if(id != null)
           repository.deleteById(id);
@@ -94,5 +77,27 @@ public class UsuarioService {
         return senha != null && senha.length() >= 8 && senha.matches(".*\\d.*");
     }
 
+    // Método que converte DTO de requisição para entidade
+    private Usuario converterParaEntidade(Usuario usuario, UsuarioRequestDTO dto) {
 
+        usuario.setNome(dto.nome());
+        usuario.setEmail(dto.email());
+        usuario.setLogin(dto.login());
+        usuario.setSenha(dto.senha());
+        usuario.setTipoUsuario(dto.tipoUsuario());
+        // Se tiver endereço ou outros campos, trate aqui também
+        return usuario;
+    }
+
+    // Método que converte entidade para DTO de resposta
+    private UsuarioResponseDTO converterParaDTO(Usuario usuario) {
+        return new UsuarioResponseDTO(
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getLogin(),
+                usuario.getDataUltimaAlteracao(),
+                usuario.getTipoUsuario()
+        );
+    }
 }
