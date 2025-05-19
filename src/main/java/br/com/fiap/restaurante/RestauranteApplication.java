@@ -9,5 +9,6 @@ public class RestauranteApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RestauranteApplication.class, args);
 	}
+	/*Teste commit*/
 
 }
