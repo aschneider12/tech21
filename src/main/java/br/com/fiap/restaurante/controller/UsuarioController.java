@@ -6,11 +6,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/usuario")
@@ -23,14 +21,22 @@ public class UsuarioController {
 
     @PostMapping
     @Operation(description = "Cadastrar um novo usuário.")
-    public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario) {
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid Usuario usuario) {
+        if (usuario.getTipoUsuario() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuário deve ser informado.");
+        }
+
         Usuario salvo = service.salvar(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
     @PutMapping
     @Operation(description = "Atualizar usuário existente.")
-    public ResponseEntity<Usuario> atualizar(@RequestBody @Valid Usuario usuario) {
+    public ResponseEntity<?> atualizar(@RequestBody @Valid Usuario usuario) {
+        if (usuario.getTipoUsuario() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuário deve ser informado.");
+        }
+
         Usuario atualizado = service.salvar(usuario);
         return ResponseEntity.status(HttpStatus.OK).body(atualizado);
     }

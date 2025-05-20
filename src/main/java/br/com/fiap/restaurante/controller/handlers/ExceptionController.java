@@ -20,7 +20,6 @@ public class ExceptionController {
         //validacao personalizada se houver
     }
 
-    //TODO - retornar uma lista de error response, padronizada
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, List<String>>>
     handleValidationExceptions(MethodArgumentNotValidException ex) {
