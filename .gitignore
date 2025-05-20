@@ -1,41 +1,34 @@
-# Java e Maven
-*.class
+# Diretórios de build
 /target/
-!.mvn/wrapper/maven-wrapper.jar
+out/
 
-# IDEs
-.idea/
-.classpath
-.project
-.settings/
-.factorypath
+# Configurações específicas de IDEs
+/.idea/
+/*.iml
+*.class
 
-# Sistema operacional
-.DS_Store
-Thumbs.db
-
-# Logs
+# Arquivos de log
 *.log
 
-# Arquivos de build temporários
-build/
-bin/
+# Arquivos temporários do sistema
+*.swp
+*.swo
+*.tmp
+*.bak
+*.DS_Store
+Thumbs.db
 
-# Arquivos indesejados que apareceram no seu repositório
-CACHED
-exporting
-transferring
-writing
-login:
-senha:
-tipoUsuario:
-[app]
-[app
-
-# Configuração local/sensível
-src/main/resources/application.properties
+# Arquivos de ambiente
 .env
 *.env
 
-# Arquivos gerados pelo Maven Wrapper 
+# Maven Wrapper
+.mvn/
+mvnw
 mvnw.cmd
+
+# Arquivos de segurança
+*.keystore
+*.pem
+*.crt
+*.key
