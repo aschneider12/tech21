@@ -1,5 +1,12 @@
 # Getting Started
 
+docker-compose up --build -d
+docker logs -f spring-restaurante
+---
+docker exec -it postgres-restaurante psql -U postgres -d restaurante
+---
+post test
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
