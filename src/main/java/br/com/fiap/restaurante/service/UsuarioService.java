@@ -1,7 +1,9 @@
 package br.com.fiap.restaurante.service;
 
+import br.com.fiap.restaurante.DTO.MudarSenhaDTO;
 import br.com.fiap.restaurante.entities.TipoUsuario;
 import br.com.fiap.restaurante.entities.Usuario;
+import br.com.fiap.restaurante.exceptions.SenhaIncorretaException;
 import br.com.fiap.restaurante.repositories.UsuarioRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +77,18 @@ public class UsuarioService {
         repository.save(usuario);
     }
 
+    public void mudarSenha(MudarSenhaDTO mudarSenhaDTO, Long id) {
+        Usuario usuario = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
+
+        if (passwordEncoder.matches(mudarSenhaDTO.senhaAntiga(), usuario.getSenha())) {
+            usuario.setSenha(passwordEncoder.encode(mudarSenhaDTO.senhaNova()));
+            repository.save(usuario);
+        } else {
+            throw new SenhaIncorretaException("Senha incorreta");
+        }
+    }
+
     @PostConstruct
     public void gerarHashParaTeste() {
         String senha = "123456";
@@ -82,3 +96,4 @@ public class UsuarioService {
         System.out.println("Hash gerado via Spring context para \"123456\": " + hash);
     }
 }
+

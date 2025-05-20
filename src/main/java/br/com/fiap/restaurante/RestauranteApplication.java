@@ -8,9 +8,9 @@ public class RestauranteApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RestauranteApplication.class, args);
-
-        // Removido o código inseguro de geração de senha
-        // PasswordEncoder encoder = new BCryptPasswordEncoder();
-        // System.out.println("Senha criptografada: " + encoder.encode("123456"));
     }
+
+    // Removido o código inseguro de geração de senha
+    // PasswordEncoder encoder = new BCryptPasswordEncoder();
+    // System.out.println("Senha criptografada: " + encoder.encode("123456"));
 }

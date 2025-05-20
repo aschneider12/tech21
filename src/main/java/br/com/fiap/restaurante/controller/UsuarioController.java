@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.controller;
 
+import br.com.fiap.restaurante.DTO.MudarSenhaDTO;
 import br.com.fiap.restaurante.entities.Usuario;
 import br.com.fiap.restaurante.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,5 +54,11 @@ public class UsuarioController {
     public ResponseEntity<List<Usuario>> buscarTodos() {
         List<Usuario> all = service.buscarTodosUsuarios();
         return ResponseEntity.status(HttpStatus.OK).body(all);
+    }
+
+    @PatchMapping("/mudar-senha/{id}")
+    public ResponseEntity<Void> mudarSenha(@RequestBody MudarSenhaDTO mudarSenhaDTO, @PathVariable Long id) {
+        this.service.mudarSenha(mudarSenhaDTO, id);
+        return ResponseEntity.noContent().build();
     }
 }
