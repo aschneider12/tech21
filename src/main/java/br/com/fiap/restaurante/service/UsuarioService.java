@@ -29,6 +29,7 @@ public class UsuarioService {
     public UsuarioResponseDTO cadastrar(UsuarioRequestDTO usuarioDTO) {
 
         Usuario usuario = converterParaEntidade(new Usuario(), usuarioDTO);
+        salvar(usuario);
         return converterParaDTO(usuario);
     }
 
@@ -44,11 +45,6 @@ public class UsuarioService {
 
         return converterParaDTO(usuario);
     }
-
-
-
-
-
 
     public Usuario salvar(Usuario usuario) {
 

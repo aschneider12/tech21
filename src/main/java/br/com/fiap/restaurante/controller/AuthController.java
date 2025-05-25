@@ -1,7 +1,6 @@
 package br.com.fiap.restaurante.controller;
 
 import br.com.fiap.restaurante.dtos.LoginRequest;
-import br.com.fiap.restaurante.dtos.MudarSenhaDTO;
 import br.com.fiap.restaurante.entities.TipoUsuario;
 import br.com.fiap.restaurante.service.UsuarioService;
 import br.com.fiap.restaurante.security.JwtService;
@@ -21,7 +20,7 @@ public class AuthController {
     @Autowired
     private JwtService jwtService;
 
-    @Operation(summary = "Valida o login do usuário")
+    @Operation(summary = "Autoriza o login do usuário")
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody @Valid LoginRequest loginRequest) {
         String login = loginRequest.getLogin();
