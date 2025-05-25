@@ -33,7 +33,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"Denis The Brave\",\r\n    \"email\": \"denis@cold.com\",\r\n    \"login\": \"denis\",\r\n    \"senha\": \"denis\",\r\n    \"endereco\": null,\r\n    \"tipoUsuario\": null\r\n}",
+					"raw": "{\r\n    \"nome\": \"jack tequila\",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis\",\r\n    \"senha\": \"denis\",\r\n    \"endereco\": null,\r\n    \"tipoUsuario\": \"DONO\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -49,6 +49,35 @@
 					"port": "8080",
 					"path": [
 						"usuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AUTH LOGIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"admin\",\r\n    \"senha\": \"adminadmin\",\r\n    \"tipoUsuario\": \"DONO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
 					]
 				}
 			},
@@ -61,7 +90,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 4,\r\n    \"nome\": \"Denis The Brave Man\",\r\n    \"email\": \"denis@cold.com\",\r\n    \"login\": \"denis\",\r\n    \"senha\": \"denis\",\r\n    \"dataUltimaAlteracao\": \"2025-05-01\",\r\n    \"endereco\": null,\r\n    \"tipoUsuario\": null\r\n}",
+					"raw": "{\r\n    \"nome\": \"USUARIO ATUALIZADO ID 6\",\r\n    \"email\": \"denis@cold.com\",\r\n    \"login\": \"denislog\",\r\n    \"senha\" : \"denispass\",\r\n    \"tipoUsuario\": \"CLIENTE\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -69,14 +98,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/usuario",
+					"raw": "http://localhost:8080/usuario/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"usuario"
+						"usuario",
+						"6"
 					]
 				}
 			},
@@ -88,7 +118,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/usuario/1",
+					"raw": "http://localhost:8080/usuario/7",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -96,7 +126,68 @@
 					"port": "8080",
 					"path": [
 						"usuario",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MUDAR SENHA",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"senhaAntiga\": \"admin\",\r\n    \"senhaNova\": \"nova_senhaW\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuario/mudar-senha/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"mudar-senha",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET USUARIO 404",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"nome\": \"Clark Quenti\",\r\n        \"email\": \"clark@quenti.com\",\r\n        \"login\": \"teste\",\r\n        \"senha\": \"admin\",\r\n        \"dataUltimaAlteracao\": \"2025-05-09\",\r\n        \"endereco\": null,\r\n        \"tipoUsuario\": \"DONO\"\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"nome\": \"Clark Cold\",\r\n        \"email\": \"clark@cold.com\",\r\n        \"login\": \"outroteste\",\r\n        \"senha\": \"admin\",\r\n        \"dataUltimaAlteracao\": \"2025-05-09\",\r\n        \"endereco\": null,\r\n        \"tipoUsuario\": \"CLIENTE\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios"
 					]
 				}
 			},
