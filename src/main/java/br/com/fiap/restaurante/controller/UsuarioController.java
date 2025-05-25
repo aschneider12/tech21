@@ -11,11 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/usuario")
@@ -36,15 +34,23 @@ public class UsuarioController {
 //    }
 
     @PostMapping
+
     @Operation(description = "Cadastrar um novo usuário")
     public ResponseEntity<UsuarioResponseDTO> cadastrar(@RequestBody @Valid UsuarioRequestDTO usuarioDTO) {
 
         UsuarioResponseDTO responseDTO = service.cadastrar(usuarioDTO);
+
+//        @Raquel o proprio @valid faz isso
+//        if (usuarioDTO.tipoUsuario() == null) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuário deve ser informado.");
+//        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     @PutMapping("/{id}")
     @Operation(description = "Atualizar usuário existente.")
+
     public ResponseEntity<UsuarioResponseDTO> atualizar(@RequestBody @Valid UsuarioRequestDTO usuarioDTO,
                                                         @PathVariable(required = true) Long id) {
 

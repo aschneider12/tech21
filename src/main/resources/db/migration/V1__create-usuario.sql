@@ -1,6 +1,6 @@
--- cria tabela usuario
-CREATE TABLE USUARIO (
-  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+-- Criação da tabela USUARIO
+CREATE TABLE usuario (
+  id SERIAL PRIMARY KEY,
   nome TEXT NOT NULL,
   email TEXT NOT NULL,
   login TEXT NOT NULL,
@@ -9,11 +9,27 @@ CREATE TABLE USUARIO (
   tipo_usuario TEXT NOT NULL
 );
 
--- insert two default values
-INSERT INTO USUARIO (nome, email, login, senha, data_ultima_alteracao, tipo_usuario)
-VALUES ('Clark Quenti', 'clark@quenti.com', 'teste','admin', now(), 'DONO');
+-- Inserção de usuários
 
-INSERT INTO USUARIO (nome, email, login, senha, data_ultima_alteracao, tipo_usuario)
-VALUES ('Clark Cold', 'clark@cold.com', 'outroteste','admin', now(), 'CLIENTE');
+-- senha: 123456
+INSERT INTO usuario (nome, email, login, senha, data_ultima_alteracao, tipo_usuario)
+VALUES (
+  'Clark Quenti', 
+  'clark@quenti.com', 
+  'teste',
+  '$2a$10$FLVV/LEJkF4U8T6IZAL9wuIaCk3K/JcGZcYQvh2mA8VmFbdjl70LG', 
+  now(), 
+  'DONO'
+);
 
--- select all to test SELECT * FROM USUARIO
+-- senha: admin
+INSERT INTO usuario (nome, email, login, senha, data_ultima_alteracao, tipo_usuario)
+VALUES (
+  'Clark Cold', 
+  'clark@cold.com', 
+  'outroteste',
+  '$2a$10$hE1hYzQAwgE0xA2UKvpg2OSvjWP6T8hXYhtquzyCkmrOJ1zY0ZKsq',
+  now(), 
+  'CLIENTE'
+);
+

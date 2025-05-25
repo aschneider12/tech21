@@ -23,7 +23,6 @@ public class ExceptionController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-    //TODO - retornar uma lista de error response, padronizada
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, List<String>>>
     handleValidationExceptions(MethodArgumentNotValidException ex) {
