@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.controller;
 
-import br.com.fiap.restaurante.dto.LoginRequest;
+import br.com.fiap.restaurante.dtos.LoginRequest;
+import br.com.fiap.restaurante.dtos.MudarSenhaDTO;
 import br.com.fiap.restaurante.entities.TipoUsuario;
 import br.com.fiap.restaurante.service.UsuarioService;
 import br.com.fiap.restaurante.security.JwtService;
@@ -35,17 +36,4 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas ou tipo incorreto.");
     }
 
-    @Operation(summary = "Altera a senha do usuário")
-    @PutMapping("/senha")
-    public ResponseEntity<String> trocarSenha(
-            @RequestParam String login,
-            @RequestParam String novaSenha) {
-
-        try {
-            usuarioService.trocarSenha(login, novaSenha);
-            return ResponseEntity.ok("Senha atualizada com sucesso.");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
-        }
-    }
 }

@@ -1,6 +1,6 @@
 package br.com.fiap.restaurante.controller;
 
-import br.com.fiap.restaurante.DTO.MudarSenhaDTO;
+import br.com.fiap.restaurante.dtos.MudarSenhaDTO;
 import br.com.fiap.restaurante.dtos.UsuarioRequestDTO;
 import br.com.fiap.restaurante.dtos.UsuarioResponseDTO;
 import br.com.fiap.restaurante.entities.Usuario;
@@ -72,6 +72,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(all);
     }
 
+    @Operation(summary = "Altera a senha do usuário.")
     @PatchMapping("/mudar-senha/{id}")
     public ResponseEntity<Void> mudarSenha(@RequestBody MudarSenhaDTO mudarSenhaDTO, @PathVariable Long id) {
         this.service.mudarSenha(mudarSenhaDTO, id);

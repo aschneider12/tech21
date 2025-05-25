@@ -2,7 +2,7 @@ package br.com.fiap.restaurante.service;
 
 import br.com.fiap.restaurante.dtos.UsuarioRequestDTO;
 import br.com.fiap.restaurante.dtos.UsuarioResponseDTO;
-import br.com.fiap.restaurante.DTO.MudarSenhaDTO;
+import br.com.fiap.restaurante.dtos.MudarSenhaDTO;
 import br.com.fiap.restaurante.entities.TipoUsuario;
 import br.com.fiap.restaurante.entities.Usuario;
 import br.com.fiap.restaurante.exceptions.ValidationException;
@@ -106,17 +106,6 @@ public class UsuarioService {
         return false;
     }
 
-    public void trocarSenha(String login, String novaSenha) {
-        Usuario usuario = repository.findAll().stream()
-                .filter(u -> u.getLogin().equals(login))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
-
-        usuario.setSenha(passwordEncoder.encode(novaSenha));
-        usuario.setDataUltimaAlteracao(LocalDate.now());
-        repository.save(usuario);
-    }
-
     public void mudarSenha(MudarSenhaDTO mudarSenhaDTO, Long id) {
 
         Usuario usuario = repository.findById(id)
@@ -124,6 +113,7 @@ public class UsuarioService {
 
         if (passwordEncoder.matches(mudarSenhaDTO.senhaAntiga(), usuario.getSenha())) {
             usuario.setSenha(passwordEncoder.encode(mudarSenhaDTO.senhaNova()));
+            usuario.setDataUltimaAlteracao(LocalDate.now());
             repository.save(usuario);
         } else {
             throw new ValidationException("Senha incorreta");

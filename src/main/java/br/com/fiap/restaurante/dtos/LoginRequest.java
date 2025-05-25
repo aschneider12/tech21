@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.dto;
+package br.com.fiap.restaurante.dtos;
 
 import br.com.fiap.restaurante.entities.TipoUsuario;
 import jakarta.validation.constraints.NotBlank;
