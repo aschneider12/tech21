@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
@@ -18,6 +19,7 @@ public class Usuario {
 
 	private String email;
 
+    @Column(unique = true)
     private String login;
 
     private String senha;
@@ -25,7 +27,7 @@ public class Usuario {
     private LocalDate dataUltimaAlteracao;
 
 	private String  endereco;
-//    private Endereco endereco; //TODO
+//    private Endereco endereco; //TODO - tornar entidade proximo modulo
 
 	@Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
@@ -85,7 +87,6 @@ public class Usuario {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
 	public TipoUsuario getTipoUsuario() {
 		return tipoUsuario;
 	}

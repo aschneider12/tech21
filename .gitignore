@@ -6,6 +6,9 @@ out/
 /.idea/
 /*.iml
 *.class
+.classpath
+.factorypath
+.org.eclipse*
 
 # Arquivos de log
 *.log

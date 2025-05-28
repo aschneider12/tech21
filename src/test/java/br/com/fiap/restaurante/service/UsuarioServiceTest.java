@@ -2,60 +2,110 @@ package br.com.fiap.restaurante.service;
 
 import br.com.fiap.restaurante.entities.TipoUsuario;
 import br.com.fiap.restaurante.entities.Usuario;
+import br.com.fiap.restaurante.exceptions.ValidationException;
 import br.com.fiap.restaurante.repositories.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-class UsuarioServiceTest {
+@ExtendWith(MockitoExtension.class)
+public class UsuarioServiceTest {
 
+    @InjectMocks
+    private UsuarioService usuarioService;
+
+    @Mock
     private UsuarioRepository repository;
-    private UsuarioService service;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    private Usuario usuario;
 
     @BeforeEach
     void setUp() {
-        repository = Mockito.mock(UsuarioRepository.class);
-        service = new UsuarioService();
-        service.repository = repository;
-
-        Usuario cliente = new Usuario();
-        cliente.setLogin("cliente123");
-        cliente.setSenha("senha123");
-        cliente.setTipoUsuario(TipoUsuario.CLIENTE);
-
-        Usuario dono = new Usuario();
-        dono.setLogin("dono123");
-        dono.setSenha("senha456");
-        dono.setTipoUsuario(TipoUsuario.DONO);
-
-        Mockito.when(repository.findAll()).thenReturn(List.of(cliente, dono));
+        usuario = new Usuario();
+        usuario.setId(1L);
+        usuario.setNome("Raquel");
+        usuario.setEmail("raquel@email.com");
+        usuario.setLogin("raquel123");
+        usuario.setSenha("senhaSegura123");
+        usuario.setDataUltimaAlteracao(LocalDate.now());
+        usuario.setTipoUsuario(TipoUsuario.DONO);
     }
 
     @Test
-    void deveValidarLoginCliente() {
-        boolean resultado = service.validarLogin("cliente123", "senha123", TipoUsuario.CLIENTE);
-        assertTrue(resultado, "Login de CLIENTE deveria ser válido");
+    void deveRetornarTodosUsuarios() {
+        when(repository.findAll()).thenReturn(List.of(usuario));
+        List<Usuario> resultado = usuarioService.buscarTodosUsuarios();
+        assertEquals(1, resultado.size());
+        assertEquals("Raquel", resultado.get(0).getNome());
     }
 
     @Test
-    void deveValidarLoginDono() {
-        boolean resultado = service.validarLogin("dono123", "senha456", TipoUsuario.DONO);
-        assertTrue(resultado, "Login de DONO deveria ser válido");
+    void deveLancarExcecaoParaSenhaFraca() {
+        usuario.setSenha("123");
+        assertThrows(ValidationException.class, () -> usuarioService.salvar(usuario));
     }
 
     @Test
-    void naoDeveValidarLoginComTipoErrado() {
-        boolean resultado = service.validarLogin("cliente123", "senha123", TipoUsuario.DONO);
-        assertFalse(resultado, "Login com tipo incorreto não deveria ser válido");
+    void deveSalvarUsuarioComSenhaCriptografada() {
+        when(passwordEncoder.encode(anyString())).thenReturn("hashMockado");
+        when(repository.existsByLogin("raquel123")).thenReturn(false);
+        when(repository.save(any(Usuario.class))).thenReturn(usuario);
+
+        Usuario salvo = usuarioService.salvar(usuario);
+
+        assertNotNull(salvo);
+        verify(repository).save(any(Usuario.class));
+        verify(passwordEncoder).encode("senhaSegura123");
     }
 
     @Test
-    void naoDeveValidarLoginComSenhaIncorreta() {
-        boolean resultado = service.validarLogin("dono123", "senhaErrada", TipoUsuario.DONO);
-        assertFalse(resultado, "Login com senha errada não deveria ser válido");
+    void deveValidarLoginComCredenciaisValidas() {
+        usuario.setSenha("senhaCriptografada");
+        when(repository.findAll()).thenReturn(List.of(usuario));
+        when(passwordEncoder.matches("senhaSegura123", "senhaCriptografada")).thenReturn(true);
+
+        boolean resultado = usuarioService.validarLogin("raquel123", "senhaSegura123", TipoUsuario.DONO);
+        assertTrue(resultado);
+    }
+
+    @Test
+    void naoDeveValidarLoginComCredenciaisInvalidas() {
+        when(repository.findAll()).thenReturn(List.of(usuario));
+        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
+
+        boolean resultado = usuarioService.validarLogin("raquel123", "senhaErrada", TipoUsuario.DONO);
+        assertFalse(resultado);
+    }
+
+    @Test
+    void deveAtualizarSenhaComSucesso() {
+        when(repository.findByLogin("raquel123")).thenReturn(Optional.of(usuario));
+        when(passwordEncoder.encode("NovaSenha123")).thenReturn("novaSenhaCriptografada");
+
+        usuarioService.atualizarSenha("raquel123", "NovaSenha123");
+
+        verify(repository).mudarSenha("novaSenhaCriptografada", usuario.getId());
+    }
+
+    @Test
+    void deveLancarExcecaoAoAtualizarSenhaFraca() {
+        when(repository.findByLogin("raquel123")).thenReturn(Optional.of(usuario));
+
+        assertThrows(ValidationException.class, () -> usuarioService.atualizarSenha("raquel123", "123"));
     }
 }
+

@@ -35,4 +35,11 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas ou tipo incorreto.");
     }
 
+    @Operation(summary = "Atualiza a senha de um usuário autenticado")
+    @PutMapping("/senha")
+    public ResponseEntity<String> atualizarSenha(@RequestParam String login, @RequestParam String novaSenha) {
+        usuarioService.atualizarSenha(login, novaSenha);
+        return ResponseEntity.ok("Senha atualizada com sucesso.");
+    }
 }
+
