@@ -3,6 +3,7 @@ package br.com.fiap.restaurante.entities;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.Embeddable;
 
+// TODO - será migrada de String para entidade nas próximas fases.
 @Hidden
 @Embeddable
 public class Endereco {

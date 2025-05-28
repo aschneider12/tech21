@@ -34,7 +34,6 @@ public class UsuarioController {
 //    }
 
     @PostMapping
-
     @Operation(description = "Cadastrar um novo usuário")
     public ResponseEntity<UsuarioResponseDTO> cadastrar(@RequestBody @Valid UsuarioRequestDTO usuarioDTO) {
 
@@ -50,7 +49,6 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     @Operation(description = "Atualizar usuário existente.")
-
     public ResponseEntity<UsuarioResponseDTO> atualizar(@RequestBody @Valid UsuarioRequestDTO usuarioDTO,
                                                         @PathVariable(required = true) Long id) {
 

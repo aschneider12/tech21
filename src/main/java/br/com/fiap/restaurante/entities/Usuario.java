@@ -22,12 +22,10 @@ public class Usuario {
 
     private String senha;
 
-
     private LocalDate dataUltimaAlteracao;
 
-	//TODO- marcado como transient para evitar erros, criar uma nova tabela?
-    @Transient
-    private Endereco endereco;
+	private String  endereco;
+//    private Endereco endereco; //TODO
 
 	@Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
@@ -80,11 +78,11 @@ public class Usuario {
 		this.dataUltimaAlteracao = dataUltimaAlteracao;
 	}
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 
