@@ -1,25 +1,99 @@
-# Getting Started
+## Como subir o projeto
 
-### Reference Documentation
-For further reference, please consider the following sections:
+Certifique-se de ter o **Docker** e o **Docker Compose** instalados.  
+Execute o seguinte comando no terminal dentro da pasta do projeto:
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.4.4/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.4.4/maven-plugin/build-image.html)
-* [Spring Web](https://docs.spring.io/spring-boot/3.4.4/reference/web/servlet.html)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/3.4.4/reference/using/devtools.html)
+```bash
+docker-compose up --build -d
+```
 
-### Guides
-The following guides illustrate how to use some features concretely:
+Para verificar se o backend subiu corretamente:
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+```bash
+docker logs -f spring-restaurante
+```
 
-### Maven Parent overrides
+---
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+## Como testar a autenticação JWT
 
+### 1. Cadastrar um usuário
+```bash
+curl -X POST http://localhost:8080/usuario \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "Fazendo Teste",
+    "email": "fazendoteste@fazendoteste.com",
+    "login": "fazendoteste",
+    "senha": "654321",
+    "tipoUsuario": "DONO"
+  }'
+```
+
+### 2. Realizar login para gerar o token JWT
+```bash
+curl -X POST http://localhost:8080/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "login": "fazendoteste",
+    "senha": "654321",
+    "tipoUsuario": "DONO"
+  }'
+```
+
+O retorno será um token. Copie apenas o valor do token JWT (sem aspas ou prefixos).
+
+### 3. Acessar endpoints protegidos com o token
+```bash
+curl -X GET http://localhost:8080/usuario \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI"
+```
+
+---
+
+## Como trocar a senha
+
+```bash
+curl -X PUT "http://localhost:8080/auth/senha?login=fazendoteste&novaSenha=123456"
+```
+
+---
+
+## Swagger (Documentação da API)
+
+Disponível após subir o backend:  
+[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+---
+
+## Variáveis de ambiente
+
+O segredo usado para assinar os JWTs está atualmente sendo lido do arquivo `application.properties`, mas no futuro sera passada via variável de ambiente no futuro:
+
+```properties
+jwt.secret=${TOKEN_JWT_SECRET}
+jwt.expiration=3600000
+```
+
+Para configurar corretamente, defina a variável no seu ambiente local ou via Docker Compose (futuramente o projeto será ajustado para isso).
+
+---
+
+## Testes
+
+Os testes automatizados estão localizados em `src/test/java/...`.  
+Para executá-los (caso esteja rodando localmente com Maven):
+
+```bash
+./mvnw test
+```
+
+---
+
+## Tecnologias principais
+
+- Spring Boot
+- Spring Security (JWT)
+- PostgreSQL
+- Docker
+- Swagger (SpringDoc)
