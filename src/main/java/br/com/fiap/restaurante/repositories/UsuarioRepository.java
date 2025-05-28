@@ -19,4 +19,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query(value = "UPDATE usuario SET senha = :senha WHERE id = :id", nativeQuery = true)
     public void mudarSenha(@Param("senha") String senhaNova, @Param("id") Long id);
 
+
+    boolean existsByLogin(String login);
+
+    boolean existsByEmail(String email);
+
 }

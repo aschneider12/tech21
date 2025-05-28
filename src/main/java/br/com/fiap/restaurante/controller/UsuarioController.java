@@ -1,10 +1,14 @@
 package br.com.fiap.restaurante.controller;
 
-import br.com.fiap.restaurante.DTO.MudarSenhaDTO;
+import br.com.fiap.restaurante.dtos.MudarSenhaDTO;
+import br.com.fiap.restaurante.dtos.UsuarioRequestDTO;
+import br.com.fiap.restaurante.dtos.UsuarioResponseDTO;
 import br.com.fiap.restaurante.entities.Usuario;
 import br.com.fiap.restaurante.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -15,36 +19,48 @@ import java.util.List;
 @RequestMapping("/usuario")
 public class UsuarioController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
+
     @Autowired
     UsuarioService service;
 
     //TODO - padronizar um meio de resposta aqui, enviando um objeto (status,msg,obj)
 
+//    @PostMapping
+//    @Operation(description = "Cadastrar um novo usuário.")
+//    public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario) {
+//        Usuario salvo = service.salvar(usuario);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
+//    }
+
     @PostMapping
-    @Operation(description = "Cadastrar um novo usuário.")
-    public ResponseEntity<?> cadastrar(@RequestBody @Valid Usuario usuario) {
-        if (usuario.getTipoUsuario() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuário deve ser informado.");
-        }
 
-        Usuario salvo = service.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
+    @Operation(description = "Cadastrar um novo usuário")
+    public ResponseEntity<UsuarioResponseDTO> cadastrar(@RequestBody @Valid UsuarioRequestDTO usuarioDTO) {
+
+        UsuarioResponseDTO responseDTO = service.cadastrar(usuarioDTO);
+
+//        @Raquel o proprio @valid faz isso
+//        if (usuarioDTO.tipoUsuario() == null) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuário deve ser informado.");
+//        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Operation(description = "Atualizar usuário existente.")
-    public ResponseEntity<?> atualizar(@RequestBody @Valid Usuario usuario) {
-        if (usuario.getTipoUsuario() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuário deve ser informado.");
-        }
 
-        Usuario atualizado = service.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.OK).body(atualizado);
+    public ResponseEntity<UsuarioResponseDTO> atualizar(@RequestBody @Valid UsuarioRequestDTO usuarioDTO,
+                                                        @PathVariable(required = true) Long id) {
+
+        UsuarioResponseDTO responseDTO  = service.atualizar(id, usuarioDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Operation(description = "Deletar usuário.")
-    public ResponseEntity<?> atualizar(@RequestParam Long id) {
+    public ResponseEntity<?> deletar(@PathVariable(required = true) Long id) {
         service.deletar(id);
         return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado!");
     }
@@ -56,6 +72,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(all);
     }
 
+    @Operation(summary = "Altera a senha do usuário.")
     @PatchMapping("/mudar-senha/{id}")
     public ResponseEntity<Void> mudarSenha(@RequestBody MudarSenhaDTO mudarSenhaDTO, @PathVariable Long id) {
         this.service.mudarSenha(mudarSenhaDTO, id);

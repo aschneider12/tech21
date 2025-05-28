@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.entities;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -13,20 +14,15 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@NotBlank(message = "Nome não pode ser vazio.")
     private String nome;
 
-	@Email(message = "E-mail inválido.")
-	@Schema(description = "E-mail válido do usuário", example = "email@email.com")
 	private String email;
 
-	@NotBlank
     private String login;
 
-	@NotBlank
     private String senha;
 
-	@Schema(description = "Data da última alteração realizada no cadastro.")
+
     private LocalDate dataUltimaAlteracao;
 
 	//TODO- marcado como transient para evitar erros, criar uma nova tabela?
