@@ -1,0 +1,178 @@
+package snippet;
+
+public class Snippet {
+	<?xml version="1.0" encoding="UTF-8"?>
+	<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	    <modelVersion>4.0.0</modelVersion>
+	
+	    <parent>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-parent</artifactId>
+	        <version>3.4.4</version>
+	        <relativePath/> <!-- lookup parent from repository -->
+	    </parent>
+	
+	    <groupId>br.com.fiap</groupId>
+	    <artifactId>restaurante</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+	
+	    <name>restaurante</name>
+	    <packaging>jar</packaging>
+	
+	    <description>Projeto Tech Challenge GP21 - FIAP</description>
+	    <url>https://github.com/aschneider12/tech21</url>
+	
+	    <properties>
+	        <java.version>21</java.version>
+	    </properties>
+	
+	    <developers>
+	        <developer>
+	            <name>aschneider12</name>
+	            <url>https://github.com/aschneider12</url>
+	        </developer>
+	        <developer>
+	            <name>danzobiss</name>
+	            <url>https://github.com/danzobiss</url>
+	        </developer>
+	        <developer>
+	            <name>EduYeager</name>
+	            <url>https://github.com/EduardoSerafim</url>
+	        </developer>
+	        <developer>
+	            <name>Raquel Morabito</name>
+	            <url>https://github.com/raquelmorabito</url>
+	        </developer>
+	        <developer>
+	            <name>Tunechi</name>
+	            <url>https://github.com/Tune-SKT</url>
+	        </developer>
+	    </developers>
+	
+	    <dependencies>
+	        <!-- Spring Web API -->
+	        <dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-web</artifactId>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-validation</artifactId>
+	        </dependency>
+	
+	        <!-- Devtools (hot reload) -->
+	        <dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-devtools</artifactId>
+	            <scope>runtime</scope>
+	            <optional>true</optional>
+	        </dependency>
+	
+	        <!-- Lombok -->
+	        <dependency>
+	            <groupId>org.projectlombok</groupId>
+	            <artifactId>lombok</artifactId>
+	            <optional>true</optional>
+	        </dependency>
+	
+	        <!-- Testes -->
+	        <dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-test</artifactId>
+	            <scope>test</scope>
+	        </dependency>
+	
+	        <!-- JPA / Hibernate -->
+	        <dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-data-jpa</artifactId>
+	        </dependency>
+	
+	        <!-- PostgreSQL Driver -->
+	        <dependency>
+	            <groupId>org.postgresql</groupId>
+	            <artifactId>postgresql</artifactId>
+	        </dependency>
+	
+	        <!-- Jakarta Persistence -->
+	        <dependency>
+	            <groupId>jakarta.persistence</groupId>
+	            <artifactId>jakarta.persistence-api</artifactId>
+	             </dependency>
+	        
+	<!-- JWT -->
+	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt-api</artifactId>
+	    <version>0.11.5</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt-impl</artifactId>
+	    <version>0.11.5</version>
+	    <scope>runtime</scope>
+	</dependency>
+	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt-jackson</artifactId>
+	    <version>0.11.5</version>
+	    <scope>runtime</scope>
+	</dependency>
+	
+	<!-- Spring Security (para o PasswordEncoder) -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
+	
+	        <dependency>
+	            <groupId>org.flywaydb</groupId>
+	            <artifactId>flyway-database-postgresql</artifactId>
+	            <version>11.7.2</version>
+	            <scope>runtime</scope>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.springdoc</groupId>
+	            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+	            <version>2.8.6</version>
+	        </dependency>
+	
+	    </dependencies>
+	
+	    <build>
+	        <plugins>
+	            <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-compiler-plugin</artifactId>
+	                <configuration>
+	                    <annotationProcessorPaths>
+	                        <path>
+	                            <groupId>org.projectlombok</groupId>
+	                            <artifactId>lombok</artifactId>
+	                        </path>
+	                    </annotationProcessorPaths>
+	                </configuration>
+	            </plugin>
+	            <plugin>
+	                <groupId>org.springframework.boot</groupId>
+	                <artifactId>spring-boot-maven-plugin</artifactId>
+	                <configuration>
+	                    <excludes>
+	                        <exclude>
+	                            <groupId>org.projectlombok</groupId>
+	                            <artifactId>lombok</artifactId>
+	                        </exclude>
+	                    </excludes>
+	                </configuration>
+	            </plugin>
+	        </plugins>
+	    </build>
+	
+	</project>
+}
+
