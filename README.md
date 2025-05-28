@@ -4,42 +4,141 @@ https://encurtador.com.br/5XOW7
 
 ## Como executar o projeto:
 
-**Clone o repositório**
 
-> `git clone https://github.com/<seu-usuario>/tech21.git`
-> `cd tech 21`
+Certifique-se de ter **Docker** e **Docker Compose** instalados.
 
-**Suba os containers com Docker Compose** 
+Execute o comando abaixo na raiz do projeto:
 
-> `docker-compose up --build -d`
+```
+docker-compose up --build -d
+```
 
-**Verifique se os containers estão rodando** 
->`docker ps`
+Para acompanhar os logs do backend:
 
-**Verifique os logs da aplicação**
->`docker logs -f spring-restaurante`
+```
+docker logs -f spring-restaurante
+```
 
-**Acesse a aplicação **
-Acesse 
->`http://localhost:8080/usuario`
-endpoints ainda serão adicionados, enquanto isso aparece: Whitelabel Error Page
+Para acessar o banco de dados PostgreSQL via terminal:
 
-Como parar o projeto 
->`docker-compose down` 
+```
+docker exec -it postgres-restaurante psql -U postgres -d restaurante
+```
 
-Ou para remover volumes (dados do banco):
->`docker-compose down -v`
+---
 
-O que ainda falta implementar (próximos passos) 
-...
-Endpoint para atualizar dados do usuário 
-Endpoint para troca de senha 
-Endpoint para validação de login
-...
+## Autenticação JWT
 
-Para rodar o pgAdmin e inspecionar o banco rodar separado
-    * caso não tenha o pgAdmin instalado localmente
-> docker-compose -f .\compose-pgadmin.yml up -d
+### 1. Cadastrar um usuário
 
-Acessar em: http://localhost:5050/login?next=/
-Para conectar usar: como server <postgres> não <localhost>
+```
+curl -X POST http://localhost:8080/usuario \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "Fazendo Teste",
+    "email": "fazendoteste@fazendoteste.com",
+    "login": "fazendoteste",
+    "senha": "SenhaForte123",
+    "tipoUsuario": "DONO"
+  }'
+```
+
+> Senha precisa ter no mínimo 8 caracteres e conter números.
+
+### 2. Realizar login e obter o token JWT
+
+```
+curl -X POST http://localhost:8080/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "login": "fazendoteste",
+    "senha": "SenhaForte123",
+    "tipoUsuario": "DONO"
+  }'
+```
+
+> A resposta conterá o token JWT. Copie somente o valor do token para usar nas próximas requisições.
+
+### 3. Acessar endpoint protegido com token
+
+```
+curl -X GET http://localhost:8080/usuario \
+  -H "Authorization: Bearer SEU_TOKEN_JWT"
+```
+
+---
+
+## Trocar senha autenticado
+
+```
+curl -X PATCH http://localhost:8080/usuario/mudar-senha/ID_USUARIO \
+  -H "Authorization: Bearer SEU_TOKEN_JWT" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "senhaAtual": "SenhaForte123",
+    "novaSenha": "NovaSenha456"
+  }'
+```
+
+Resposta esperada:
+
+```
+{
+  "message": "Senha atualizada com sucesso."
+}
+```
+
+---
+
+## Executar testes automatizados
+
+Se estiver usando o Maven localmente:
+
+```
+./mvnw test
+```
+
+---
+
+## Documentação da API (Swagger)
+
+Após subir o backend, acesse:
+
+[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+---
+
+## Configuração de variáveis de ambiente
+
+Arquivo `application.properties`:
+
+```
+jwt.secret=${TOKEN_JWT_SECRET}
+jwt.expiration=3600000
+```
+
+> Em breve o segredo será carregado exclusivamente via variáveis de ambiente para ambientes produtivos.
+
+---
+
+## Tecnologias utilizadas
+
+- Java 21  
+- Spring Boot 3.4.4  
+- Spring Security (JWT)  
+- PostgreSQL  
+- Flyway  
+- Swagger (SpringDoc)  
+- Docker & Docker Compose  
+
+---
+
+## Autores
+
+- [Alessandro Schneider](https://github.com/aschneider12)
+- [Raquel Morabito](https://github.com/raquelmorabito)
+- [Eduardo Serafim](https://github.com/EduardoSerafim)
+- [Natan Campos](https://github.com/Tune-SKT)
+- [Henrique Danzo](https://github.com/danzobiss)
+
+Desenvolvido como parte do projeto Tech Challenge - FIAP
