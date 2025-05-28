@@ -1,47 +1,59 @@
 ## Como subir o projeto
 
-docker-compose up --build -d
-docker logs -f spring-restaurante
----
-docker exec -it postgres-restaurante psql -U postgres -d restaurante
-
-post test
-
-
 Certifique-se de ter o **Docker** e o **Docker Compose** instalados.  
-Execute o seguinte comando no terminal dentro da pasta do projeto:
+No diretório raiz do projeto, execute:
 
+```bash
+docker-compose up --build -d
+```
 
-Para verificar se o backend subiu corretamente:
+Para acompanhar os logs da aplicação backend:
 
+```bash
+docker logs -f spring-restaurante
+```
+
+Para acessar o banco de dados:
+
+```bash
+docker exec -it postgres-restaurante psql -U postgres -d restaurante
+```
+
+---
 
 ## Como testar a autenticação JWT
 
 ### 1. Cadastrar um usuário
+
+```bash
 curl -X POST http://localhost:8080/usuario \
   -H "Content-Type: application/json" \
   -d '{
     "nome": "Fazendo Teste",
     "email": "fazendoteste@fazendoteste.com",
     "login": "fazendoteste",
-    "senha": "654321",
+    "senha": "SenhaForte123",
     "tipoUsuario": "DONO"
   }'
 ```
 
 ### 2. Realizar login para gerar o token JWT
+
+```bash
 curl -X POST http://localhost:8080/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "login": "fazendoteste",
-    "senha": "654321",
+    "senha": "SenhaForte123",
     "tipoUsuario": "DONO"
   }'
 ```
 
-O retorno será um token. Copie apenas o valor do token JWT (sem aspas ou prefixos).
+O retorno incluirá o token JWT. Copie **somente** o valor do token (sem aspas ou prefixos).
 
-### 3. Acessar endpoints protegidos com o token
+### 3. Acessar endpoints protegidos
+
+```bash
 curl -X GET http://localhost:8080/usuario \
   -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
@@ -50,45 +62,57 @@ curl -X GET http://localhost:8080/usuario \
 
 ## Como trocar a senha
 
-curl -X PUT "http://localhost:8080/auth/senha?login=fazendoteste&novaSenha=123456"
+```bash
+curl -X PATCH http://localhost:8080/usuario/mudar-senha/ID_DO_USUARIO \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "senhaAtual": "SenhaForte123",
+    "novaSenha": "NovaSenha456"
+  }'
 ```
 
 ---
 
 ## Swagger (Documentação da API)
 
-Disponível após subir o backend:  
+Após a aplicação subir, a documentação estará disponível em:
+
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ---
 
 ## Variáveis de ambiente
 
-O segredo usado para assinar os JWTs está atualmente sendo lido do arquivo `application.properties`, mas no futuro sera passada via variável de ambiente no futuro:
+O segredo usado para assinar os JWTs está atualmente em `application.properties`.  
+Em breve, será lido por variável de ambiente:
 
 ```properties
 jwt.secret=${TOKEN_JWT_SECRET}
 jwt.expiration=3600000
 ```
 
-Para configurar corretamente, defina a variável no seu ambiente local ou via Docker Compose (futuramente o projeto será ajustado para isso).
+Para ambientes futuros, defina `TOKEN_JWT_SECRET` no sistema operacional ou no `docker-compose.yml`.
 
 ---
 
-## Testes
+## Testes automatizados
 
-Os testes automatizados estão localizados em `src/test/java/...`.  
-Para executá-los (caso esteja rodando localmente com Maven):
+Os testes estão localizados em `src/test/java/...`.
 
+Para executá-los localmente:
+
+```bash
 ./mvnw test
 ```
 
 ---
 
-## Tecnologias principais
+## Tecnologias utilizadas
 
-- Spring Boot
-- Spring Security (JWT)
-- PostgreSQL
-- Docker
-- Swagger (SpringDoc)
+- Spring Boot 3.4.4  
+- Spring Security com JWT  
+- PostgreSQL  
+- Docker e Docker Compose  
+- Swagger (via SpringDoc)  
+- Flyway para versionamento de banco de dados
