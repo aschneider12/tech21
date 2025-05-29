@@ -10,7 +10,7 @@ Certifique-se de ter **Docker** e **Docker Compose** instalados.
 Execute o comando abaixo na raiz do projeto:
 
 ```
-docker-compose up --build -d
+docker compose -f .\docker-compose.yml up -d
 ```
 
 Para acompanhar os logs do backend:

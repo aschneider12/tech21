@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.service;
 
+import br.com.fiap.restaurante.dtos.MudarSenhaDTO;
 import br.com.fiap.restaurante.entities.TipoUsuario;
 import br.com.fiap.restaurante.entities.Usuario;
 import br.com.fiap.restaurante.exceptions.ValidationException;
@@ -96,16 +97,16 @@ public class UsuarioServiceTest {
         when(repository.findByLogin("raquel123")).thenReturn(Optional.of(usuario));
         when(passwordEncoder.encode("NovaSenha123")).thenReturn("novaSenhaCriptografada");
 
-        usuarioService.atualizarSenha("raquel123", "NovaSenha123");
+        usuarioService.mudarSenha( new MudarSenhaDTO("NovaSenha123","novaSenhaCriptografada"), usuario.getId());
 
         verify(repository).mudarSenha("novaSenhaCriptografada", usuario.getId());
     }
 
     @Test
     void deveLancarExcecaoAoAtualizarSenhaFraca() {
-        when(repository.findByLogin("raquel123")).thenReturn(Optional.of(usuario));
 
-        assertThrows(ValidationException.class, () -> usuarioService.atualizarSenha("raquel123", "123"));
+        //when(repository.findByLogin("raquel123")).thenReturn(Optional.of(usuario));
+        assertThrows(ValidationException.class, () -> usuarioService.mudarSenha(new MudarSenhaDTO("senhaSegura123", "123"), usuario.getId()));
     }
 }
 
