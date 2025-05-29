@@ -35,11 +35,16 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas ou tipo incorreto.");
     }
 
-    @Operation(summary = "Atualiza a senha de um usuário autenticado")
-    @PutMapping("/senha")
-    public ResponseEntity<String> atualizarSenha(@RequestParam String login, @RequestParam String novaSenha) {
-        usuarioService.atualizarSenha(login, novaSenha);
-        return ResponseEntity.ok("Senha atualizada com sucesso.");
+    @Operation(summary = "Validar o token enviado.")
+    @PostMapping("/validar-token")
+    public ResponseEntity<String> validarToken(@RequestHeader String authorization) {
+
+        boolean tokenValido = jwtService.validarToken(authorization);
+
+        if(tokenValido)
+            return ResponseEntity.ok("Token é válido.");
+        else
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token enviado é inválido");
     }
 }
 

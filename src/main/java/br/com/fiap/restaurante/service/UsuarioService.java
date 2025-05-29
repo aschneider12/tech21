@@ -101,18 +101,6 @@ public class UsuarioService {
                         u.getTipoUsuario().equals(tipoUsuario));
     }
 
-    public void atualizarSenha(String login, String novaSenha) {
-        Usuario usuario = repository.findByLogin(login)
-                .orElseThrow(() -> new ValidationException("Usuário não encontrado"));
-
-        if (!validarSenhaForte(novaSenha)) {
-            throw new ValidationException("Senha fraca. A senha deve ter pelo menos 8 caracteres e conter números.");
-        }
-
-        String novaSenhaHash = passwordEncoder.encode(novaSenha);
-        repository.mudarSenha(novaSenhaHash, usuario.getId());
-    }
-
     public void mudarSenha(MudarSenhaDTO dto, Long id) {
         Usuario usuario = repository.findById(id)
                 .orElseThrow(() -> new ValidationException("Usuário não encontrado"));

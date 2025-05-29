@@ -24,27 +24,11 @@ public class UsuarioController {
     @Autowired
     UsuarioService service;
 
-    //TODO - padronizar um meio de resposta aqui, enviando um objeto (status,msg,obj)
-
-//    @PostMapping
-//    @Operation(description = "Cadastrar um novo usuário.")
-//    public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario) {
-//        Usuario salvo = service.salvar(usuario);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
-//    }
-
     @PostMapping
-
     @Operation(description = "Cadastrar um novo usuário")
     public ResponseEntity<UsuarioResponseDTO> cadastrar(@RequestBody @Valid UsuarioRequestDTO usuarioDTO) {
 
         UsuarioResponseDTO responseDTO = service.cadastrar(usuarioDTO);
-
-//        @Raquel o proprio @valid faz isso
-//        if (usuarioDTO.tipoUsuario() == null) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuário deve ser informado.");
-//        }
-
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 

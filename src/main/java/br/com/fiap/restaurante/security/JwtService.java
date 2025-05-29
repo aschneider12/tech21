@@ -35,6 +35,7 @@ public class JwtService {
 
     public boolean validarToken(String token) {
         try {
+            token = token.startsWith("Bearer") ? token.replace("Bearer ", "") : token;
             Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
             return true;
         } catch (JwtException e) {
