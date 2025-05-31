@@ -58,7 +58,7 @@ public class UsuarioController {
 
     @Operation(summary = "Altera a senha do usuário.")
     @PatchMapping("/mudar-senha/{id}")
-    public ResponseEntity<Void> mudarSenha(@RequestBody MudarSenhaDTO mudarSenhaDTO, @PathVariable Long id) {
+    public ResponseEntity<Void> mudarSenha(@RequestBody(required = true) MudarSenhaDTO mudarSenhaDTO, @PathVariable Long id) {
         this.service.mudarSenha(mudarSenhaDTO, id);
         return ResponseEntity.noContent().build();
     }

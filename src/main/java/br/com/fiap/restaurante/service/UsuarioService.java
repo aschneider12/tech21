@@ -65,7 +65,10 @@ public class UsuarioService {
     }
 
     public void deletar(Long id) {
-        repository.deleteById(id);
+        if(repository.existsById(id))
+            repository.deleteById(id);
+        else
+            throw new ValidationException("Usuário não existe!");
     }
 
     public List<UsuarioResponseDTO> buscarTodosDTO() {
@@ -103,19 +106,33 @@ public class UsuarioService {
 
     public void mudarSenha(MudarSenhaDTO dto, Long id) {
         Usuario usuario = repository.findById(id)
-                .orElseThrow(() -> new ValidationException("Usuário não encontrado"));
+                .orElseThrow(() -> new ValidationException("Usuário não encontrado."));
 
-        if (!validarSenhaForte(dto.novaSenha())) {
+        if(!validarLogin(usuario.getLogin(), dto.senhaAntiga(),usuario.getTipoUsuario()))
+            throw new ValidationException("Senha antiga não confere.");
+
+        if (!validarSenhaForte(dto.senhaNova())) {
             throw new ValidationException("Senha fraca. A senha deve ter pelo menos 8 caracteres e conter números.");
         }
 
-        String novaSenhaHash = passwordEncoder.encode(dto.novaSenha());
+        String novaSenhaHash = passwordEncoder.encode(dto.senhaNova());
         repository.mudarSenha(novaSenhaHash, usuario.getId());
         log.info("Senha alterada com sucesso para o usuário com ID: {}", id);
     }
 
     private boolean validarSenhaForte(String senha) {
-        return senha != null && senha.length() >= 8 && senha.matches(".*\\d.*");
+
+        if(senha != null) {
+            if (!senha.matches(".*[A-Z].*"))
+                throw new ValidationException("Senha deve conter pelo menos uma letra maiuscula!");
+            if (!senha.matches(".*\\d.*"))
+                throw new ValidationException("Senha deve conter pelo menos um número.");
+            if (!senha.matches(".*[^a-zA-Z0-9].*"))
+                throw new ValidationException("Senha deve conter pelo menos um caracter especial.");
+            if (senha.length() < 8)
+                throw new ValidationException("Senha deve ter no minimo 8 caracteres.");
+        }
+        return true;
     }
 }
 

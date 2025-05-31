@@ -1,6 +1,5 @@
-# tech21 Grupo 21 - Tech Challenge 
+# tech21 Grupo 83 - Tech Challenge 
 
-https://encurtador.com.br/5XOW7
 
 ## Como executar o projeto:
 
