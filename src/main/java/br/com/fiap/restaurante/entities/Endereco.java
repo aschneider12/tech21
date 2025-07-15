@@ -18,6 +18,9 @@ public class Endereco implements Serializable {
     private String estado;
     private String cep;
 
+    public Endereco() {
+    }
+
     public Long getId() {
         return id;
     }

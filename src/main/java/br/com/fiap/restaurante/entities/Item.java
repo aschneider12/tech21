@@ -17,7 +17,6 @@ public class Item implements Serializable {
     private String descricao;
     private BigDecimal preco;
 
-
     @Column(name = "tipo_venda", nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoVenda tipoVenda;
@@ -27,6 +26,9 @@ public class Item implements Serializable {
     private Restaurante restaurante;
 
     private String pathFoto;
+
+    public Item() {
+    }
 
     public Long getId() {
         return id;

@@ -28,6 +28,9 @@ public class Restaurante implements Serializable {
     @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itemsCardapio;
 
+    public Restaurante() {
+    }
+
     public Long getId() {
         return id;
     }

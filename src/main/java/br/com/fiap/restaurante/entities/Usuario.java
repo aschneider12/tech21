@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -30,7 +31,11 @@ public class Usuario implements Serializable {
    	private Endereco endereco;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonManagedReference //json irá serializar os perfis
 	private List<UsuarioPerfil> perfis;
+
+	public Usuario() {
+	}
 
 	public Long getId() {
 		return id;
@@ -88,4 +93,11 @@ public class Usuario implements Serializable {
 		this.endereco = endereco;
 	}
 
+	public List<UsuarioPerfil> getPerfis() {
+		return perfis;
+	}
+
+	public void setPerfis(List<UsuarioPerfil> perfis) {
+		this.perfis = perfis;
+	}
 }

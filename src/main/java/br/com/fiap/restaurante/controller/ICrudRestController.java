@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public interface CrudRestController<T, ID> {
+public interface ICrudRestController<T, ID> {
 
     @Operation(summary = "Cadastrar novo", description = "Realiza o cadastro de uma nova entidade")
     @PostMapping

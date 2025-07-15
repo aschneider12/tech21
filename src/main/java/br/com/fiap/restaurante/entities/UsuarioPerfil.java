@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -20,7 +21,18 @@ public class UsuarioPerfil implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
+    @JsonBackReference //json irá ignorar esse lado da referência, evita ref circular inifinita
     private Usuario usuario;
+
+    public UsuarioPerfil() {
+
+    }
+
+    public UsuarioPerfil(Usuario usuario, TipoUsuario tipoUsuario) {
+        this.usuarioId = usuario.getId();
+        this.usuario = usuario;
+        this.tipoUsuario = tipoUsuario;
+    }
 
     public Usuario getUsuario() {
         return usuario;

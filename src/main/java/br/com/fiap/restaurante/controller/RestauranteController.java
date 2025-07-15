@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/restaurante")
-public class RestauranteController implements CrudRestController<RestauranteDTO, Long> {
+public class RestauranteController implements ICrudRestController<RestauranteDTO, Long> {
 
     private static final Logger logger = LoggerFactory.getLogger(RestauranteController.class);
 
