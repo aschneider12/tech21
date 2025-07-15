@@ -1,14 +1,12 @@
 package br.com.fiap.restaurante.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "USUARIO")
 public class Usuario {
 
     @Id
@@ -26,11 +24,16 @@ public class Usuario {
 
     private LocalDate dataUltimaAlteracao;
 
-	private String  endereco;
-//    private Endereco endereco; //TODO - tornar entidade proximo modulo
+	@OneToOne
+	@JoinColumn(name = "endereco_id", nullable = true)
+   	private Endereco endereco;
 
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<UsuarioPerfil> perfis;
+
+	@Deprecated
 	@Enumerated(EnumType.STRING)
-    private TipoUsuario tipoUsuario;
+	private TipoUsuario tipoUsuario;
 
 	public Long getId() {
 		return id;
@@ -80,11 +83,11 @@ public class Usuario {
 		this.dataUltimaAlteracao = dataUltimaAlteracao;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 	public TipoUsuario getTipoUsuario() {
