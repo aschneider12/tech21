@@ -2,12 +2,13 @@ package br.com.fiap.restaurante.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "USUARIO")
-public class Usuario {
+@Table(name = "usuario")
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +31,6 @@ public class Usuario {
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<UsuarioPerfil> perfis;
-
-	@Deprecated
-	@Enumerated(EnumType.STRING)
-	private TipoUsuario tipoUsuario;
 
 	public Long getId() {
 		return id;
@@ -89,13 +86,6 @@ public class Usuario {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-	public TipoUsuario getTipoUsuario() {
-		return tipoUsuario;
-	}
-
-	public void setTipoUsuario(TipoUsuario tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
 	}
 
 }

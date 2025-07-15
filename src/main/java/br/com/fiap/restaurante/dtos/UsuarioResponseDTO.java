@@ -12,8 +12,8 @@ public record UsuarioResponseDTO(
         String email,
         String login,
         @Schema(description = "Data da última alteração realizada no cadastro.")
-        LocalDate dataUltimaAlteracao,
-        TipoUsuario tipoUsuario
+        LocalDate dataUltimaAlteracao
+        //TipoUsuario tipoUsuario
 ) {
     public UsuarioResponseDTO(Usuario usuario) {
         this(
@@ -21,8 +21,8 @@ public record UsuarioResponseDTO(
             usuario.getNome(),
             usuario.getEmail(),
             usuario.getLogin(),
-            usuario.getDataUltimaAlteracao(),
-            usuario.getTipoUsuario()
+            usuario.getDataUltimaAlteracao()
+            //usuario.getTipoUsuario()
         );
     }
 }

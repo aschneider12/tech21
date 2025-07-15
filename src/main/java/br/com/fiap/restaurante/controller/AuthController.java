@@ -27,7 +27,7 @@ public class AuthController {
         String senha = loginRequest.getSenha();
         TipoUsuario tipoUsuario = loginRequest.getTipoUsuario();
 
-        boolean valido = usuarioService.validarLogin(login, senha, tipoUsuario);
+        boolean valido = usuarioService.validarLogin(login, senha);
         if (valido) {
             String token = jwtService.gerarToken(login, tipoUsuario);
             return ResponseEntity.ok("Login válido para tipo: " + tipoUsuario + "\nToken: " + token);

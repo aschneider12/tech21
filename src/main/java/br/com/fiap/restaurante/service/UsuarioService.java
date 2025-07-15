@@ -42,7 +42,10 @@ public class UsuarioService {
         usuario.setEmail(dto.email());
         usuario.setLogin(dto.login());
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
-        usuario.setTipoUsuario(dto.tipoUsuario());
+        //usuario.setTipoUsuario(dto.tipoUsuario());
+        if(1 ==1 )
+            throw  new ValidationException("Não foi reescrito ainda, implementar o tipo do usuario.");
+
         usuario.setDataUltimaAlteracao(LocalDate.now());
 
         Usuario salvo = repository.save(usuario);
@@ -57,7 +60,7 @@ public class UsuarioService {
         usuario.setNome(dto.nome());
         usuario.setEmail(dto.email());
         usuario.setLogin(dto.login());
-        usuario.setTipoUsuario(dto.tipoUsuario());
+        //usuario.setTipoUsuario(dto.tipoUsuario());
         usuario.setDataUltimaAlteracao(LocalDate.now());
 
         Usuario atualizado = repository.save(usuario);
@@ -96,19 +99,20 @@ public class UsuarioService {
         return repository.save(usuario);
     }
 
-    public boolean validarLogin(String login, String senha, TipoUsuario tipoUsuario) {
+    public boolean validarLogin(String login, String senha) {
         return repository.findAll().stream()
                 .anyMatch(u ->
                         u.getLogin().equals(login) &&
-                        passwordEncoder.matches(senha, u.getSenha()) &&
-                        u.getTipoUsuario().equals(tipoUsuario));
+                        passwordEncoder.matches(senha, u.getSenha())
+                        // && u.getTipoUsuario().equals(tipoUsuario)
+                );
     }
 
     public void mudarSenha(MudarSenhaDTO dto, Long id) {
         Usuario usuario = repository.findById(id)
                 .orElseThrow(() -> new ValidationException("Usuário não encontrado."));
 
-        if(!validarLogin(usuario.getLogin(), dto.senhaAntiga(),usuario.getTipoUsuario()))
+        if(!validarLogin(usuario.getLogin(), usuario.getSenha()))
             throw new ValidationException("Senha antiga não confere.");
 
         if (!validarSenhaForte(dto.senhaNova())) {

@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "f41dad9f-e9d9-483c-ab56-6c1ed43af889",
+		"_postman_id": "07dc401f-1d0e-479c-a398-7f92d7bd3c91",
 		"name": "usuario",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21162057"
+		"_exporter_id": "44920548"
 	},
 	"item": [
 		{
@@ -289,6 +289,116 @@
 							"path": [
 								"usuario",
 								"mudar-senha",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "restaurante",
+			"item": [
+				{
+					"name": "all restaurantes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"\",\r\n    \"email\": \"denis123\",\r\n    \"login\": \"\",\r\n    \"senha\": \"denis\",\r\n    \"tipoUsuario\": null\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurante",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "restaurante by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/restaurante/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update restaurante",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\" : 1,\r\n    \"nome\": \"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurante/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
 								"1"
 							]
 						}
