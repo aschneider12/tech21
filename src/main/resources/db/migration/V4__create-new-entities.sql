@@ -41,10 +41,10 @@ CREATE TABLE IF NOT EXISTS item (
 );
 
 CREATE TABLE IF NOT EXISTS usuario_perfil (
-	id serial NOT NULL UNIQUE,
 	usuario_id bigint NOT NULL,
 	tipo_usuario varchar(255) NOT NULL,
-	PRIMARY KEY (id)
+	PRIMARY KEY (usuario_id, tipo_usuario),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
 ALTER TABLE usuario ADD COLUMN if not exists endereco_id bigint;
@@ -55,4 +55,3 @@ ALTER TABLE restaurante ADD CONSTRAINT RESTAURANTE_fk2 FOREIGN KEY (endereco_id)
 ALTER TABLE restaurante ADD CONSTRAINT RESTAURANTE_fk5 FOREIGN KEY (usuario_id) REFERENCES usuario(id);
 
 ALTER TABLE item ADD CONSTRAINT ITEM_fk5 FOREIGN KEY (restaurante_id) REFERENCES restaurante(id);
-ALTER TABLE usuario_perfil ADD CONSTRAINT USUARIO_PERFIL_fk1 FOREIGN KEY (usuario_id) REFERENCES usuario(id);
