@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -24,9 +25,9 @@ public class Usuario implements Serializable {
 
     private String senha;
 
-    private LocalDate dataUltimaAlteracao;
+    private LocalDateTime dataUltimaAlteracao;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id", nullable = true)
    	private Endereco endereco;
 
@@ -77,11 +78,11 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public LocalDate getDataUltimaAlteracao() {
+	public LocalDateTime getDataUltimaAlteracao() {
 		return dataUltimaAlteracao;
 	}
 
-	public void setDataUltimaAlteracao(LocalDate dataUltimaAlteracao) {
+	public void setDataUltimaAlteracao(LocalDateTime dataUltimaAlteracao) {
 		this.dataUltimaAlteracao = dataUltimaAlteracao;
 	}
 

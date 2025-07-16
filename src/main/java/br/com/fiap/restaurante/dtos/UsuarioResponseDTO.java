@@ -1,10 +1,9 @@
 package br.com.fiap.restaurante.dtos;
 
-import br.com.fiap.restaurante.entities.TipoUsuario;
 import br.com.fiap.restaurante.entities.Usuario;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record UsuarioResponseDTO(
         Long id,
@@ -12,7 +11,7 @@ public record UsuarioResponseDTO(
         String email,
         String login,
         @Schema(description = "Data da última alteração realizada no cadastro.")
-        LocalDate dataUltimaAlteracao
+        LocalDateTime dataUltimaAlteracao
         //TipoUsuario tipoUsuario
 ) {
     public UsuarioResponseDTO(Usuario usuario) {

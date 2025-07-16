@@ -1,11 +1,7 @@
 package br.com.fiap.restaurante.controller;
 
 import br.com.fiap.restaurante.dtos.RestauranteDTO;
-import br.com.fiap.restaurante.dtos.UsuarioRequestDTO;
-import br.com.fiap.restaurante.dtos.UsuarioResponseDTO;
-import br.com.fiap.restaurante.entities.Usuario;
 import br.com.fiap.restaurante.service.RestauranteService;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

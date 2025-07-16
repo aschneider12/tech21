@@ -10,6 +10,7 @@ import br.com.fiap.restaurante.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,21 +23,26 @@ public class PerfilService {
 
     public PerfilResponseDTO listarPerfis(Long usuarioId) {
 
+        List<TipoUsuario> listaDePerfis = null;
+
         Usuario usuario = repository.findById(usuarioId)
                 .orElseThrow(() -> new ValidationException("Usuário não encontrado - ID: "+usuarioId));
 
         List<UsuarioPerfil> perfis = usuario.getPerfis();
 
-        List<TipoUsuario> list = perfis.stream().map(UsuarioPerfil::getTipoUsuario).toList();
-//        List<String> list = perfis.stream().map(p -> p.getTipoUsuario().name()).toList();
+        if(perfis != null)
+            listaDePerfis = perfis.stream().map(UsuarioPerfil::getTipoUsuario).toList();
 
-        return new PerfilResponseDTO(usuario.getNome(), list);
+        return new PerfilResponseDTO(usuario.getNome(), listaDePerfis);
     }
 
     public void adicionarPerfil(Long usuarioId, List<TipoUsuario> perfisAdd) {
 
         Usuario usuario = repository.findById(usuarioId)
                 .orElseThrow(() -> new ValidationException("Usuário não encontrado - ID: "+usuarioId));
+
+        if(usuario.getPerfis() == null)
+            usuario.setPerfis(new ArrayList<>());
 
         usuario.getPerfis().addAll(
                 perfisAdd.stream()
@@ -49,15 +55,16 @@ public class PerfilService {
         );
 
         repository.save(usuario);
-
     }
 
     public void removerPerfil(Long usuarioId, List<TipoUsuario> perfisDel) {
         Usuario usuario = repository.findById(usuarioId)
                 .orElseThrow(() -> new ValidationException("Usuário não encontrado - ID: "+usuarioId));
 
-        usuario.getPerfis().removeIf(perfil -> perfisDel.contains(perfil.getTipoUsuario()));
+        if(usuario.getPerfis() != null) {
 
-        repository.save(usuario);
+            usuario.getPerfis().removeIf(perfil -> perfisDel.contains(perfil.getTipoUsuario()));
+            repository.save(usuario);
+        }
     }
 }

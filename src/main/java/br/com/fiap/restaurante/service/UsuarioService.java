@@ -1,20 +1,21 @@
 package br.com.fiap.restaurante.service;
 
-import br.com.fiap.restaurante.dtos.UsuarioRequestDTO;
-import br.com.fiap.restaurante.dtos.UsuarioResponseDTO;
 import br.com.fiap.restaurante.dtos.MudarSenhaDTO;
+import br.com.fiap.restaurante.dtos.UsuarioInsertDTO;
+import br.com.fiap.restaurante.dtos.UsuarioResponseDTO;
+import br.com.fiap.restaurante.dtos.UsuarioUpdateDTO;
 import br.com.fiap.restaurante.entities.Usuario;
-import br.com.fiap.restaurante.entities.TipoUsuario;
 import br.com.fiap.restaurante.exceptions.ValidationException;
 import br.com.fiap.restaurante.repositories.UsuarioRepository;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,42 +27,49 @@ public class UsuarioService {
     private UsuarioRepository repository;
 
     @Autowired
+    private PerfilService perfilService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UsuarioResponseDTO cadastrar(UsuarioRequestDTO dto) {
-        if (repository.existsByLogin(dto.login())) {
+    public UsuarioResponseDTO cadastrar(UsuarioInsertDTO dto) {
+        if (repository.existsByLogin(dto.login()))
             throw new ValidationException("Login já cadastrado.");
-        }
 
-        if (!validarSenhaForte(dto.senha())) {
-            throw new ValidationException("Senha fraca. A senha deve ter pelo menos 8 caracteres e conter números.");
-        }
+        validarSenhaForte(dto.senha());
 
+        //TODO - usar mapper, ja tem risco de ficar desatualizado
         Usuario usuario = new Usuario();
         usuario.setNome(dto.nome());
         usuario.setEmail(dto.email());
         usuario.setLogin(dto.login());
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
-        //usuario.setTipoUsuario(dto.tipoUsuario());
-        if(1 ==1 )
-            throw  new ValidationException("Não foi reescrito ainda, implementar o tipo do usuario.");
+        usuario.setEndereco(dto.endereco());
 
-        usuario.setDataUltimaAlteracao(LocalDate.now());
+        usuario.setDataUltimaAlteracao(LocalDateTime.now());
 
-        Usuario salvo = repository.save(usuario);
+        repository.save(usuario);
 
-        return new UsuarioResponseDTO(salvo);
+        perfilService.adicionarPerfil(usuario.getId(), dto.perfis());
+
+        return new UsuarioResponseDTO(usuario);
     }
 
-    public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO dto) {
-        Usuario usuario = repository.findById(id)
-                .orElseThrow(() -> new ValidationException("Usuário não encontrado"));
+    /*
+        PERFIS e SENHA atualizados somente via controller proprio
+     */
+    public UsuarioResponseDTO atualizar(Long id, @Valid UsuarioUpdateDTO dto) {
+        Usuario usuario = buscarUsuarioPorId(id);
 
+        //TODO - usar maper, ja corre risco de ficar desatualizado
         usuario.setNome(dto.nome());
         usuario.setEmail(dto.email());
-        usuario.setLogin(dto.login());
-        //usuario.setTipoUsuario(dto.tipoUsuario());
-        usuario.setDataUltimaAlteracao(LocalDate.now());
+
+        if(dto.login() != null)
+            usuario.setLogin(dto.login());
+
+        usuario.setEndereco(dto.endereco());
+        usuario.setDataUltimaAlteracao(LocalDateTime.now());
 
         Usuario atualizado = repository.save(usuario);
         return new UsuarioResponseDTO(atualizado);
@@ -82,7 +90,12 @@ public class UsuarioService {
     }
 
     public List<Usuario> buscarTodosUsuarios() {
-        return repository.findAll();
+        //TODO - pegar list do banco e transformar em stream()
+        // mapear para DTO
+        // ordenar direto no sort do stream
+
+        //ordem invertida para facilitar a leitura do json
+        return repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public Usuario salvar(Usuario usuario) {
@@ -95,24 +108,22 @@ public class UsuarioService {
         }
 
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-        usuario.setDataUltimaAlteracao(LocalDate.now());
+        usuario.setDataUltimaAlteracao(LocalDateTime.now());
         return repository.save(usuario);
     }
 
     public boolean validarLogin(String login, String senha) {
-        return repository.findAll().stream()
-                .anyMatch(u ->
-                        u.getLogin().equals(login) &&
-                        passwordEncoder.matches(senha, u.getSenha())
-                        // && u.getTipoUsuario().equals(tipoUsuario)
-                );
+
+        Usuario usuarioBD = repository.findByLogin(login)
+                .orElseThrow(() -> new ValidationException("Usuário não encontrado"));
+
+        return passwordEncoder.matches(senha, usuarioBD.getSenha());
     }
 
     public void mudarSenha(MudarSenhaDTO dto, Long id) {
-        Usuario usuario = repository.findById(id)
-                .orElseThrow(() -> new ValidationException("Usuário não encontrado."));
+        Usuario usuario = buscarUsuarioPorId(id);
 
-        if(!validarLogin(usuario.getLogin(), usuario.getSenha()))
+        if(!passwordEncoder.matches(dto.senhaAntiga(), usuario.getSenha()))
             throw new ValidationException("Senha antiga não confere.");
 
         if (!validarSenhaForte(dto.senhaNova())) {
@@ -137,6 +148,11 @@ public class UsuarioService {
                 throw new ValidationException("Senha deve ter no minimo 8 caracteres.");
         }
         return true;
+    }
+
+    public Usuario buscarUsuarioPorId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ValidationException("Usuário não encontrado."));
     }
 }
 
