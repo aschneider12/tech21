@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,8 +43,9 @@ public class UsuarioServiceTest {
         usuario.setEmail("raquel@email.com");
         usuario.setLogin("raquel123");
         usuario.setSenha("senhaSegura123");
-        usuario.setDataUltimaAlteracao(LocalDate.now());
-        usuario.setTipoUsuario(TipoUsuario.DONO);
+        usuario.setDataUltimaAlteracao(LocalDateTime.now());
+
+
     }
 
     @Test
@@ -79,7 +81,7 @@ public class UsuarioServiceTest {
         when(repository.findAll()).thenReturn(List.of(usuario));
         when(passwordEncoder.matches("senhaSegura123", "senhaCriptografada")).thenReturn(true);
 
-        boolean resultado = usuarioService.validarLogin("raquel123", "senhaSegura123", TipoUsuario.DONO);
+        boolean resultado = usuarioService.validarLogin("raquel123", "senhaSegura123");
         assertTrue(resultado);
     }
 
@@ -88,7 +90,7 @@ public class UsuarioServiceTest {
         when(repository.findAll()).thenReturn(List.of(usuario));
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
 
-        boolean resultado = usuarioService.validarLogin("raquel123", "senhaErrada", TipoUsuario.DONO);
+        boolean resultado = usuarioService.validarLogin("raquel123", "senhaErrada");
         assertFalse(resultado);
     }
 

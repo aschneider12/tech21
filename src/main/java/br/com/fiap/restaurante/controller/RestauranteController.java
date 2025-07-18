@@ -1,7 +1,10 @@
 package br.com.fiap.restaurante.controller;
 
 import br.com.fiap.restaurante.dtos.RestauranteDTO;
+import br.com.fiap.restaurante.dtos.RestauranteInsertDTO;
+import br.com.fiap.restaurante.dtos.RestauranteResponseDTO;
 import br.com.fiap.restaurante.service.RestauranteService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +21,14 @@ public class RestauranteController implements ICrudRestController<RestauranteDTO
     private static final Logger logger = LoggerFactory.getLogger(RestauranteController.class);
 
     @Autowired
-    RestauranteService service;
+    private RestauranteService service;
 
     @Override
-    public ResponseEntity<RestauranteDTO> cadastrar(RestauranteDTO dto) {
+    public ResponseEntity<RestauranteResponseDTO> cadastrar(@RequestBody @Valid RestauranteInsertDTO dto) {
 
-        System.out.println(dto);
-        return null;
+        RestauranteResponseDTO novoRestaurante =  service.cadastrarRestaurante(dto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoRestaurante);
     }
 
     @Override

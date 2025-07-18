@@ -17,8 +17,8 @@ public class Restaurante implements Serializable {
     private String tipoCozinha;
     private String horarioFuncionamento;
 
-    @OneToOne
-    @JoinColumn(name = "endereco_id", nullable = true)
+    @OneToOne(fetch = FetchType.LAZY) // Carrega o endereço apenas quando for acessado
+    @JoinColumn(name = "endereco_id", unique = true)
     private Endereco endereco;
 
     @OneToOne

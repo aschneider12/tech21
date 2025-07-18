@@ -1,5 +1,7 @@
 package br.com.fiap.restaurante.controller;
 
+import br.com.fiap.restaurante.dtos.RestauranteInsertDTO;
+import br.com.fiap.restaurante.dtos.RestauranteResponseDTO;
 import br.com.fiap.restaurante.entities.Usuario;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -13,7 +15,9 @@ public interface ICrudRestController<T, ID> {
 
     @Operation(summary = "Cadastrar novo", description = "Realiza o cadastro de uma nova entidade")
     @PostMapping
-    ResponseEntity<T> cadastrar(@RequestBody @Valid T dto);
+
+
+    ResponseEntity<RestauranteResponseDTO> cadastrar(@RequestBody @Valid RestauranteInsertDTO dto);
 
     @Operation(summary = "Atualizar existente", description = "Realiza a atualização da entidade existente")
     @PutMapping("/{id}")
