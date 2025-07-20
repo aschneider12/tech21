@@ -4,16 +4,16 @@ import br.com.fiap.restaurante.dtos.*;
 import br.com.fiap.restaurante.entities.Endereco;
 import br.com.fiap.restaurante.entities.Restaurante;
 import br.com.fiap.restaurante.entities.Usuario;
+import br.com.fiap.restaurante.exceptions.ValidationException;
 import br.com.fiap.restaurante.repositories.EnderecoRepository;
 import br.com.fiap.restaurante.repositories.RestauranteRepository;
 import br.com.fiap.restaurante.repositories.UsuarioRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class RestauranteService {
@@ -31,7 +31,7 @@ public class RestauranteService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     public RestauranteResponseDTO cadastrarRestaurante(RestauranteInsertDTO dto ) {
 
         Endereco endereco = null;
@@ -80,15 +80,44 @@ public class RestauranteService {
                 restaurante.getId(),
                 restaurante.getNome(),
                 restaurante.getTipoCozinha(),
-                restaurante.getHorarioFuncionamento(),
-                enderecoResponseDTO, // Passa o DTO de resposta do endereço (pode ser null)
-                restaurante.getDono().getId()
+                restaurante.getHorarioFuncionamento()
+                // Passa o DTO de resposta do endereço (pode ser null)
         );
 
         return restauranteResponseDTO;
     }
 
+    public RestauranteResponseDTO atualizarRestaurante(Long id, RestauranteUpdateDTO dto ) {
 
+        Restaurante restaurante = buscarRestaurantePorId(id);
+
+        restaurante.setNome(dto.nome());
+        restaurante.setTipoCozinha(dto.tipoCozinha());
+        restaurante.setHorarioFuncionamento(dto.horarioFuncionamento());
+
+       /*  if (dto.endereco() != null) {
+
+            Endereco endereco = new Endereco();
+
+            endereco.setRua(dto.endereco().rua());
+            endereco.setNumero(dto.endereco().numero());
+            endereco.setCidade(dto.endereco().cidade());
+            endereco.setEstado(dto.endereco().estado());
+            endereco.setCep(dto.endereco().cep());
+
+
+            endereco = enderecoRepository.save(endereco);
+
+
+        } */
+
+        restaurante = repository.save(restaurante);
+
+        return new RestauranteResponseDTO(restaurante);
+
+
+
+    }
 
     public List<RestauranteDTO> buscarTodosRestaurantes() {
 
@@ -96,5 +125,22 @@ public class RestauranteService {
                 .stream()
                 .map(r -> new RestauranteDTO(r.getId(), r.getNome()))
                 .toList();
+    }
+
+
+    public Restaurante buscarRestaurantePorId(Long restauranteId) {
+
+        return repository.findById(restauranteId)
+                .orElseThrow(() -> new ValidationException("Restaurante não Encontrado"));
+
+    }
+
+
+
+    public void deletarRestaurante(Long id) {
+        if(repository.existsById(id))
+            repository.deleteById(id);
+        else
+            throw new ValidationException("Restaurante não existe!");
     }
 }

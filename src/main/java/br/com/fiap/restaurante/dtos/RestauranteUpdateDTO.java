@@ -7,5 +7,15 @@ public record RestauranteUpdateDTO(
         Long id,
 
         @NotBlank(message = "Nome do restaurante não pode estar em branco")
-        String nome) {
+        String nome,
+
+        String tipoCozinha,
+
+        String horarioFuncionamento
+
+)
+
+
+
+{
 }

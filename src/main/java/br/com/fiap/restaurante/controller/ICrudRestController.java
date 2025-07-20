@@ -2,6 +2,7 @@ package br.com.fiap.restaurante.controller;
 
 import br.com.fiap.restaurante.dtos.RestauranteInsertDTO;
 import br.com.fiap.restaurante.dtos.RestauranteResponseDTO;
+import br.com.fiap.restaurante.dtos.RestauranteUpdateDTO;
 import br.com.fiap.restaurante.entities.Usuario;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -21,7 +22,7 @@ public interface ICrudRestController<T, ID> {
 
     @Operation(summary = "Atualizar existente", description = "Realiza a atualização da entidade existente")
     @PutMapping("/{id}")
-    ResponseEntity<T> atualizar(@RequestBody @Valid T dto, @PathVariable(required = true) ID id);
+    ResponseEntity<RestauranteResponseDTO> atualizar(@RequestBody @Valid RestauranteUpdateDTO dto, @PathVariable(required = true) Long id);
 
     @Operation(summary = "Deletar por ID", description = "Realiza a exclusão da entidade existente")
     @DeleteMapping("/{id}")

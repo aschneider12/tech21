@@ -2,6 +2,7 @@ package br.com.fiap.restaurante.dtos;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record RestauranteInsertDTO(
 
@@ -15,7 +16,7 @@ public record RestauranteInsertDTO(
         @NotBlank(message = "Horario de Funcionamento não pode estar em branco")
         String horarioFuncionamento,
 
-        @NotBlank(message = "ID do Usuario nao pode ser nulo")
+        @NotNull(message = "O ID do dono não pode ser nulo.")
         Long dono,
 
         //@Valid

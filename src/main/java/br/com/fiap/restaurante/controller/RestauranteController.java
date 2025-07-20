@@ -3,6 +3,7 @@ package br.com.fiap.restaurante.controller;
 import br.com.fiap.restaurante.dtos.RestauranteDTO;
 import br.com.fiap.restaurante.dtos.RestauranteInsertDTO;
 import br.com.fiap.restaurante.dtos.RestauranteResponseDTO;
+import br.com.fiap.restaurante.dtos.RestauranteUpdateDTO;
 import br.com.fiap.restaurante.service.RestauranteService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -16,14 +17,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/restaurante")
-public class RestauranteController implements ICrudRestController<RestauranteDTO, Long> {
+public class RestauranteController {
 
     private static final Logger logger = LoggerFactory.getLogger(RestauranteController.class);
 
     @Autowired
     private RestauranteService service;
-
-    @Override
+    @PostMapping
     public ResponseEntity<RestauranteResponseDTO> cadastrar(@RequestBody @Valid RestauranteInsertDTO dto) {
 
         RestauranteResponseDTO novoRestaurante =  service.cadastrarRestaurante(dto);
@@ -31,26 +31,31 @@ public class RestauranteController implements ICrudRestController<RestauranteDTO
         return ResponseEntity.status(HttpStatus.CREATED).body(novoRestaurante);
     }
 
-    @Override
-    public ResponseEntity<RestauranteDTO> atualizar(RestauranteDTO dto, Long id) {
-        System.out.println(dto);
-        System.out.println(id);
-        return null;
+
+    @PutMapping("/{id}")
+    public ResponseEntity<RestauranteResponseDTO> atualizar(@RequestBody  RestauranteUpdateDTO dto,
+                                                            @PathVariable(required = true)  Long id ) {
+
+        RestauranteResponseDTO responseDTO = service.atualizarRestaurante(id,dto);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+
     }
 
-    @Override
-    public ResponseEntity<Void> deletar(@PathVariable(required = true) Long id) {
-        System.out.println(id);
-        return null;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletar(@PathVariable(required = true) Long id) {
+        service.deletarRestaurante(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado!");
     }
 
-    @Override
-    public ResponseEntity<RestauranteDTO> buscarPorId(Long id) {
-        System.out.println(id);
-        return null;
+    @GetMapping("/{id}")
+    public ResponseEntity<RestauranteResponseDTO> buscarPorId(@PathVariable(required = true) Long id) {
+
+        RestauranteResponseDTO responseDTO = new RestauranteResponseDTO(service
+                .buscarRestaurantePorId(id));
+        return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }
 
-    @Override
+    @GetMapping
     public ResponseEntity<List<RestauranteDTO>> buscarTodos() {
         List<RestauranteDTO> restauranteDTOS = service.buscarTodosRestaurantes();
         return ResponseEntity.status(HttpStatus.OK).body(restauranteDTOS);
