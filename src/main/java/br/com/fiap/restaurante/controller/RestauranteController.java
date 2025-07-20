@@ -44,7 +44,7 @@ public class RestauranteController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletar(@PathVariable(required = true) Long id) {
         service.deletarRestaurante(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado!");
+        return ResponseEntity.status(HttpStatus.OK).body("Restaurante deletado!");
     }
 
     @GetMapping("/{id}")

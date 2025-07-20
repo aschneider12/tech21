@@ -95,21 +95,6 @@ public class RestauranteService {
         restaurante.setTipoCozinha(dto.tipoCozinha());
         restaurante.setHorarioFuncionamento(dto.horarioFuncionamento());
 
-       /*  if (dto.endereco() != null) {
-
-            Endereco endereco = new Endereco();
-
-            endereco.setRua(dto.endereco().rua());
-            endereco.setNumero(dto.endereco().numero());
-            endereco.setCidade(dto.endereco().cidade());
-            endereco.setEstado(dto.endereco().estado());
-            endereco.setCep(dto.endereco().cep());
-
-
-            endereco = enderecoRepository.save(endereco);
-
-
-        } */
 
         restaurante = repository.save(restaurante);
 
