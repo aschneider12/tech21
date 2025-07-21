@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.application.repositories;
+package br.com.fiap.restaurante.application.repositories.jpa;
 
 import br.com.fiap.restaurante.application.entities.Usuario;
 import jakarta.transaction.Transactional;

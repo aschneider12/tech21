@@ -1,10 +1,8 @@
 package br.com.fiap.restaurante.core.domain.entities;
 
-/**
- * CONCRETA
- * Entidade para persistência, independe de banco de dados ou local que vai ser persistida.
- * Essa entidade representa o dado em si, conforme o dominio.
- */
+import java.util.List;
+
+
 public class Restaurante {
 
     private Long id;
@@ -12,9 +10,9 @@ public class Restaurante {
     private String tipoCozinha;
     private String horarioFuncionamento;
 
-//    private Endereco endereco;
-//    private Usuario dono;
-//    private List<Item> itemsCardapio;
+    private Endereco endereco;
+    private Usuario dono;
+    private List<ItemCardapio> itemsCardapio;
 
     private Restaurante(Long id, String nome, String tipoCozinha, String horarioFuncionamento) {
         this.id = id;

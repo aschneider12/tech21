@@ -3,7 +3,7 @@ package br.com.fiap.restaurante.core.domain.usecases.usuario;
 import br.com.fiap.restaurante.core.domain.entities.Usuario;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
-import br.com.fiap.restaurante.core.interfaces.IUsuarioGateway;
+import br.com.fiap.restaurante.core.interfaces.gateway.IUsuarioGateway;
 
 /**
  * Realilza o cadastro de um novo usuario.

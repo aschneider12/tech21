@@ -1,11 +1,11 @@
 package br.com.fiap.restaurante.application.service;
 
+import br.com.fiap.restaurante.application.dtos.PerfilResponseDTO;
 import br.com.fiap.restaurante.application.entities.TipoUsuario;
 import br.com.fiap.restaurante.application.entities.Usuario;
-import br.com.fiap.restaurante.application.repositories.UsuarioRepository;
-import br.com.fiap.restaurante.application.dtos.PerfilResponseDTO;
 import br.com.fiap.restaurante.application.entities.UsuarioPerfil;
 import br.com.fiap.restaurante.application.exceptions.ValidationException;
+import br.com.fiap.restaurante.application.repositories.jpa.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

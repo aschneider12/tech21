@@ -1,6 +1,6 @@
 package br.com.fiap.restaurante.application.service;
 
-import br.com.fiap.restaurante.application.repositories.UsuarioRepository;
+import br.com.fiap.restaurante.application.repositories.jpa.UsuarioRepository;
 import br.com.fiap.restaurante.application.dtos.MudarSenhaDTO;
 import br.com.fiap.restaurante.application.dtos.UsuarioInsertDTO;
 import br.com.fiap.restaurante.application.dtos.UsuarioResponseDTO;

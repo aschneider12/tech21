@@ -2,14 +2,12 @@ package br.com.fiap.restaurante.core.controllers;
 
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.domain.usecases.restaurante.FactoryRestauranteUseCase;
-import br.com.fiap.restaurante.core.domain.usecases.restaurante.UseCaseBuscarRestaurantePorID;
-import br.com.fiap.restaurante.core.domain.usecases.restaurante.UseCaseBuscarTodosRestaurantes;
 import br.com.fiap.restaurante.core.domain.usecases.restaurante.UseCaseCadastrarRestaurante;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteCadastroDTO;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteRetornoDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.gateways.RestauranteGateway;
-import br.com.fiap.restaurante.core.interfaces.IDataStorageRestaurante;
+import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageRestaurante;
 import br.com.fiap.restaurante.core.presenters.RestaurantePresenter;
 
 import java.util.List;
@@ -75,10 +73,15 @@ public class RestauranteDomainController {
     }
 
     public boolean deletar(Long id) {
-        return false;
+
+        throw new RuntimeException("DELETAR - Não foi implementado ainda!");
+//        var useCase = factoryRestauranteUseCase.deletarRestaurante();
+//        return useCase.run();
     }
 
     public RestauranteRetornoDTO atualizar(RestauranteCadastroDTO dto, Long id) {
-        return null;
+
+        throw new RuntimeException("ATUALIZAR - Não foi implementado ainda!");
+//        return null;
     }
 }

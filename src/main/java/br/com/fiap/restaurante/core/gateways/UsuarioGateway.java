@@ -1,12 +1,10 @@
 package br.com.fiap.restaurante.core.gateways;
 
-import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.domain.entities.Usuario;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteRetornoDTO;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioRetornoDTO;
-import br.com.fiap.restaurante.core.interfaces.IDataStorageUsuario;
-import br.com.fiap.restaurante.core.interfaces.IUsuarioGateway;
+import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageUsuario;
+import br.com.fiap.restaurante.core.interfaces.gateway.IUsuarioGateway;
 
 public class UsuarioGateway implements IUsuarioGateway {
 
@@ -28,6 +26,11 @@ public class UsuarioGateway implements IUsuarioGateway {
         final UsuarioRetornoDTO dtoCriado = this.dataSource.cadastrar(dto);
 
         return Usuario.fromDTO(dtoCriado);
+    }
+
+    @Override
+    public boolean deletar(Long id) {
+        return false;
     }
 
     @Override

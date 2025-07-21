@@ -5,7 +5,7 @@ import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioRetornoDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.gateways.UsuarioGateway;
-import br.com.fiap.restaurante.core.interfaces.IDataStorageUsuario;
+import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageUsuario;
 
 /**
  * DOMAIN CONTROLLER

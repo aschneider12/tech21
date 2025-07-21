@@ -1,17 +1,19 @@
-package br.com.fiap.restaurante.application.adapter;
+package br.com.fiap.restaurante.application.repositories.adapter;
 
 import br.com.fiap.restaurante.application.entities.Restaurante;
-import br.com.fiap.restaurante.application.repositories.RestauranteRepository;
+import br.com.fiap.restaurante.application.repositories.jpa.RestauranteRepository;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteCadastroDTO;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteRetornoDTO;
-import br.com.fiap.restaurante.core.interfaces.IDataStorageRestaurante;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageRestaurante;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class RestauranteRepositoryAdapter implements IDataStorageRestaurante {
+/**
+ * Implementação concreta do core.
+ */
+public class RestauranteRepositoryAdapter implements IDataStorageRestaurante  {
 
     private final RestauranteRepository repository;
 

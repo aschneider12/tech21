@@ -19,7 +19,7 @@ public record RestauranteInsertDTO(
         @NotNull(message = "O ID do dono não pode ser nulo.")
         Long dono,
 
-        //@Valid
+        @Valid
         EnderecoRequestDTO endereco
 
 

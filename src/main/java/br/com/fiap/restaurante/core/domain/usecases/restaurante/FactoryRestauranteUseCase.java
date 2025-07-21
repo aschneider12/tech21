@@ -1,6 +1,6 @@
 package br.com.fiap.restaurante.core.domain.usecases.restaurante;
 
-import br.com.fiap.restaurante.core.interfaces.IRestauranteGateway;
+import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
 
 public class FactoryRestauranteUseCase {
 
@@ -17,4 +17,7 @@ public class FactoryRestauranteUseCase {
     public UseCaseBuscarRestaurantePorID buscarRestaurantePorId() {
         return UseCaseBuscarRestaurantePorID.create(gateway);
     }
+//
+//    public Object deletarRestaurante() {
+//    }
 }

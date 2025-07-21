@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.core.interfaces;
+package br.com.fiap.restaurante.core.interfaces.gateway;
 
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 

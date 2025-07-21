@@ -1,13 +1,11 @@
 package br.com.fiap.restaurante.core.domain.entities;
 
-import br.com.fiap.restaurante.core.domain.usecases.usuario.UseCaseCadastrarUsuario;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioRetornoDTO;
 
 import java.time.LocalDateTime;
-/*
-CLASSE CONCRETA DA ENTIDADE
- */
+import java.util.List;
+
 public class Usuario {
 
     private Long id;
@@ -16,8 +14,8 @@ public class Usuario {
     private String login;
     private String senha;
     private LocalDateTime dataUltimaAlteracao;
-//    private Endereco endereco;
-//    private List<UsuarioPerfil> perfis;
+    private Endereco endereco;
+    private List<UsuarioPerfil> perfis;
 
     public Usuario(Long id, String nome, String email, String login, String senha, LocalDateTime dataUltimaAlteracao) {
         this.id = id;

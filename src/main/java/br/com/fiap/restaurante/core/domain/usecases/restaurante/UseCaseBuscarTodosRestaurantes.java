@@ -1,8 +1,7 @@
 package  br.com.fiap.restaurante.core.domain.usecases.restaurante;
 
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
-import br.com.fiap.restaurante.core.exceptions.EntidadeNaoEncontradaException;
-import br.com.fiap.restaurante.core.interfaces.IRestauranteGateway;
+import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.application.security;
 
+
 import br.com.fiap.restaurante.application.entities.TipoUsuario;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

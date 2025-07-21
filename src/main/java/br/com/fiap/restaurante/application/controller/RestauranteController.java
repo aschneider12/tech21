@@ -17,7 +17,7 @@ import java.util.List;
 
 @Deprecated(forRemoval = true, since = "21/07/2025")
 @RestController
-@RequestMapping("/restaurante")
+@RequestMapping("/DESCONTINUADO/restaurante")
 public class RestauranteController {
 
     private static final Logger logger = LoggerFactory.getLogger(RestauranteController.class);

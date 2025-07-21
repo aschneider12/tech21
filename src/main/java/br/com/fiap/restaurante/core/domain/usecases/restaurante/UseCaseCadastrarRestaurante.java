@@ -3,7 +3,7 @@ package br.com.fiap.restaurante.core.domain.usecases.restaurante;
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteCadastroDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
-import br.com.fiap.restaurante.core.interfaces.IRestauranteGateway;
+import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
 
 /**
  * Realilza o cadastro de um novo restaurante.

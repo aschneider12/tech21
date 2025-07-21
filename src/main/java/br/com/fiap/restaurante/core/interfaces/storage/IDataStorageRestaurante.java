@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.core.interfaces;
+package br.com.fiap.restaurante.core.interfaces.storage;
 
 
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteCadastroDTO;

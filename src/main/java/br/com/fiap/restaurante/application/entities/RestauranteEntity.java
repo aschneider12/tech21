@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "restaurante")
-public class Restaurante implements Serializable {
+public class RestauranteEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +34,10 @@ public class Restaurante implements Serializable {
     @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itemsCardapio;
 
-    public Restaurante() {
+    public RestauranteEntity() {
     }
 
-    public Restaurante(RestauranteCadastroDTO dto) {
+    public RestauranteEntity(RestauranteCadastroDTO dto) {
         this.nome = dto.nome();
         this.tipoCozinha = dto.tipoCozinha();
         this.horarioFuncionamento = dto.horarioFuncionamento();

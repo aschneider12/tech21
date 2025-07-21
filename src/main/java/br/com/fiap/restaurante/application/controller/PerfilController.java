@@ -10,8 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Deprecated
 @RestController
-@RequestMapping("/usuario/{usuarioId}/perfil")
+@RequestMapping("/DESCONTINUADO/usuario/{usuarioId}/perfil")
 public class PerfilController {
 
     private static final Logger logger = LoggerFactory.getLogger(PerfilController.class);
