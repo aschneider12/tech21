@@ -11,7 +11,10 @@ public class FactoryRestauranteUseCase {
     }
 
     public UseCaseBuscarTodosRestaurantes buscarTodosRestaurantes() {
-        return new UseCaseBuscarTodosRestaurantes(gateway);
+        return UseCaseBuscarTodosRestaurantes.create(gateway);
     }
 
+    public UseCaseBuscarRestaurantePorID buscarRestaurantePorId() {
+        return UseCaseBuscarRestaurantePorID.create(gateway);
+    }
 }

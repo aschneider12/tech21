@@ -1,14 +1,13 @@
 package br.com.fiap.restaurante.application.service;
 
-import br.com.fiap.restaurante.application.dtos.RestauranteDTO;
+import br.com.fiap.restaurante.application.dtos.*;
+import br.com.fiap.restaurante.application.entities.Endereco;
+import br.com.fiap.restaurante.application.entities.Restaurante;
+import br.com.fiap.restaurante.application.entities.Usuario;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
+import br.com.fiap.restaurante.application.repositories.EnderecoRepository;
 import br.com.fiap.restaurante.application.repositories.RestauranteRepository;
-import br.com.fiap.restaurante.dtos.*;
-import br.com.fiap.restaurante.entities.Endereco;
-import br.com.fiap.restaurante.entities.Restaurante;
-import br.com.fiap.restaurante.entities.Usuario;
-import br.com.fiap.restaurante.exceptions.ValidationException;
-import br.com.fiap.restaurante.repositories.EnderecoRepository;
-import br.com.fiap.restaurante.repositories.UsuarioRepository;
+import br.com.fiap.restaurante.application.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

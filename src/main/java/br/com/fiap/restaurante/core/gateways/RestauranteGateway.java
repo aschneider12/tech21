@@ -6,6 +6,8 @@ import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteRetornoDTO;
 import br.com.fiap.restaurante.core.interfaces.IDataStorageRestaurante;
 import br.com.fiap.restaurante.core.interfaces.IRestauranteGateway;
 
+import java.util.List;
+
 public class RestauranteGateway implements IRestauranteGateway {
 
     private final IDataStorageRestaurante dataSource;
@@ -26,6 +28,11 @@ public class RestauranteGateway implements IRestauranteGateway {
         final RestauranteRetornoDTO rc = this.dataSource.cadastrar(dto);
 
         return Restaurante.create(rc.id(), rc.nome(), rc.tipoCozinha(), rc.horarioFuncionamento());
+    }
+
+    @Override
+    public List<Restaurante> buscarTodosRestaurantes() {
+        return List.of();
     }
 
     @Override

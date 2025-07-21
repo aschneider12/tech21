@@ -1,10 +1,11 @@
 package br.com.fiap.restaurante.service;
 
-import br.com.fiap.restaurante.dtos.MudarSenhaDTO;
-import br.com.fiap.restaurante.entities.TipoUsuario;
-import br.com.fiap.restaurante.entities.Usuario;
-import br.com.fiap.restaurante.exceptions.ValidationException;
-import br.com.fiap.restaurante.repositories.UsuarioRepository;
+import br.com.fiap.restaurante.application.dtos.MudarSenhaDTO;
+import br.com.fiap.restaurante.application.entities.TipoUsuario;
+import br.com.fiap.restaurante.application.entities.Usuario;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
+import br.com.fiap.restaurante.application.repositories.UsuarioRepository;
+import br.com.fiap.restaurante.application.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

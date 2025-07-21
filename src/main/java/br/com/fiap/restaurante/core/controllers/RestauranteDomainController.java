@@ -26,12 +26,11 @@ import java.util.stream.Collectors;
  */
 public class RestauranteDomainController {
 
-    private final IDataStorageRestaurante dataSource;
     private final RestauranteGateway gateway;
-    FactoryRestauranteUseCase factoryRestauranteUseCase;
+    private final FactoryRestauranteUseCase factoryRestauranteUseCase;
+
     private RestauranteDomainController(IDataStorageRestaurante iDataStorageRestaurante){
-        this.dataSource = iDataStorageRestaurante;
-        this.gateway = RestauranteGateway.create(dataSource);
+        this.gateway = RestauranteGateway.create(iDataStorageRestaurante);
         factoryRestauranteUseCase = new FactoryRestauranteUseCase(gateway);
     }
 
@@ -57,19 +56,22 @@ public class RestauranteDomainController {
 
     public List<RestauranteRetornoDTO> buscarTodosRestaurantes() {
 
-        var useCaseBuscarTodosRestaurantes = UseCaseBuscarTodosRestaurantes.create(gateway);
+        var useCase = factoryRestauranteUseCase.buscarTodosRestaurantes();
 
-        List<Restaurante> run = useCaseBuscarTodosRestaurantes.run();
+        List<Restaurante> allRestaurants = useCase.run();
 
-        return run.stream().map(s
+        return allRestaurants.stream().map(s
                 -> new RestauranteRetornoDTO(s.getId(), s.getNome(), s.getTipoCozinha(), s.getHorarioFuncionamento()))
                 .collect(Collectors.toList());
     }
 
     public RestauranteRetornoDTO buscarPorId(Long id) {
-        UseCaseBuscarRestaurantePorID.create(gateway);
-        //FactoryRestauranteUseCase. TODO - TESTE COM FACTORY
-        return null;
+
+        var useCase = factoryRestauranteUseCase.buscarRestaurantePorId();
+
+        var s = useCase.run(id);
+
+        return new RestauranteRetornoDTO(s.getId(), s.getNome(), s.getTipoCozinha(), s.getHorarioFuncionamento());
     }
 
     public boolean deletar(Long id) {

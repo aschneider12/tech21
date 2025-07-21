@@ -1,6 +1,4 @@
-package br.com.fiap.restaurante.dtos;
-
-
+package br.com.fiap.restaurante.application.dtos;
 
 public record EnderecoRequestDTO(
         Long id,

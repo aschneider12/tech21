@@ -1,6 +1,6 @@
-package br.com.fiap.restaurante.dtos;
+package br.com.fiap.restaurante.application.dtos;
 
-import br.com.fiap.restaurante.entities.Restaurante;
+import br.com.fiap.restaurante.application.entities.Restaurante;
 
 public record RestauranteResponseDTO(
 
@@ -11,7 +11,6 @@ public record RestauranteResponseDTO(
 
 
 ) {
-
 
     public RestauranteResponseDTO(Restaurante restaurante) {
 

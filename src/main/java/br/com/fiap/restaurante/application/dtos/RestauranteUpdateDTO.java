@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.dtos;
+package br.com.fiap.restaurante.application.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 
