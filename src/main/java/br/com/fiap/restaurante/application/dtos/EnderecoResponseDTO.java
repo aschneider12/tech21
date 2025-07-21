@@ -1,6 +1,7 @@
-package br.com.fiap.restaurante.dtos;
+package br.com.fiap.restaurante.application.dtos;
 
-import br.com.fiap.restaurante.entities.Endereco;
+
+import br.com.fiap.restaurante.application.entities.Endereco;
 
 public record EnderecoResponseDTO(
         Long id,

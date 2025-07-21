@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.controller;
+package br.com.fiap.restaurante.application.controller;
 
 import br.com.fiap.restaurante.dtos.RestauranteDTO;
 import br.com.fiap.restaurante.dtos.RestauranteInsertDTO;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Deprecated
 @RestController
 @RequestMapping("/restaurante")
 public class RestauranteController {

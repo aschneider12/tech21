@@ -1,7 +1,6 @@
 package br.com.fiap.restaurante.application.controller;
 
 import br.com.fiap.restaurante.application.service.PerfilService;
-import br.com.fiap.restaurante.application.dtos.PerfilRequestDTO;
 import br.com.fiap.restaurante.application.dtos.PerfilResponseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

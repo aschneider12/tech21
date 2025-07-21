@@ -68,13 +68,15 @@ public class RestauranteDomainController {
 
     public RestauranteRetornoDTO buscarPorId(Long id) {
         UseCaseBuscarRestaurantePorID.create(gateway);
-        FactoryRestauranteUseCase.
-
+        //FactoryRestauranteUseCase. TODO - TESTE COM FACTORY
+        return null;
     }
 
     public boolean deletar(Long id) {
+        return false;
     }
 
     public RestauranteRetornoDTO atualizar(RestauranteCadastroDTO dto, Long id) {
+        return null;
     }
 }
