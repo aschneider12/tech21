@@ -3,6 +3,7 @@ import br.com.fiap.restaurante.application.dtos.RestauranteInsertDTO;
 import br.com.fiap.restaurante.application.dtos.RestauranteResponseDTO;
 import br.com.fiap.restaurante.application.dtos.RestauranteUpdateDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -10,20 +11,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Restaurantes", description = "Operações relacionadas a restaurantes")
+@Tag(name = "Restaurantes", description = "Operações relacionadas ao CRUD dos restaurantes")
 public interface RestauranteDocController {
 
-    @Operation(summary = "Cadastrar novo", description = "Realiza o cadastro de uma nova entidade")
-    ResponseEntity<RestauranteResponseDTO> cadastrar(@RequestBody @Valid RestauranteInsertDTO dto);
+    @Operation(summary = "Cadastrar novo restaurante", description = "Realiza o cadastro de um novo restaurante")
+    ResponseEntity<RestauranteResponseDTO> cadastrar(RestauranteInsertDTO dto);
 
     @Operation(summary = "Atualizar existente", description = "Realiza a atualização da entidade existente")
-    ResponseEntity<RestauranteResponseDTO> atualizar(@RequestBody @Valid RestauranteUpdateDTO dto, @PathVariable(required = true) Long id);
+    ResponseEntity<RestauranteResponseDTO> atualizar(RestauranteUpdateDTO dto,  Long id);
 
     @Operation(summary = "Deletar por ID", description = "Realiza a exclusão da entidade existente")
-    ResponseEntity<String> deletar(@PathVariable(required = true) Long id);
+    ResponseEntity<String> deletar(Long id);
 
     @Operation(summary = "Buscar por ID", description = "Buscar o cadastro da entidade por ID")
-    ResponseEntity<RestauranteResponseDTO> buscarPorId(@PathVariable(required = true) Long id);
+    ResponseEntity<RestauranteResponseDTO> buscarPorId(Long id);
 
     @Operation(summary = "Buscar todos", description = "Busca o cadastro de todas entidades cadastradas")
     ResponseEntity<List<RestauranteResponseDTO>> buscarTodos();

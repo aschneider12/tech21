@@ -42,8 +42,8 @@ public class RestauranteDomainController {
 
         try {
 
-            var estudante = useCaseCadastrarRestaurante.run(dto);
-            var retornoDTO = RestaurantePresenter.ToDTO(estudante);
+            var restaurante = useCaseCadastrarRestaurante.run(dto);
+            var retornoDTO = RestaurantePresenter.ToDTO(restaurante);
             return retornoDTO;
 
         } catch (EntidadeJaExisteException e) {

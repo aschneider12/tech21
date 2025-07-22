@@ -383,7 +383,46 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"id\" : 1,\r\n    \"descricao\": \"teste\"\r\n}",
+							"raw": "{\r\n   \"id\" : 1,\r\n    \"nome\": \"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurante/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inserir restaurante",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\" : 1,\r\n    \"nome\": \"teste\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -463,46 +502,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\",\"ADMINISTRADOR\"]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/usuario/3/perfil",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"3",
-								"perfil"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete perfil",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

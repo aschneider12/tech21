@@ -10,7 +10,6 @@ import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
@@ -22,8 +21,8 @@ public interface RestauranteMapper {
     RestauranteResponseDTO toClient(RestauranteOutputDTO dtoFromDomain);
     List<RestauranteResponseDTO> toClientList(List<RestauranteOutputDTO> dtosFromDomain);
 
-    RestauranteInputDTO toIinputDomain(RestauranteInsertDTO insertDTO);
-    RestauranteInputDTO toIinputDomain(RestauranteUpdateDTO updateDTO);
+    RestauranteInputDTO toInputDomain(RestauranteInsertDTO insertDTO);
+    RestauranteInputDTO toInputDomain(RestauranteUpdateDTO updateDTO);
 
     RestauranteOutputDTO toOutputDomain(RestauranteEntity entityFromDataBase);
 

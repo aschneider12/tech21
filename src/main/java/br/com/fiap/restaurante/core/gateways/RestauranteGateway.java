@@ -47,8 +47,11 @@ public class RestauranteGateway implements IRestauranteGateway {
     public Restaurante buscarRestaurantePorNome(String nomeRestaurante) {
         RestauranteOutputDTO retornoDTO = dataSource.buscarRestaurantePorNome(nomeRestaurante);
 
-        return Restaurante.create(retornoDTO.id(), retornoDTO.nome(), retornoDTO.tipoCozinha(),
-          retornoDTO.horarioFuncionamento());
+        if(retornoDTO != null)
+            return Restaurante.create(retornoDTO.id(), retornoDTO.nome(), retornoDTO.tipoCozinha(),
+            retornoDTO.horarioFuncionamento());
+
+        return null;
     }
 
     @Override

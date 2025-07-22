@@ -42,9 +42,9 @@ public class RestauranteRestController implements RestauranteDocController {
     @PostMapping
     public ResponseEntity<RestauranteResponseDTO> cadastrar(@RequestBody @Valid RestauranteInsertDTO dto) {
 
-        RestauranteInputDTO iinputDomain = restauranteMapper.toIinputDomain(dto);
+        RestauranteInputDTO inputDomain = restauranteMapper.toInputDomain(dto);
 
-        RestauranteOutputDTO cadastrado = domainController.cadastrar(iinputDomain);
+        RestauranteOutputDTO cadastrado = domainController.cadastrar(inputDomain);
 
         RestauranteResponseDTO saida = restauranteMapper.toClient(cadastrado);
 
@@ -54,14 +54,14 @@ public class RestauranteRestController implements RestauranteDocController {
     @Override
     @PutMapping("/{id}")
     public ResponseEntity<RestauranteResponseDTO> atualizar(
-            @RequestBody RestauranteUpdateDTO dto, @PathVariable(required = true) Long id) {
+            @RequestBody @Valid RestauranteUpdateDTO dto, @PathVariable(required = true) Long id) {
 
 
-        RestauranteInputDTO iinputDomain = restauranteMapper.toIinputDomain(dto);
+        RestauranteInputDTO inputDomain = restauranteMapper.toInputDomain(dto);
 
-        RestauranteOutputDTO cadastrado = domainController.cadastrar(iinputDomain);
+        RestauranteOutputDTO atualizado = domainController.atualizar(inputDomain, id);
 
-        RestauranteResponseDTO saida = restauranteMapper.toClient(cadastrado);
+        RestauranteResponseDTO saida = restauranteMapper.toClient(atualizado);
 
         return ResponseEntity.status(HttpStatus.OK).body(saida);
     }
