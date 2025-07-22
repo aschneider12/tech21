@@ -1,19 +1,10 @@
 package br.com.fiap.restaurante.application.repositories.adapter;
 
-import br.com.fiap.restaurante.application.entities.Restaurante;
 import br.com.fiap.restaurante.application.entities.Usuario;
-import br.com.fiap.restaurante.application.repositories.jpa.RestauranteRepository;
 import br.com.fiap.restaurante.application.repositories.jpa.UsuarioRepository;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteCadastroDTO;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteRetornoDTO;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioRetornoDTO;
-import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageRestaurante;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageUsuario;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Implementação concreta do core.

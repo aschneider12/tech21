@@ -2,7 +2,7 @@ package br.com.fiap.restaurante.application.service;
 
 import br.com.fiap.restaurante.application.dtos.*;
 import br.com.fiap.restaurante.application.entities.Endereco;
-import br.com.fiap.restaurante.application.entities.Restaurante;
+import br.com.fiap.restaurante.application.entities.RestauranteEntity;
 import br.com.fiap.restaurante.application.entities.Usuario;
 import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.application.repositories.jpa.EnderecoRepository;
@@ -61,7 +61,7 @@ public class RestauranteService {
                 .orElseThrow(() -> new RuntimeException("Usuario não encontrado com o ID " + dto.dono()));
 
         // 4. Criar e preencher o Restaurante
-        Restaurante restaurante = new Restaurante();
+        RestauranteEntity restaurante = new RestauranteEntity();
         restaurante.setNome(dto.nome());
         restaurante.setTipoCozinha(dto.tipoCozinha());
         restaurante.setHorarioFuncionamento(dto.horarioFuncionamento());
@@ -85,7 +85,7 @@ public class RestauranteService {
 
     public RestauranteResponseDTO atualizarRestaurante(Long id, RestauranteUpdateDTO dto ) {
 
-        Restaurante restaurante = buscarRestaurantePorId(id);
+        RestauranteEntity restaurante = buscarRestaurantePorId(id);
 
         restaurante.setNome(dto.nome());
         restaurante.setTipoCozinha(dto.tipoCozinha());
@@ -109,7 +109,7 @@ public class RestauranteService {
     }
 
 
-    public Restaurante buscarRestaurantePorId(Long restauranteId) {
+    public RestauranteEntity buscarRestaurantePorId(Long restauranteId) {
 
         return repository.findById(restauranteId)
                 .orElseThrow(() -> new ValidationException("Restaurante não Encontrado"));

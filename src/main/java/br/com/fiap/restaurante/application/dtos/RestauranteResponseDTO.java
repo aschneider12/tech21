@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.application.dtos;
 
-import br.com.fiap.restaurante.application.entities.Restaurante;
+
+import br.com.fiap.restaurante.application.entities.RestauranteEntity;
 
 public record RestauranteResponseDTO(
 
@@ -12,7 +13,10 @@ public record RestauranteResponseDTO(
 
 ) {
 
-    public RestauranteResponseDTO(Restaurante restaurante) {
+    public RestauranteResponseDTO {
+    }
+
+    public RestauranteResponseDTO(RestauranteEntity restaurante) {
 
         this (
                 restaurante.getId(),

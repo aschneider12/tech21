@@ -8,7 +8,6 @@ public interface IRestauranteGateway {
 
     Restaurante cadastrar(Restaurante restaurante);
     List<Restaurante> buscarTodosRestaurantes();
-
     Restaurante buscarRestaurantePorIdentificador(Long id);
     Restaurante buscarRestaurantePorNome(String nomeRestaurante);
 }

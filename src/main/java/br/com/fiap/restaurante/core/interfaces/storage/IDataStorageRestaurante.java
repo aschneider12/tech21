@@ -1,17 +1,17 @@
 package br.com.fiap.restaurante.core.interfaces.storage;
 
 
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteCadastroDTO;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteRetornoDTO;
+import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
+import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 
 import java.util.List;
 
 public interface IDataStorageRestaurante {
 
-    RestauranteRetornoDTO cadastrar(RestauranteCadastroDTO dto);
-    List<RestauranteRetornoDTO> buscarTodosRestaurantes();
-    RestauranteRetornoDTO buscarRestaurantePorIdentificador(Long id);
-    RestauranteRetornoDTO buscarRestaurantePorNome(String nome);
+    RestauranteOutputDTO cadastrar(RestauranteInputDTO dto);
+    List<RestauranteOutputDTO> buscarTodosRestaurantes();
+    RestauranteOutputDTO buscarRestaurantePorIdentificador(Long id);
+    RestauranteOutputDTO buscarRestaurantePorNome(String nome);
 
 
 }

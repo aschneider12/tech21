@@ -1,6 +1,6 @@
 package br.com.fiap.restaurante.core.dtos.restaurante;
 
-public record RestauranteRetornoDTO(
+public record RestauranteOutputDTO(
         Long id,
         String nome,
         String tipoCozinha,

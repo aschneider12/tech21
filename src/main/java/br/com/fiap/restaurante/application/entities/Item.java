@@ -23,7 +23,7 @@ public class Item implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "restaurante_id", nullable = false)
-    private Restaurante restaurante;
+    private RestauranteEntity restaurante;
 
     private String pathFoto;
 
@@ -70,11 +70,11 @@ public class Item implements Serializable {
         this.tipoVenda = tipoVenda;
     }
 
-    public Restaurante getRestaurante() {
+    public RestauranteEntity getRestaurante() {
         return restaurante;
     }
 
-    public void setRestaurante(Restaurante restaurante) {
+    public void setRestaurante(RestauranteEntity restaurante) {
         this.restaurante = restaurante;
     }
 

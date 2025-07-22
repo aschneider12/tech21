@@ -1,6 +1,6 @@
 package br.com.fiap.restaurante.application.entities;
 
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteCadastroDTO;
+import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -37,7 +37,7 @@ public class RestauranteEntity implements Serializable {
     public RestauranteEntity() {
     }
 
-    public RestauranteEntity(RestauranteCadastroDTO dto) {
+    public RestauranteEntity(RestauranteInputDTO dto) {
         this.nome = dto.nome();
         this.tipoCozinha = dto.tipoCozinha();
         this.horarioFuncionamento = dto.horarioFuncionamento();

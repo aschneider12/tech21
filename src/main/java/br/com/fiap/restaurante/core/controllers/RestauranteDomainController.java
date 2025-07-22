@@ -3,8 +3,8 @@ package br.com.fiap.restaurante.core.controllers;
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.domain.usecases.restaurante.FactoryRestauranteUseCase;
 import br.com.fiap.restaurante.core.domain.usecases.restaurante.UseCaseCadastrarRestaurante;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteCadastroDTO;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteRetornoDTO;
+import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
+import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.gateways.RestauranteGateway;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageRestaurante;
@@ -36,7 +36,7 @@ public class RestauranteDomainController {
         return new RestauranteDomainController(iDataStorageRestaurante);
     }
 
-    public RestauranteRetornoDTO cadastrar(RestauranteCadastroDTO dto) {
+    public RestauranteOutputDTO cadastrar(RestauranteInputDTO dto) {
 
         var useCaseCadastrarRestaurante = UseCaseCadastrarRestaurante.create(gateway);
 
@@ -52,24 +52,27 @@ public class RestauranteDomainController {
         }
     }
 
-    public List<RestauranteRetornoDTO> buscarTodosRestaurantes() {
+    public List<RestauranteOutputDTO> buscarTodosRestaurantes() {
+
+        //o controller recebe da implementação interna o Restaurante concreto
+        //como vai devolver para o externo (rest no nosso caso) ele traduz para DTO novamente
 
         var useCase = factoryRestauranteUseCase.buscarTodosRestaurantes();
 
         List<Restaurante> allRestaurants = useCase.run();
 
         return allRestaurants.stream().map(s
-                -> new RestauranteRetornoDTO(s.getId(), s.getNome(), s.getTipoCozinha(), s.getHorarioFuncionamento()))
+                -> new RestauranteOutputDTO(s.getId(), s.getNome(), s.getTipoCozinha(), s.getHorarioFuncionamento()))
                 .collect(Collectors.toList());
     }
 
-    public RestauranteRetornoDTO buscarPorId(Long id) {
+    public RestauranteOutputDTO buscarPorId(Long id) {
 
         var useCase = factoryRestauranteUseCase.buscarRestaurantePorId();
 
-        var s = useCase.run(id);
+        var restaurante = useCase.run(id);
 
-        return new RestauranteRetornoDTO(s.getId(), s.getNome(), s.getTipoCozinha(), s.getHorarioFuncionamento());
+        return new RestauranteOutputDTO(restaurante.getId(), restaurante.getNome(), restaurante.getTipoCozinha(), restaurante.getHorarioFuncionamento());
     }
 
     public boolean deletar(Long id) {
@@ -79,7 +82,7 @@ public class RestauranteDomainController {
 //        return useCase.run();
     }
 
-    public RestauranteRetornoDTO atualizar(RestauranteCadastroDTO dto, Long id) {
+    public RestauranteOutputDTO atualizar(RestauranteInputDTO dto, Long id) {
 
         throw new RuntimeException("ATUALIZAR - Não foi implementado ainda!");
 //        return null;

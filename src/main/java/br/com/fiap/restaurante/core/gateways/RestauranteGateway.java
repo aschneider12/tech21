@@ -1,12 +1,13 @@
 package br.com.fiap.restaurante.core.gateways;
 
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteCadastroDTO;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteRetornoDTO;
-import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageRestaurante;
+import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
+import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
+import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageRestaurante;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RestauranteGateway implements IRestauranteGateway {
 
@@ -23,9 +24,9 @@ public class RestauranteGateway implements IRestauranteGateway {
     @Override
     public Restaurante cadastrar(Restaurante restaurante) {
 
-        RestauranteCadastroDTO dto = RestauranteCadastroDTO.fromEntity(restaurante);
+        RestauranteInputDTO dto = RestauranteInputDTO.fromEntity(restaurante);
 
-        final RestauranteRetornoDTO rc = this.dataSource.cadastrar(dto);
+        final RestauranteOutputDTO rc = this.dataSource.cadastrar(dto);
 
         return Restaurante.create(rc.id(), rc.nome(), rc.tipoCozinha(), rc.horarioFuncionamento());
     }
@@ -33,17 +34,18 @@ public class RestauranteGateway implements IRestauranteGateway {
     @Override
     public List<Restaurante> buscarTodosRestaurantes() {
 
-        return dataSource.buscarTodosRestaurantes();
-        return List.of();
+        List<RestauranteOutputDTO> retornoDTOs = dataSource.buscarTodosRestaurantes();
+
+        List<Restaurante> concreteRestaurants = retornoDTOs.stream().map(dto
+                -> Restaurante.create(dto.id(), dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento()))
+                .collect(Collectors.toList());
+
+        return concreteRestaurants;
     }
 
     @Override
     public Restaurante buscarRestaurantePorNome(String nomeRestaurante) {
-        RestauranteRetornoDTO retornoDTO = dataSource.buscarRestaurantePorNome(nomeRestaurante);
-
-//        isso é redundante, pq esta aqui? se o gateway nao e responsavel por isso
-//        if (retornoDTO == null) {
-//           throw new EstudanteNaoEncontradoException("Estudante com nome " + nome + " não encontrado");
+        RestauranteOutputDTO retornoDTO = dataSource.buscarRestaurantePorNome(nomeRestaurante);
 
         return Restaurante.create(retornoDTO.id(), retornoDTO.nome(), retornoDTO.tipoCozinha(),
           retornoDTO.horarioFuncionamento());
@@ -51,7 +53,12 @@ public class RestauranteGateway implements IRestauranteGateway {
 
     @Override
     public Restaurante buscarRestaurantePorIdentificador(Long id) {
-        return null;
+
+        RestauranteOutputDTO retornoDTO = dataSource.buscarRestaurantePorIdentificador(id);
+
+        return Restaurante.create(retornoDTO.id(), retornoDTO.nome(), retornoDTO.tipoCozinha(),
+                retornoDTO.horarioFuncionamento());
+
     }
 
 

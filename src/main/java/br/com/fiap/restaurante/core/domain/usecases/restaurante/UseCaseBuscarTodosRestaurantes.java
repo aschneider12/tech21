@@ -11,19 +11,21 @@ public class UseCaseBuscarTodosRestaurantes {
     //ser melhorado para evitar esse retrabalho
     private final IRestauranteGateway gateway;
 
-    /* Metodo internalizado, forçar o uso do create */
     private UseCaseBuscarTodosRestaurantes(IRestauranteGateway gateway) {
         this.gateway = gateway;
     }
 
-    /* poderia ser utilizado direto o construtor forçando o param gateway? */
     public static UseCaseBuscarTodosRestaurantes create(IRestauranteGateway gateway) {
         return new UseCaseBuscarTodosRestaurantes(gateway);
     }
 
     public List<Restaurante> run() {
 
+        //aqui o use case não sabe para onde o gateway vai enviar a busca, por isso ele trata como a entidade concreta
+        // o gateway pode enviar para um DB, um json, um arquivo, ou qualquer lugar
+
         List<Restaurante> restaurantes = gateway.buscarTodosRestaurantes();
+
         return restaurantes;
     }
 }
