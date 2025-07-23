@@ -105,6 +105,7 @@ public class UsuarioServiceTest {
     @Test
     void deveLancarExcecaoAoAtualizarSenhaFraca() {
 
+        //when(repository.findByLogin("raquel123")).thenReturn(Optional.of(usuario));
         assertThrows(ValidationException.class, () -> usuarioService.mudarSenha(new MudarSenhaDTO("senhaSegura123", "123"), usuario.getId()));
     }
 }

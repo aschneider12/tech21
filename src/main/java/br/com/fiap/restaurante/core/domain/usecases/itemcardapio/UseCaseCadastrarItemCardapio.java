@@ -2,14 +2,13 @@ package br.com.fiap.restaurante.core.domain.usecases.itemcardapio;
 
 import br.com.fiap.restaurante.core.domain.entities.ItemCardapio;
 import br.com.fiap.restaurante.core.interfaces.gateway.IItemCardapioGateway;
-import java.util.List;
 
-public class UseCaseBuscarTodosItemCardapio {
+public class UseCaseCadastrarItemCardapio {
     private final IItemCardapioGateway gateway;
-    public UseCaseBuscarTodosItemCardapio(IItemCardapioGateway gateway) {
+    public UseCaseCadastrarItemCardapio(IItemCardapioGateway gateway) {
         this.gateway = gateway;
     }
-    public List<ItemCardapio> execute() {
-        return gateway.buscarTodos();
+    public ItemCardapio execute(ItemCardapio item) {
+        return gateway.cadastrar(item);
     }
 }

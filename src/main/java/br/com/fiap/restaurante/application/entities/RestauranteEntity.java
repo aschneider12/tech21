@@ -95,7 +95,7 @@ public class RestauranteEntity implements Serializable {
         return itemsCardapio;
     }
 
-    public void setItemsCardapio(List<Item> itemsCardapio) {
+    public void setItemsCardapio(List<C> itemsCardapio) {
         this.itemsCardapio = itemsCardapio;
     }
 }

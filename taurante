@@ -1,0 +1,111 @@
+* [33m3a7eb35[m[33m ([m[1;36mHEAD -> [m[1;32mcrud-itens[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/crud-itens[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Crud-Restaurante[m[33m, [m[1;32mmain[m[33m, [m[1;32mcreating-core[m[33m, [m[1;32mCrud-Restaurante[m[33m)[m Devolvendo as classes da Raquel <Itens>
+*   [33m16784c3[m Merge branch 'refs/heads/creating-core'
+[32m|[m[33m\[m  
+[32m|[m *   [33m02997d1[m Merge remote-tracking branch 'origin/Crud-Restaurante' into creating-core
+[32m|[m [34m|[m[35m\[m  
+[32m|[m [34m|[m * [33mc1b0c31[m ajuste para Clean Arch, implementação do item do cardapio na camada core
+[32m|[m * [35m|[m [33me4f537e[m[33m ([m[1;31morigin/creating-core[m[33m)[m criando use case perfil, teste no restaurante cadastrar
+[32m|[m [35m|[m[35m/[m  
+[32m|[m * [33m9eef353[m adicionando o mapper do restaurante, retornando para a view
+[32m|[m * [33m2dea08d[m separando os contextos do core e da app para entidades e contrllers
+[32m|[m * [33m03f5678[m correcao dos erros de importacao nas classes
+[32m|[m * [33me549b3f[m merge core com crud-restaurante
+[32m|[m *   [33meadd634[m Merge branch 'creating-core' into Crud-Restaurante
+[32m|[m [36m|[m[1;31m\[m  
+[32m|[m [36m|[m * [33mf644662[m enviando todo o core de restaurante e parte do usuario
+[32m|[m * [1;31m|[m [33m9a54f69[m Validações de senha e login
+[32m|[m * [1;31m|[m [33m1c536a4[m Validações de senha e login
+[32m|[m * [1;31m|[m [33m90a42c1[m Adição do cadastrar na controller do restaurante e seus respectivos DTOS de request,insert,response
+[32m|[m [1;31m|[m[1;31m/[m  
+* [1;31m/[m [33ma69580e[m CRUD Item para itens do cardápio
+[1;31m|[m[1;31m/[m  
+* [33m0ca563b[m Correcao da senhas, alterado o update do usuario
+* [33mbc8d7f9[m atualizado DER e collection postman
+* [33me299454[m criando crud para PERFIL
+* [33m4ce9d4d[m atualizado modelo do perfil
+* [33maacc2ff[m modelagem, migrations, controller restaurante
+*   [33mc914878[m Merge branch 'main' of https://github.com/aschneider12/tech21 # Please enter a commit message to explain why this merge is necessary, # especially if it merges an updated upstream into a topic branch. # # Lines starting with '#' will be ignored, and an empty message aborts # the commit.
+[1;32m|[m[1;33m\[m  
+[1;32m|[m * [33mbc08a01[m Add o projeto em pdf dentro de docs
+* [1;33m|[m [33m43041bc[m adicionadas as entidades, ainda com erro
+[1;33m|[m[1;33m/[m  
+* [33m393a017[m validacao ao alterar senha, nao permite senha fraca, valida senha antiga
+* [33m8c6f1be[m doc: melhora collection do postman
+* [33m1643257[m[33m ([m[1;31morigin/master[m[33m)[m corrigido o problema de compilação, porem 1 teste esta falhando
+* [33m4b38175[m criado validar token, protegidas as rotas novamente
+* [33maf59084[m arquivos de configuração devem ser ignorados
+*   [33mdd3ea69[m merge com o ultimo commit
+[1;34m|[m[1;35m\[m  
+[1;34m|[m * [33mb824ab5[m Update README.md
+[1;34m|[m *   [33meaf338e[m Merge pull request #4 from aschneider12/feature/auth-jwt-password-update
+[1;34m|[m [1;36m|[m[31m\[m  
+[1;34m|[m [1;36m|[m *   [33mb52e5cc[m[33m ([m[1;31morigin/feature/auth-jwt-password-update[m[33m)[m Merge pull request #3 from aschneider12/main
+[1;34m|[m [1;36m|[m [32m|[m[1;36m\[m  
+[1;34m|[m [1;36m|[m [32m|[m[1;36m/[m  
+[1;34m|[m [1;36m|[m[1;36m/[m[32m|[m   
+[1;34m|[m * [32m|[m [33m05e01ee[m Autenticação JWT com validação por tipo de usuário, proteção de endpoints, troca de senha autenticada e validação de senha forte
+[1;34m|[m [32m|[m[32m/[m  
+[1;34m|[m *   [33ma2c6b9f[m[33m ([m[1;32mfeature/auth-jwt-password-update[m[33m)[m Resolve conflitos e unifica HELP.md e application.properties
+[1;34m|[m [34m|[m[35m\[m  
+[1;34m|[m [34m|[m * [33mf19bf52[m Corrige erro de validação do Flyway e atualiza HELP.md
+[1;34m|[m * [35m|[m   [33mcc6cf49[m Fix conflicts
+[1;34m|[m [36m|[m[1;31m\[m [35m\[m  
+[1;34m|[m * [1;31m|[m [35m|[m [33mc368a10[m removido env do token
+* [1;31m|[m [1;31m|[m [35m|[m [33m2b28784[m add o endereco no flyway, descomentado na classe usuario
+[35m|[m [1;31m|[m[35m_[m[1;31m|[m[35m/[m  
+[35m|[m[35m/[m[1;31m|[m [1;31m|[m   
+* [1;31m|[m [1;31m|[m [33m465b18b[m add as collections do json
+* [1;31m|[m [1;31m|[m [33mfa29273[m liberado requests no usuario pra teste, criado v2 flyway pra validar senha
+* [1;31m|[m [1;31m|[m [33m76db0a1[m Alterado o mudar senha para o usuário utilizando enconder
+* [1;31m|[m [1;31m|[m   [33m63d64c8[m Merge após commit da Raquel
+[1;32m|[m[1;33m\[m [1;31m\[m [1;31m\[m  
+[1;32m|[m * [1;31m|[m [1;31m|[m [33mb2003f3[m application properties
+[1;32m|[m [1;31m|[m [1;31m|[m[1;31m/[m  
+[1;32m|[m [1;31m|[m[1;31m/[m[1;31m|[m   
+[1;32m|[m * [1;31m|[m [33mb5a7b59[m Merge branch 'feature/auth-jwt-password-update' into main
+[1;32m|[m [1;34m|[m[1;31m\[m[1;31m|[m 
+[1;32m|[m [1;34m|[m * [33md20a4f3[m Ajustado arquivos
+[1;32m|[m [1;34m|[m * [33m0651f3d[m Limpeza de arquivos não ignorados e atualização do .gitignore
+[1;32m|[m * [1;35m|[m [33md9e867b[m chore(gitignore): ignora arquivos temporários, sensíveis e de IDE
+[1;32m|[m [1;35m|[m[1;35m/[m  
+[1;32m|[m * [33mb4af4dc[m chore(config): externaliza segredos sensíveis para variáveis de ambiente
+[1;32m|[m *   [33mf17ca47[m Merge branch 'main' into feature/auth-jwt-password-update
+[1;32m|[m [1;36m|[m[31m\[m  
+[1;32m|[m * [31m|[m [33mc7b5a69[m feat(auth): implementa login com JWT, proteção de rotas e troca de senha segura
+* [31m|[m [31m|[m [33mf7d0e77[m[33m ([m[1;31morigin/validationUsersDTO[m[33m)[m correcao de alguns imports apos merge, validacao update,delete
+* [31m|[m [31m|[m   [33md5675b2[m merge com a main
+[32m|[m[31m\[m [31m\[m [31m\[m  
+[32m|[m [31m|[m [31m|[m[31m/[m  
+[32m|[m [31m|[m[31m/[m[31m|[m   
+[32m|[m * [31m|[m   [33m9b8243f[m Merge branch 'main' of https://github.com/aschneider12/tech21
+[32m|[m [34m|[m[35m\[m [31m\[m  
+[32m|[m [34m|[m * [31m|[m [33ma0a30f6[m commit de teste
+[32m|[m [34m|[m [31m|[m[31m/[m  
+[32m|[m * [31m/[m [33me6e172f[m Funcionalidade - Alterar senha
+[32m|[m [31m|[m[31m/[m  
+* [31m|[m [33m6b7d12f[m refatorando controller e service com os converter dto
+* [31m|[m [33me61254d[m Validações de senha e login
+* [31m|[m [33m651d78f[m Validações de senha e login
+[31m|[m[31m/[m  
+* [33m6d5f6fa[m correcao na validacao do usuario
+* [33md2562f0[m add o doc do projeto
+* [33ma297434[m[33m ([m[1;31morigin/swagger[m[33m)[m add o doc do projeto
+* [33mbbfd758[m adicionado o swagger e as validation, criado o delete no usuario
+*   [33m7384c23[m Merge pull request #1 from aschneider12/flyway
+[36m|[m[1;31m\[m  
+[36m|[m * [33m9eb810a[m[33m ([m[1;31morigin/flyway[m[33m)[m criado o flyway da parte de usuario
+[36m|[m [1;31m|[m * [33mb68fa66[m[33m ([m[1;35mrefs/stash[m[33m)[m WIP on dev: f4a9742 Removida a regra de negocio do modelo
+[36m|[m [1;31m|[m[1;31m/[m[1;33m|[m 
+[36m|[m [1;31m|[m * [33m82dee3a[m index on dev: f4a9742 Removida a regra de negocio do modelo
+[36m|[m [1;31m|[m[1;31m/[m  
+[36m|[m * [33mf4a9742[m[33m ([m[1;31morigin/dev[m[33m, [m[1;32mdev[m[33m)[m Removida a regra de negocio do modelo
+[36m|[m * [33mb6b6e1c[m[33m ([m[1;31morigin/usuario-cadastrar[m[33m, [m[1;32musuario-cadastrar[m[33m)[m Update README.md
+[36m|[m * [33m9d1f703[m Implementação do endpoint de cadastro de usuário e adição do docker-compose.yml
+[36m|[m[36m/[m  
+* [33m20a4ccf[m add o dockerfile
+* [33m215a777[m modificado ignore
+* [33m742d9fd[m adicionando classes do usuario
+* [33m7950ca4[m Corrigindo a pasta
+* [33m057a84c[m v0.0.1 da app do restaurante
+* [33m5aba0f4[m Update README.md
+* [33mf6c7ed6[m Initial commit
