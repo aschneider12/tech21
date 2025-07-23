@@ -23,6 +23,7 @@
 
     <properties>
         <java.version>21</java.version>
+        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     </properties>
 
     <developers>
@@ -144,6 +145,21 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--TESTE COM MAP STRUCT-->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${org.mapstruct.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -158,6 +174,11 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
