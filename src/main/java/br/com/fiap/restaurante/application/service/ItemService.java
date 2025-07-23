@@ -1,17 +1,18 @@
-package br.com.fiap.restaurante.service;
+package br.com.fiap.restaurante.application.service;
 
+import br.com.fiap.restaurante.application.entities.Item;
+import br.com.fiap.restaurante.application.entities.RestauranteEntity;
+import br.com.fiap.restaurante.application.repositories.jpa.ItemRepository;
+import br.com.fiap.restaurante.application.repositories.jpa.RestauranteRepository;
 import br.com.fiap.restaurante.dtos.ItemRequestDTO;
 import br.com.fiap.restaurante.dtos.ItemResponseDTO;
-import br.com.fiap.restaurante.entities.Item;
-import br.com.fiap.restaurante.entities.Restaurante;
-import br.com.fiap.restaurante.repositories.ItemRepository;
-import br.com.fiap.restaurante.repositories.RestauranteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Deprecated
 @Service
 public class ItemService {
 
@@ -34,7 +35,7 @@ public class ItemService {
     }
 
     public ItemResponseDTO criar(ItemRequestDTO dto) {
-        Restaurante restaurante = restauranteRepository.findById(dto.restauranteId())
+        RestauranteEntity restaurante = restauranteRepository.findById(dto.restauranteId())
             .orElseThrow(() -> new EntityNotFoundException("Restaurante não encontrado"));
 
         Item item = new Item();
