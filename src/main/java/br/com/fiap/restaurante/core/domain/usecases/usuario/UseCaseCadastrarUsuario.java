@@ -1,7 +1,7 @@
 package br.com.fiap.restaurante.core.domain.usecases.usuario;
 
 import br.com.fiap.restaurante.core.domain.entities.Usuario;
-import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioInputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.interfaces.gateway.IUsuarioGateway;
 
@@ -20,7 +20,7 @@ public class UseCaseCadastrarUsuario {
         return new UseCaseCadastrarUsuario(gateway);
     }
 
-    public Usuario run(UsuarioCadastroDTO dto) {
+    public Usuario run(UsuarioInputDTO dto) {
 
         final Usuario usuarioExistente = gateway.buscarUsuarioPorLogin(dto.nome());
 

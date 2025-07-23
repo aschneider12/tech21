@@ -1,13 +1,10 @@
 package br.com.fiap.restaurante.application.doc;
-import br.com.fiap.restaurante.application.dtos.RestauranteInsertDTO;
+
+import br.com.fiap.restaurante.application.dtos.RestauranteRequestDTO;
 import br.com.fiap.restaurante.application.dtos.RestauranteResponseDTO;
-import br.com.fiap.restaurante.application.dtos.RestauranteUpdateDTO;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,10 +12,10 @@ import java.util.List;
 public interface RestauranteDocController {
 
     @Operation(summary = "Cadastrar novo restaurante", description = "Realiza o cadastro de um novo restaurante")
-    ResponseEntity<RestauranteResponseDTO> cadastrar(RestauranteInsertDTO dto);
+    ResponseEntity<RestauranteResponseDTO> cadastrar(RestauranteRequestDTO dto);
 
     @Operation(summary = "Atualizar existente", description = "Realiza a atualização da entidade existente")
-    ResponseEntity<RestauranteResponseDTO> atualizar(RestauranteUpdateDTO dto,  Long id);
+    ResponseEntity<RestauranteResponseDTO> atualizar(RestauranteRequestDTO dto,  Long id);
 
     @Operation(summary = "Deletar por ID", description = "Realiza a exclusão da entidade existente")
     ResponseEntity<String> deletar(Long id);

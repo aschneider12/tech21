@@ -2,26 +2,24 @@ package br.com.fiap.restaurante.core.domain.usecases.restaurante;
 
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
 
-public class UseCaseCadastrarRestaurante {
+public class UseCaseDeletarRestaurante {
 
     private final IRestauranteGateway gateway;
 
-    private UseCaseCadastrarRestaurante(IRestauranteGateway gateway) {
+    private UseCaseDeletarRestaurante(IRestauranteGateway gateway) {
         this.gateway = gateway;
     }
-
-    public static UseCaseCadastrarRestaurante create(IRestauranteGateway gateway) {
-        return new UseCaseCadastrarRestaurante(gateway);
+    public static UseCaseDeletarRestaurante create(IRestauranteGateway gateway) {
+        return new UseCaseDeletarRestaurante(gateway);
     }
 
-    public RestauranteOutputDTO run(RestauranteInputDTO dto) throws EntidadeJaExisteException {
-
+    public boolean run(Long id) throws EntidadeJaExisteException {
         try {
+
 
             Restaurante restauranteExistente = new UseCaseBuscarRestaurantePorNome(gateway).run(dto.nome());
             if (restauranteExistente != null)
@@ -31,12 +29,17 @@ public class UseCaseCadastrarRestaurante {
 
         }
 
-        final Restaurante novoRestauranteDomain = Restaurante.create(
-                dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento(), dto.
+        final Restaurante novoRestaurante = Restaurante.create(
+                dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento()
         );
 
-        Restaurante cadastrado = gateway.cadastrar(novoRestauranteDomain);
+        Restaurante cadastrado = gateway.cadastrar(novoRestaurante);
         final Restaurante restauranteExistente2 = gateway.buscarRestaurantePorNome(dto.nome());
+
+
+
+
+
 
         return cadastrado;
 

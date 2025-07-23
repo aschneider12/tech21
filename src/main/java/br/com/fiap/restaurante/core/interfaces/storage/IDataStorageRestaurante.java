@@ -9,6 +9,9 @@ import java.util.List;
 public interface IDataStorageRestaurante {
 
     RestauranteOutputDTO cadastrar(RestauranteInputDTO dto);
+    RestauranteOutputDTO atualizar(RestauranteInputDTO dto);
+    boolean deletar(Long id);
+
     List<RestauranteOutputDTO> buscarTodosRestaurantes();
     RestauranteOutputDTO buscarRestaurantePorIdentificador(Long id);
     RestauranteOutputDTO buscarRestaurantePorNome(String nome);

@@ -28,7 +28,7 @@ public class RestauranteService {
     private UsuarioRepository usuarioRepository;
 
     @Transactional(readOnly = false)
-    public RestauranteResponseDTO cadastrarRestaurante(RestauranteInsertDTO dto ) {
+    public RestauranteResponseDTO cadastrarRestaurante(RestauranteRequestDTO dto ) {
 
         Endereco endereco = null;
         EnderecoResponseDTO enderecoResponseDTO = null;
@@ -72,41 +72,41 @@ public class RestauranteService {
 
         // 5. Construir o RestauranteResponseDTO
         //    'enderecoResponseDTO' agora está no escopo correto e pode ser null
-        RestauranteResponseDTO restauranteResponseDTO = new RestauranteResponseDTO(
-                restaurante.getId(),
-                restaurante.getNome(),
-                restaurante.getTipoCozinha(),
-                restaurante.getHorarioFuncionamento()
-                // Passa o DTO de resposta do endereço (pode ser null)
-        );
+//        RestauranteResponseDTO restauranteResponseDTO = new RestauranteResponseDTO(
+//                restaurante.getId(),
+//                restaurante.getNome(),
+//                restaurante.getTipoCozinha(),
+//                restaurante.getHorarioFuncionamento()
+//                // Passa o DTO de resposta do endereço (pode ser null)
+//        );
 
-        return restauranteResponseDTO;
+        return null;
     }
 
-    public RestauranteResponseDTO atualizarRestaurante(Long id, RestauranteUpdateDTO dto ) {
+//    public RestauranteResponseDTO atualizarRestaurante(Long id, RestauranteUpdateDTO dto ) {
+//
+//        RestauranteEntity restaurante = buscarRestaurantePorId(id);
+//
+//        restaurante.setNome(dto.nome());
+//        restaurante.setTipoCozinha(dto.tipoCozinha());
+//        restaurante.setHorarioFuncionamento(dto.horarioFuncionamento());
+//
+//
+//        restaurante = repository.save(restaurante);
+//
+//        return new RestauranteResponseDTO(restaurante);
+//
+//
+//
+//    }
 
-        RestauranteEntity restaurante = buscarRestaurantePorId(id);
-
-        restaurante.setNome(dto.nome());
-        restaurante.setTipoCozinha(dto.tipoCozinha());
-        restaurante.setHorarioFuncionamento(dto.horarioFuncionamento());
-
-
-        restaurante = repository.save(restaurante);
-
-        return new RestauranteResponseDTO(restaurante);
-
-
-
-    }
-
-    public List<RestauranteDTO> buscarTodosRestaurantes() {
-
-        return repository.findAll()
-                .stream()
-                .map(r -> new RestauranteDTO(r.getId(), r.getNome()))
-                .toList();
-    }
+//    public List<RestauranteDTO> buscarTodosRestaurantes() {
+//
+//        return repository.findAll()
+//                .stream()
+//                .map(r -> new RestauranteDTO(r.getId(), r.getNome()))
+//                .toList();
+//    }
 
 
     public RestauranteEntity buscarRestaurantePorId(Long restauranteId) {

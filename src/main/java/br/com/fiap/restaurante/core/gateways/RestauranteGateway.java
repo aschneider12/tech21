@@ -32,6 +32,16 @@ public class RestauranteGateway implements IRestauranteGateway {
     }
 
     @Override
+    public Restaurante atualizar(Restaurante restaurante) {
+        return null;
+    }
+
+    @Override
+    public boolean deletar(Long id) {
+        return false;
+    }
+
+    @Override
     public List<Restaurante> buscarTodosRestaurantes() {
 
         List<RestauranteOutputDTO> retornoDTOs = dataSource.buscarTodosRestaurantes();

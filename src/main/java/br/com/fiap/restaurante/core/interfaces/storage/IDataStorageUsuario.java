@@ -1,7 +1,7 @@
 package br.com.fiap.restaurante.core.interfaces.storage;
 
-import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
-import br.com.fiap.restaurante.core.dtos.usuario.UsuarioRetornoDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioInputDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioOutputDTO;
 
 public interface IDataStorageUsuario {
 
@@ -9,9 +9,9 @@ public interface IDataStorageUsuario {
     boolean existsByLogin(String login);
     boolean existsByEmail(String email);
 
-    UsuarioRetornoDTO cadastrar(UsuarioCadastroDTO dto);
+    UsuarioOutputDTO cadastrar(UsuarioInputDTO dto);
 //TODO, atualizar, deletar
 
-    UsuarioRetornoDTO buscarUsuarioPorLogin(String login);
+    UsuarioOutputDTO buscarUsuarioPorLogin(String login);
 
 }

@@ -1,9 +1,8 @@
 package br.com.fiap.restaurante.application.controller;
 
 import br.com.fiap.restaurante.application.doc.RestauranteDocController;
-import br.com.fiap.restaurante.application.dtos.RestauranteInsertDTO;
+import br.com.fiap.restaurante.application.dtos.RestauranteRequestDTO;
 import br.com.fiap.restaurante.application.dtos.RestauranteResponseDTO;
-import br.com.fiap.restaurante.application.dtos.RestauranteUpdateDTO;
 import br.com.fiap.restaurante.application.mappers.RestauranteMapper;
 import br.com.fiap.restaurante.application.repositories.adapter.RestauranteRepositoryAdapter;
 import br.com.fiap.restaurante.application.repositories.jpa.RestauranteRepository;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/restaurante")
 public class RestauranteRestController implements RestauranteDocController {
@@ -28,9 +26,9 @@ public class RestauranteRestController implements RestauranteDocController {
     private static final Logger logger = LoggerFactory.getLogger(RestauranteDomainController.class);
 
     @Autowired
-    RestauranteMapper restauranteMapper;
+    private RestauranteMapper restauranteMapper;
 
-    RestauranteDomainController domainController;
+    private final RestauranteDomainController domainController;
 
     public RestauranteRestController(RestauranteRepository repository) {
 
@@ -38,9 +36,10 @@ public class RestauranteRestController implements RestauranteDocController {
                     new RestauranteRepositoryAdapter(repository));
     }
 
-    //nao poderia ser usado
+    @Override
     @PostMapping
-    public ResponseEntity<RestauranteResponseDTO> cadastrar(@RequestBody @Valid RestauranteInsertDTO dto) {
+    public ResponseEntity<RestauranteResponseDTO> cadastrar(
+                                        @RequestBody @Valid RestauranteRequestDTO dto) {
 
         RestauranteInputDTO inputDomain = restauranteMapper.toInputDomain(dto);
 
@@ -54,8 +53,8 @@ public class RestauranteRestController implements RestauranteDocController {
     @Override
     @PutMapping("/{id}")
     public ResponseEntity<RestauranteResponseDTO> atualizar(
-            @RequestBody @Valid RestauranteUpdateDTO dto, @PathVariable(required = true) Long id) {
-
+                                        @RequestBody @Valid RestauranteRequestDTO dto,
+                                        @PathVariable(required = true) Long id) {
 
         RestauranteInputDTO inputDomain = restauranteMapper.toInputDomain(dto);
 
@@ -83,14 +82,18 @@ public class RestauranteRestController implements RestauranteDocController {
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<RestauranteResponseDTO> buscarPorId(@PathVariable(required = true) Long id) {
-        RestauranteOutputDTO dto = domainController.buscarPorId(id);
+    public ResponseEntity<RestauranteResponseDTO> buscarPorId(
+            @PathVariable(required = true) Long id) {
 
-        RestauranteResponseDTO client = restauranteMapper.toClient(dto);
+        RestauranteOutputDTO restauranteDomain = domainController.buscarPorId(id);
+
+        RestauranteResponseDTO client = restauranteMapper.toClient(restauranteDomain);
 
         return ResponseEntity.status(HttpStatus.OK).body(client);
     }
 
+
+    @Override
     @GetMapping
     public ResponseEntity<List<RestauranteResponseDTO>> buscarTodos() {
 
@@ -98,11 +101,6 @@ public class RestauranteRestController implements RestauranteDocController {
 
         List<RestauranteResponseDTO> restauranteResponseDTOS = restauranteMapper.toClientList(all);
 
-//        List<RestauranteResponseDTO> restauranteResponseDTOS = all.stream().map(
-//                d -> new RestauranteResponseDTO(d.id(), d.nome(), d.tipoCozinha(), d.horarioFuncionamento())).collect(Collectors.toList());
-
         return ResponseEntity.status(HttpStatus.OK).body(restauranteResponseDTOS);
     }
-
-
 }

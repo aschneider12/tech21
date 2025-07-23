@@ -1,7 +1,7 @@
 package br.com.fiap.restaurante.core.domain.entities;
 
-import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
-import br.com.fiap.restaurante.core.dtos.usuario.UsuarioRetornoDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioInputDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioOutputDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,11 +34,11 @@ public class Usuario {
         this.dataUltimaAlteracao = dataUltimaAlteracao;
     }
 
-    public static Usuario fromDTO(UsuarioCadastroDTO dto) {
+    public static Usuario fromDTO(UsuarioInputDTO dto) {
 
        return new Usuario(dto.nome(),dto.email(),dto.login(),dto.senha(), LocalDateTime.now());
     }
-    public static Usuario fromDTO(UsuarioRetornoDTO dto) {
+    public static Usuario fromDTO(UsuarioOutputDTO dto) {
 
         return new Usuario(dto.nome(),dto.email(),dto.login(),dto.senha(), LocalDateTime.now());
     }

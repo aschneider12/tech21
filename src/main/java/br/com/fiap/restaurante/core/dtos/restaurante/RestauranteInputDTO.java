@@ -1,18 +1,17 @@
 package br.com.fiap.restaurante.core.dtos.restaurante;
 
-import br.com.fiap.restaurante.core.domain.entities.Restaurante;
+import br.com.fiap.restaurante.core.domain.entities.ItemCardapio;
+import br.com.fiap.restaurante.core.dtos.endereco.EnderecoDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioInputDTO;
+import java.util.List;
 
 public record RestauranteInputDTO(
         String nome,
         String tipoCozinha,
-        String horarioFuncionamento) {
+        String horarioFuncionamento,
+        EnderecoDTO endereco,
+        UsuarioInputDTO dono,
+        List<ItemCardapio> itensCardapio) {
 
-    public static RestauranteInputDTO fromEntity(Restaurante restaurante) {
-        return new RestauranteInputDTO(
-                restaurante.getNome(),
-                restaurante.getTipoCozinha(),
-                restaurante.getHorarioFuncionamento()
-        );
-    }
 }
 

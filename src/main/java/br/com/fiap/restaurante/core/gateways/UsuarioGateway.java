@@ -1,8 +1,8 @@
 package br.com.fiap.restaurante.core.gateways;
 
 import br.com.fiap.restaurante.core.domain.entities.Usuario;
-import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
-import br.com.fiap.restaurante.core.dtos.usuario.UsuarioRetornoDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioInputDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioOutputDTO;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageUsuario;
 import br.com.fiap.restaurante.core.interfaces.gateway.IUsuarioGateway;
 
@@ -21,9 +21,9 @@ public class UsuarioGateway implements IUsuarioGateway {
     @Override
     public Usuario cadastrar(Usuario usuario) {
 
-        UsuarioCadastroDTO dto = UsuarioCadastroDTO.fromEntity(usuario);
+        UsuarioInputDTO dto = UsuarioInputDTO.fromEntity(usuario);
 
-        final UsuarioRetornoDTO dtoCriado = this.dataSource.cadastrar(dto);
+        final UsuarioOutputDTO dtoCriado = this.dataSource.cadastrar(dto);
 
         return Usuario.fromDTO(dtoCriado);
     }

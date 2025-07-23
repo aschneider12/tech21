@@ -1,13 +1,11 @@
 package br.com.fiap.restaurante.core.controllers;
 
-import br.com.fiap.restaurante.application.dtos.PerfilResponseDTO;
-import br.com.fiap.restaurante.application.entities.TipoUsuario;
 import br.com.fiap.restaurante.core.domain.usecases.usuario.UseCaseAdicionarPerfisUsuario;
 import br.com.fiap.restaurante.core.domain.usecases.usuario.UseCaseBuscarPerfisUsuario;
 import br.com.fiap.restaurante.core.domain.usecases.usuario.UseCaseCadastrarUsuario;
 import br.com.fiap.restaurante.core.domain.usecases.usuario.UseCaseRemoverPerfisUsuario;
-import br.com.fiap.restaurante.core.dtos.usuario.UsuarioCadastroDTO;
-import br.com.fiap.restaurante.core.dtos.usuario.UsuarioRetornoDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioInputDTO;
+import br.com.fiap.restaurante.core.dtos.usuario.UsuarioOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.gateways.UsuarioGateway;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageUsuario;
@@ -35,7 +33,7 @@ public class UsuarioDomainController {
         return new UsuarioDomainController(iDataStorageUsuario);
     }
 
-    public UsuarioRetornoDTO cadastrar(UsuarioCadastroDTO dto) {
+    public UsuarioOutputDTO cadastrar(UsuarioInputDTO dto) {
 
         var gateway = UsuarioGateway.create(this.dataSource);
         var useCaseCadastrarUsuario = UseCaseCadastrarUsuario.create(gateway);
@@ -44,7 +42,7 @@ public class UsuarioDomainController {
 
             var usuario = useCaseCadastrarUsuario.run(dto);
             // PODEMOS INCLUIR UM PRESENTER
-            return UsuarioRetornoDTO.fromEntity(usuario);
+            return UsuarioOutputDTO.fromEntity(usuario);
 
         } catch (EntidadeJaExisteException e) {
             System.err.println(e.getMessage());

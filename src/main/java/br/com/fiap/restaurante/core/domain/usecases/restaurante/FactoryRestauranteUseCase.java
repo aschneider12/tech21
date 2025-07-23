@@ -17,7 +17,16 @@ public class FactoryRestauranteUseCase {
     public UseCaseBuscarRestaurantePorID buscarRestaurantePorId() {
         return UseCaseBuscarRestaurantePorID.create(gateway);
     }
-//
-//    public Object deletarRestaurante() {
-//    }
+
+    public UseCaseDeletarRestaurante deletarRestaurante() {
+        return UseCaseDeletarRestaurante.create(gateway);
+    }
+
+    public UseCaseCadastrarRestaurante cadastrarRestaurante(){
+        return UseCaseCadastrarRestaurante.create(gateway);
+    }
+
+    public UseCaseAtualizarRestaurante atualizarRestaurante(){
+        return UseCaseAtualizarRestaurante.create(gateway);
+    }
 }

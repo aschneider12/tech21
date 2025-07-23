@@ -3,6 +3,7 @@ package br.com.fiap.restaurante.core.controllers;
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.domain.usecases.restaurante.FactoryRestauranteUseCase;
 import br.com.fiap.restaurante.core.domain.usecases.restaurante.UseCaseCadastrarRestaurante;
+import br.com.fiap.restaurante.core.domain.usecases.restaurante.UseCaseDeletarRestaurante;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
@@ -24,11 +25,10 @@ import java.util.stream.Collectors;
  */
 public class RestauranteDomainController {
 
-    private final RestauranteGateway gateway;
     private final FactoryRestauranteUseCase factoryRestauranteUseCase;
 
     private RestauranteDomainController(IDataStorageRestaurante iDataStorageRestaurante){
-        this.gateway = RestauranteGateway.create(iDataStorageRestaurante);
+        RestauranteGateway gateway = RestauranteGateway.create(iDataStorageRestaurante);
         factoryRestauranteUseCase = new FactoryRestauranteUseCase(gateway);
     }
 
@@ -38,11 +38,11 @@ public class RestauranteDomainController {
 
     public RestauranteOutputDTO cadastrar(RestauranteInputDTO dto) {
 
-        var useCaseCadastrarRestaurante = UseCaseCadastrarRestaurante.create(gateway);
+        UseCaseCadastrarRestaurante useCase = factoryRestauranteUseCase.cadastrarRestaurante();
 
         try {
 
-            var restaurante = useCaseCadastrarRestaurante.run(dto);
+            var restaurante = useCase.run(dto);
             var retornoDTO = RestaurantePresenter.ToDTO(restaurante);
             return retornoDTO;
 
@@ -77,14 +77,15 @@ public class RestauranteDomainController {
 
     public boolean deletar(Long id) {
 
-        throw new RuntimeException("DELETAR - Não foi implementado ainda!");
-//        var useCase = factoryRestauranteUseCase.deletarRestaurante();
-//        return useCase.run();
+        UseCaseDeletarRestaurante useCase = factoryRestauranteUseCase.deletarRestaurante();
+
+        return useCase.run(id);
     }
 
     public RestauranteOutputDTO atualizar(RestauranteInputDTO dto, Long id) {
 
-        throw new RuntimeException("ATUALIZAR - Não foi implementado ainda!");
-//        return null;
+        var useCase = factoryRestauranteUseCase.atualizarRestaurante();
+
+        return useCase.run(dto, id);
     }
 }

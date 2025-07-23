@@ -2,7 +2,6 @@ package br.com.fiap.restaurante.core.domain.entities;
 
 import java.util.List;
 
-
 public class Restaurante {
 
     private Long id;
@@ -12,13 +11,17 @@ public class Restaurante {
 
     private Endereco endereco;
     private Usuario dono;
-    private List<ItemCardapio> itemsCardapio;
+    private List<ItemCardapio> itensCardapio;
 
-    private Restaurante(Long id, String nome, String tipoCozinha, String horarioFuncionamento) {
+    public Restaurante(Long id, String nome, String tipoCozinha, String horarioFuncionamento,
+                       Endereco endereco, Usuario dono, List<ItemCardapio> itensCardapio) {
         this.id = id;
         this.nome = nome;
         this.tipoCozinha = tipoCozinha;
         this.horarioFuncionamento = horarioFuncionamento;
+        this.endereco = endereco;
+        this.dono = dono;
+        this.itensCardapio = itensCardapio;
     }
 
     public static Restaurante create(
@@ -28,18 +31,21 @@ public class Restaurante {
     ){
 
         //realizar validações necessárias
-        return new Restaurante(null, nome, tipoCozinha,horarioFuncionamento);
+        return new Restaurante(null, nome, tipoCozinha,horarioFuncionamento, null, null, null);
 
     }
     public static Restaurante create(
             Long id,
             String nome,
             String tipoCozinha,
-            String horarioFuncionamento
+            String horarioFuncionamento,
+            Endereco endereco,
+            Usuario dono,
+            List<ItemCardapio> itensCardapio
     ){
 
         //realizar validações necessárias
-      return new Restaurante(id,nome, tipoCozinha,horarioFuncionamento);
+      return new Restaurante(id,nome, tipoCozinha,horarioFuncionamento, endereco, dono, itensCardapio);
     }
 
     public Long getId() {
@@ -73,4 +79,29 @@ public class Restaurante {
     public void setHorarioFuncionamento(String horarioFuncionamento) {
         this.horarioFuncionamento = horarioFuncionamento;
     }
+
+    public List<ItemCardapio> getItensCardapio() {
+        return itensCardapio;
+    }
+
+    public void setItensCardapio(List<ItemCardapio> itensCardapio) {
+        this.itensCardapio = itensCardapio;
+    }
+
+    public Usuario getDono() {
+        return dono;
+    }
+
+    public void setDono(Usuario dono) {
+        this.dono = dono;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
 }

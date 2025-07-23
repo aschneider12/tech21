@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.core.domain.usecases.restaurante;
 
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
+import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
 
@@ -14,7 +15,7 @@ public class UseCaseBuscarRestaurantePorID extends FactoryRestauranteUseCase {
         return new UseCaseBuscarRestaurantePorID(gateway);
     }
 
-    public Restaurante run(Long id) throws EntidadeNaoEncontradaException {
+    public RestauranteOutputDTO run(Long id) throws EntidadeNaoEncontradaException {
 
         Restaurante restauranteExistente = gateway.buscarRestaurantePorIdentificador(id);
 

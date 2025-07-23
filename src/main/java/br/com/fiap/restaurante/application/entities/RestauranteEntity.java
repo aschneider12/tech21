@@ -23,16 +23,16 @@ public class RestauranteEntity implements Serializable {
     private String tipoCozinha;
     private String horarioFuncionamento;
 
-    @OneToOne(fetch = FetchType.LAZY) // Carrega o endereço apenas quando for acessado
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Carrega o endereço apenas quando for acessado
     @JoinColumn(name = "endereco_id", unique = true)
     private Endereco endereco;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario dono;
 
-    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> itemsCardapio;
+//    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Item> itensCardapio;
 
     public RestauranteEntity() {
     }
@@ -91,11 +91,11 @@ public class RestauranteEntity implements Serializable {
         this.dono = dono;
     }
 
-    public List<Item> getItemsCardapio() {
-        return itemsCardapio;
-    }
-
-    public void setItemsCardapio(List<Item> itemsCardapio) {
-        this.itemsCardapio = itemsCardapio;
-    }
+//    public List<Item> getItensCardapio() {
+//        return itensCardapio;
+//    }
+//
+//    public void setItensCardapio(List<Item> itensCardapio) {
+//        this.itensCardapio = itensCardapio;
+//    }
 }

@@ -1,12 +1,10 @@
 package br.com.fiap.restaurante.core.domain.usecases.restaurante;
 
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
+import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
 
-/**
- * Realilza o cadastro de um novo restaurante.
- */
 public class UseCaseBuscarRestaurantePorNome extends FactoryRestauranteUseCase {
 
     protected UseCaseBuscarRestaurantePorNome(IRestauranteGateway gateway) {
@@ -22,7 +20,7 @@ public class UseCaseBuscarRestaurantePorNome extends FactoryRestauranteUseCase {
      *
      * @throws EntidadeNaoEncontradaException
      */
-    public Restaurante run(String nomeRestaurante) throws EntidadeNaoEncontradaException {
+    public RestauranteOutputDTO run(String nomeRestaurante) throws EntidadeNaoEncontradaException {
 
         Restaurante restauranteExistente = gateway.buscarRestaurantePorNome(nomeRestaurante);
 

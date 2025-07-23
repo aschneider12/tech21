@@ -7,20 +7,21 @@ import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
 
-public class UseCaseCadastrarRestaurante {
+public class UseCaseAtualizarRestaurante {
 
     private final IRestauranteGateway gateway;
 
-    private UseCaseCadastrarRestaurante(IRestauranteGateway gateway) {
+    /* Metodo internalizado, forçar o uso do create */
+    private UseCaseAtualizarRestaurante(IRestauranteGateway gateway) {
         this.gateway = gateway;
     }
-
-    public static UseCaseCadastrarRestaurante create(IRestauranteGateway gateway) {
-        return new UseCaseCadastrarRestaurante(gateway);
+    /* poderia ser utilizado direto o construtor forçando o param gateway */
+    public static UseCaseAtualizarRestaurante create(IRestauranteGateway gateway) {
+        return new UseCaseAtualizarRestaurante(gateway);
     }
 
-    public RestauranteOutputDTO run(RestauranteInputDTO dto) throws EntidadeJaExisteException {
-
+    public RestauranteOutputDTO run(RestauranteInputDTO dto, Long id) throws EntidadeJaExisteException {
+//terminar o cadastrar
         try {
 
             Restaurante restauranteExistente = new UseCaseBuscarRestaurantePorNome(gateway).run(dto.nome());
@@ -31,12 +32,17 @@ public class UseCaseCadastrarRestaurante {
 
         }
 
-        final Restaurante novoRestauranteDomain = Restaurante.create(
-                dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento(), dto.
+        final Restaurante novoRestaurante = Restaurante.create(
+                dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento()
         );
 
-        Restaurante cadastrado = gateway.cadastrar(novoRestauranteDomain);
+        Restaurante cadastrado = gateway.cadastrar(novoRestaurante);
         final Restaurante restauranteExistente2 = gateway.buscarRestaurantePorNome(dto.nome());
+
+
+
+
+
 
         return cadastrado;
 
