@@ -1,22 +1,17 @@
 package br.com.fiap.restaurante.core.domain.entities;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "itens_cardapio")
 public class ItemCardapio {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
     private String descricao;
     private BigDecimal preco;
     private String tipoVenda;
     private String pathFoto;
 
+    // Construtor protegido para frameworks ou fábricas
     protected ItemCardapio() {}
 
     private ItemCardapio(Long id, String nome, String descricao, BigDecimal preco, String tipoVenda, String pathFoto) {
@@ -50,5 +45,4 @@ public class ItemCardapio {
     public void setTipoVenda(String tipoVenda) { this.tipoVenda = tipoVenda; }
     public void setPathFoto(String pathFoto) { this.pathFoto = pathFoto; }
 }
-
 

@@ -1,20 +1,18 @@
 package br.com.fiap.restaurante.application.controller;
 
-import br.com.fiap.restaurante.application.mappers.ItemCardapioMapper;
+import br.com.fiap.restaurante.core.domain.entities.ItemCardapio;
+import br.com.fiap.restaurante.core.domain.usecases.itemcardapio.*;
 import br.com.fiap.restaurante.core.dtos.itemcardapio.ItemCardapioInputDTO;
 import br.com.fiap.restaurante.core.dtos.itemcardapio.ItemCardapioOutputDTO;
-import br.com.fiap.restaurante.core.domain.usecases.itemcardapio.UseCaseCadastrarItemCardapio;
-import br.com.fiap.restaurante.core.domain.usecases.itemcardapio.UseCaseBuscarTodosItemCardapio;
-import br.com.fiap.restaurante.core.domain.usecases.itemcardapio.UseCaseBuscarItemCardapioPorId;
-import br.com.fiap.restaurante.core.domain.usecases.itemcardapio.UseCaseDeletarItemCardapio;
-import br.com.fiap.restaurante.core.interfaces.gateway.IItemCardapioGateway;
+import br.com.fiap.restaurante.core.presenters.ItemCardapioPresenter;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/itens")
+@RequestMapping("/api/itens-cardapio")
 public class ItemCardapioRestController {
 
     private final UseCaseCadastrarItemCardapio cadastrarUseCase;
@@ -22,29 +20,34 @@ public class ItemCardapioRestController {
     private final UseCaseBuscarItemCardapioPorId buscarPorIdUseCase;
     private final UseCaseDeletarItemCardapio deletarUseCase;
 
-    public ItemCardapioRestController(IItemCardapioGateway gateway) {
-        this.cadastrarUseCase = new UseCaseCadastrarItemCardapio(gateway);
-        this.buscarTodosUseCase = new UseCaseBuscarTodosItemCardapio(gateway);
-        this.buscarPorIdUseCase = new UseCaseBuscarItemCardapioPorId(gateway);
-        this.deletarUseCase = new UseCaseDeletarItemCardapio(gateway);
+    public ItemCardapioRestController(
+        UseCaseCadastrarItemCardapio cadastrarUseCase,
+        UseCaseBuscarTodosItemCardapio buscarTodosUseCase,
+        UseCaseBuscarItemCardapioPorId buscarPorIdUseCase,
+        UseCaseDeletarItemCardapio deletarUseCase
+    ) {
+        this.cadastrarUseCase = cadastrarUseCase;
+        this.buscarTodosUseCase = buscarTodosUseCase;
+        this.buscarPorIdUseCase = buscarPorIdUseCase;
+        this.deletarUseCase = deletarUseCase;
     }
 
     @PostMapping
     public ItemCardapioOutputDTO cadastrar(@RequestBody ItemCardapioInputDTO dto) {
-        var entity = ItemCardapioMapper.toEntity(dto);
-        return ItemCardapioMapper.toDTO(cadastrarUseCase.execute(entity));
+        ItemCardapio item = ItemCardapio.create(dto.nome(), dto.descricao(), dto.preco(), dto.tipoVenda(), dto.pathFoto());
+        return ItemCardapioPresenter.toDTO(cadastrarUseCase.execute(item));
     }
 
     @GetMapping
-    public List<ItemCardapioOutputDTO> listar() {
+    public List<ItemCardapioOutputDTO> buscarTodos() {
         return buscarTodosUseCase.execute().stream()
-            .map(ItemCardapioMapper::toDTO)
-            .collect(Collectors.toList());
+                .map(ItemCardapioPresenter::toDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     public ItemCardapioOutputDTO buscarPorId(@PathVariable Long id) {
-        return ItemCardapioMapper.toDTO(buscarPorIdUseCase.execute(id));
+        return ItemCardapioPresenter.toDTO(buscarPorIdUseCase.execute(id));
     }
 
     @DeleteMapping("/{id}")
