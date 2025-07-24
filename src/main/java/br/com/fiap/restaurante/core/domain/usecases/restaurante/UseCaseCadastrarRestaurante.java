@@ -4,8 +4,8 @@ import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
-import br.com.fiap.restaurante.core.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
+import br.com.fiap.restaurante.core.mappers.RestauranteMapper;
 
 public class UseCaseCadastrarRestaurante {
 
@@ -21,24 +21,15 @@ public class UseCaseCadastrarRestaurante {
 
     public RestauranteOutputDTO run(RestauranteInputDTO dto) throws EntidadeJaExisteException {
 
-        try {
+        Restaurante restauranteCadastrar  = gateway.buscarRestaurantePorNome(dto.nome());
+        if (restauranteCadastrar != null)
+            throw new EntidadeJaExisteException("Restaurante", dto.nome());
 
-            Restaurante restauranteExistente = new UseCaseBuscarRestaurantePorNome(gateway).run(dto.nome());
-            if (restauranteExistente != null)
-                throw new EntidadeJaExisteException("Restaurante", dto.nome());
+        restauranteCadastrar = RestauranteMapper.toDomain(dto);
 
-        } catch (EntidadeNaoEncontradaException ex) {
+        Restaurante cadastrado = gateway.cadastrar(restauranteCadastrar);
 
-        }
-
-        final Restaurante novoRestauranteDomain = Restaurante.create(
-                dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento(), dto.
-        );
-
-        Restaurante cadastrado = gateway.cadastrar(novoRestauranteDomain);
-        final Restaurante restauranteExistente2 = gateway.buscarRestaurantePorNome(dto.nome());
-
-        return cadastrado;
-
+        return RestauranteMapper.toOutput(cadastrado);
     }
+
 }

@@ -15,7 +15,7 @@ public class Usuario {
     private String senha;
     private LocalDateTime dataUltimaAlteracao;
     private Endereco endereco;
-    private List<UsuarioPerfil> perfis;
+    private List<String> perfis;
 
     public Usuario(Long id, String nome, String email, String login, String senha, LocalDateTime dataUltimaAlteracao) {
         this.id = id;
@@ -38,6 +38,8 @@ public class Usuario {
 
        return new Usuario(dto.nome(),dto.email(),dto.login(),dto.senha(), LocalDateTime.now());
     }
+
+    //viola a regra do dominio nao depender de externo, depende do DTO
     public static Usuario fromDTO(UsuarioOutputDTO dto) {
 
         return new Usuario(dto.nome(),dto.email(),dto.login(),dto.senha(), LocalDateTime.now());
@@ -91,19 +93,19 @@ public class Usuario {
         this.dataUltimaAlteracao = dataUltimaAlteracao;
     }
 
-//    public Endereco getEndereco() {
-//        return endereco;
-//    }
-//
-//    public void setEndereco(Endereco endereco) {
-//        this.endereco = endereco;
-//    }
-//
-//    public List<UsuarioPerfil> getPerfis() {
-//        return perfis;
-//    }
-//
-//    public void setPerfis(List<UsuarioPerfil> perfis) {
-//        this.perfis = perfis;
-//    }
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public List<String> getPerfis() {
+        return perfis;
+    }
+
+    public void setPerfis(List<String> perfis) {
+        this.perfis = perfis;
+    }
 }

@@ -13,6 +13,10 @@ public class Restaurante {
     private Usuario dono;
     private List<ItemCardapio> itensCardapio;
 
+    public Restaurante(Long id) {
+        this.id = id;
+    }
+
     public Restaurante(Long id, String nome, String tipoCozinha, String horarioFuncionamento,
                        Endereco endereco, Usuario dono, List<ItemCardapio> itensCardapio) {
         this.id = id;

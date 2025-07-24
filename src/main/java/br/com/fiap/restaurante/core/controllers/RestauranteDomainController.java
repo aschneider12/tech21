@@ -1,6 +1,5 @@
 package br.com.fiap.restaurante.core.controllers;
 
-import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.domain.usecases.restaurante.FactoryRestauranteUseCase;
 import br.com.fiap.restaurante.core.domain.usecases.restaurante.UseCaseCadastrarRestaurante;
 import br.com.fiap.restaurante.core.domain.usecases.restaurante.UseCaseDeletarRestaurante;
@@ -9,17 +8,13 @@ import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.gateways.RestauranteGateway;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageRestaurante;
-import br.com.fiap.restaurante.core.presenters.RestaurantePresenter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * DOMAIN CONTROLLER
- *
  * Porta de entrada para a application, todos devem instanciar um domain controller
- *
- * - Não confundir com o RestController
+  * - Não confundir com o RestController
  * - Não teremos mais a camada service, já que está será executada pelos nossos use cases
  *
  */
@@ -43,8 +38,9 @@ public class RestauranteDomainController {
         try {
 
             var restaurante = useCase.run(dto);
-            var retornoDTO = RestaurantePresenter.ToDTO(restaurante);
-            return retornoDTO;
+
+            // var retornoDTO = RestaurantePresenter.ToDTO(restaurante);
+            return restaurante;
 
         } catch (EntidadeJaExisteException e) {
             System.err.println(e.getMessage());
@@ -59,20 +55,16 @@ public class RestauranteDomainController {
 
         var useCase = factoryRestauranteUseCase.buscarTodosRestaurantes();
 
-        List<Restaurante> allRestaurants = useCase.run();
+        List<RestauranteOutputDTO> allRestaurants = useCase.run();
 
-        return allRestaurants.stream().map(s
-                -> new RestauranteOutputDTO(s.getId(), s.getNome(), s.getTipoCozinha(), s.getHorarioFuncionamento()))
-                .collect(Collectors.toList());
+        return  allRestaurants;
     }
 
     public RestauranteOutputDTO buscarPorId(Long id) {
 
         var useCase = factoryRestauranteUseCase.buscarRestaurantePorId();
 
-        var restaurante = useCase.run(id);
-
-        return new RestauranteOutputDTO(restaurante.getId(), restaurante.getNome(), restaurante.getTipoCozinha(), restaurante.getHorarioFuncionamento());
+       return useCase.run(id);
     }
 
     public boolean deletar(Long id) {

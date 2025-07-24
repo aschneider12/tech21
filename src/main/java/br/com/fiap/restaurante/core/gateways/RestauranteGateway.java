@@ -5,6 +5,7 @@ import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageRestaurante;
+import br.com.fiap.restaurante.core.mappers.RestauranteMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,21 +25,25 @@ public class RestauranteGateway implements IRestauranteGateway {
     @Override
     public Restaurante cadastrar(Restaurante restaurante) {
 
-        RestauranteInputDTO dto = RestauranteInputDTO.fromEntity(restaurante);
+        var input = RestauranteMapper.toInput(restaurante);
 
-        final RestauranteOutputDTO rc = this.dataSource.cadastrar(dto);
+        final RestauranteOutputDTO dtoCadastrado = this.dataSource.cadastrar(input);
 
-        return Restaurante.create(rc.id(), rc.nome(), rc.tipoCozinha(), rc.horarioFuncionamento());
+        return RestauranteMapper.toDomain(dtoCadastrado);
     }
 
     @Override
     public Restaurante atualizar(Restaurante restaurante) {
-        return null;
+        var input = RestauranteMapper.toInput(restaurante);
+
+        RestauranteOutputDTO dtoAtualizado = this.dataSource.atualizar(input);
+
+        return RestauranteMapper.toDomain(dtoAtualizado);
     }
 
     @Override
     public boolean deletar(Long id) {
-        return false;
+        return this.dataSource.deletar(id);
     }
 
     @Override
@@ -46,22 +51,20 @@ public class RestauranteGateway implements IRestauranteGateway {
 
         List<RestauranteOutputDTO> retornoDTOs = dataSource.buscarTodosRestaurantes();
 
-        List<Restaurante> concreteRestaurants = retornoDTOs.stream().map(dto
-                -> Restaurante.create(dto.id(), dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento()))
-                .collect(Collectors.toList());
+        return RestauranteMapper.toDomain(retornoDTOs);
 
-        return concreteRestaurants;
+//        List<Restaurante> concreteRestaurants = retornoDTOs.stream().map(dto
+//                -> Restaurante.create(dto.id(), dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento()))
+//                .collect(Collectors.toList());
+//        return concreteRestaurants;
     }
 
     @Override
     public Restaurante buscarRestaurantePorNome(String nomeRestaurante) {
+
         RestauranteOutputDTO retornoDTO = dataSource.buscarRestaurantePorNome(nomeRestaurante);
 
-        if(retornoDTO != null)
-            return Restaurante.create(retornoDTO.id(), retornoDTO.nome(), retornoDTO.tipoCozinha(),
-            retornoDTO.horarioFuncionamento());
-
-        return null;
+        return RestauranteMapper.toDomain(retornoDTO);
     }
 
     @Override
@@ -69,9 +72,7 @@ public class RestauranteGateway implements IRestauranteGateway {
 
         RestauranteOutputDTO retornoDTO = dataSource.buscarRestaurantePorIdentificador(id);
 
-        return Restaurante.create(retornoDTO.id(), retornoDTO.nome(), retornoDTO.tipoCozinha(),
-                retornoDTO.horarioFuncionamento());
-
+        return RestauranteMapper.toDomain(retornoDTO);
     }
 
 

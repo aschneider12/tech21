@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RestauranteMapper {
 
-    public static RestauranteInputDTO toOutput(Restaurante restaurante){
+    public static RestauranteInputDTO toInput(Restaurante restaurante){
 
         if(restaurante == null) return null;
 
@@ -57,5 +57,56 @@ public class RestauranteMapper {
     public static List<RestauranteOutputDTO> toOutput(List<Restaurante> restaurantes) {
 
         return restaurantes.stream().map(RestauranteMapper::toOutput).toList();
+    }
+
+    public static Restaurante toDomain(RestauranteOutputDTO dto){
+
+        if(dto == null) return null;
+
+        return Restaurante.create(
+                dto.id(),
+                dto.nome(),
+                dto.tipoCozinha(),
+                dto.horarioFuncionamento(),
+                EnderecoMapper.toDomain(dto.endereco()),
+                UsuarioMapper.toDomain(dto.dono()),
+                ItemCardapioMapper.toDomain(dto.itensCardapio())
+        );
+    }
+    public static List<Restaurante> toDomain(List<RestauranteOutputDTO> dtos){
+
+        if(dtos == null || dtos.isEmpty()) return null;
+
+        return dtos.stream().map(d ->
+         Restaurante.create(
+                d.id(),
+                d.nome(),
+                d.tipoCozinha(),
+                d.horarioFuncionamento(),
+                EnderecoMapper.toDomain(d.endereco()),
+                UsuarioMapper.toDomain(d.dono()),
+                ItemCardapioMapper.toDomain(d.itensCardapio())
+        )).toList();
+    }
+
+    public static Restaurante toDomain(RestauranteInputDTO dto){
+
+        if(dto == null) return null;
+
+        return Restaurante.create(
+                dto.id(),
+                dto.nome(),
+                dto.tipoCozinha(),
+                dto.horarioFuncionamento(),
+                EnderecoMapper.toDomain(dto.endereco()),
+                UsuarioMapper.toDomain(dto.dono()),
+                ItemCardapioMapper.toDomain(dto.itensCardapio())
+        );
+    }
+
+    public static Restaurante toDomainWithoutRelationship(RestauranteOutputDTO dto){
+
+        if(dto == null) return null;
+        return new Restaurante(dto.id());
     }
 }

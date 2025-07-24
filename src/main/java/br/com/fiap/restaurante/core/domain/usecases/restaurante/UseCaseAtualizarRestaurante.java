@@ -6,45 +6,34 @@ import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
+import br.com.fiap.restaurante.core.mappers.RestauranteMapper;
 
 public class UseCaseAtualizarRestaurante {
 
     private final IRestauranteGateway gateway;
 
-    /* Metodo internalizado, forçar o uso do create */
     private UseCaseAtualizarRestaurante(IRestauranteGateway gateway) {
         this.gateway = gateway;
     }
-    /* poderia ser utilizado direto o construtor forçando o param gateway */
+
     public static UseCaseAtualizarRestaurante create(IRestauranteGateway gateway) {
         return new UseCaseAtualizarRestaurante(gateway);
     }
 
     public RestauranteOutputDTO run(RestauranteInputDTO dto, Long id) throws EntidadeJaExisteException {
-//terminar o cadastrar
-        try {
 
-            Restaurante restauranteExistente = new UseCaseBuscarRestaurantePorNome(gateway).run(dto.nome());
-            if (restauranteExistente != null)
-                throw new EntidadeJaExisteException("Restaurante", dto.nome());
+        Restaurante restaurante = gateway.buscarRestaurantePorIdentificador(id);
+        if(restaurante == null)
+            throw new EntidadeNaoEncontradaException("Restaurante", "ID - "+id);
 
-        } catch (EntidadeNaoEncontradaException ex) {
+        //aqui, poderia ser enviada a entidade recuperada e só trocar os campos?
+        //isso evitaria que a entidade ja possuisse campos e eles fossem desatualizados?
 
-        }
+        Restaurante restauranteAtualizar = RestauranteMapper.toDomain(dto);
+        restauranteAtualizar.setId(id);
 
-        final Restaurante novoRestaurante = Restaurante.create(
-                dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento()
-        );
+        Restaurante atualizado = gateway.atualizar(restauranteAtualizar);
 
-        Restaurante cadastrado = gateway.cadastrar(novoRestaurante);
-        final Restaurante restauranteExistente2 = gateway.buscarRestaurantePorNome(dto.nome());
-
-
-
-
-
-
-        return cadastrado;
-
+        return RestauranteMapper.toOutput(atualizado);
     }
 }

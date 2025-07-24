@@ -31,8 +31,8 @@ public class RestauranteEntity implements Serializable {
     @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario dono;
 
-//    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Item> itensCardapio;
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Item> itensCardapio;
 
     public RestauranteEntity() {
     }

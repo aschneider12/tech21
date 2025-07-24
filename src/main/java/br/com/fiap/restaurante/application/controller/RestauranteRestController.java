@@ -68,16 +68,11 @@ public class RestauranteRestController implements RestauranteDocController {
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletar(@PathVariable(required = true) Long id) {
-        try {
 
-            boolean removido = domainController.deletar(id);
-
-        } catch(Exception ex) {
-
-            ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado!");
+            if(domainController.deletar(id))
+                return ResponseEntity.status(HttpStatus.OK).body("Restaurante deletado!");
+            else
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi deletado!");
     }
 
     @Override
@@ -87,11 +82,10 @@ public class RestauranteRestController implements RestauranteDocController {
 
         RestauranteOutputDTO restauranteDomain = domainController.buscarPorId(id);
 
-        RestauranteResponseDTO client = restauranteMapper.toClient(restauranteDomain);
+        RestauranteResponseDTO saida = restauranteMapper.toClient(restauranteDomain);
 
-        return ResponseEntity.status(HttpStatus.OK).body(client);
+        return ResponseEntity.status(HttpStatus.OK).body(saida);
     }
-
 
     @Override
     @GetMapping

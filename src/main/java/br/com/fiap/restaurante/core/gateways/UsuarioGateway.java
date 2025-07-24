@@ -5,6 +5,7 @@ import br.com.fiap.restaurante.core.dtos.usuario.UsuarioInputDTO;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioOutputDTO;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageUsuario;
 import br.com.fiap.restaurante.core.interfaces.gateway.IUsuarioGateway;
+import br.com.fiap.restaurante.core.mappers.UsuarioMapper;
 
 public class UsuarioGateway implements IUsuarioGateway {
 
@@ -21,7 +22,7 @@ public class UsuarioGateway implements IUsuarioGateway {
     @Override
     public Usuario cadastrar(Usuario usuario) {
 
-        UsuarioInputDTO dto = UsuarioInputDTO.fromEntity(usuario);
+        var dto = UsuarioMapper.toInput(usuario);
 
         final UsuarioOutputDTO dtoCriado = this.dataSource.cadastrar(dto);
 

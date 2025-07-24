@@ -1,9 +1,10 @@
 package br.com.fiap.restaurante.core.domain.entities;
 
+@Deprecated
 public class UsuarioPerfil {
 
-    private Long usuarioId;//será que é necessário no domain?
-
+    //será que é necessário no domain?
+    private Long usuarioId;
     private TipoUsuarioEnum tipoUsuario;
     private Usuario usuario;
 }

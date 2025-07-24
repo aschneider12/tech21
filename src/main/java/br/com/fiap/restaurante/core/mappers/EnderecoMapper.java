@@ -19,4 +19,11 @@ public class EnderecoMapper {
                 endereco.getCep()
         );
     }
+
+    public static Endereco toDomain(EnderecoDTO dto) {
+
+        return new Endereco(dto.id(), dto.rua(),
+                dto.numero(), dto.cidade(), dto.estado(), dto.cep());
+
+    }
 }

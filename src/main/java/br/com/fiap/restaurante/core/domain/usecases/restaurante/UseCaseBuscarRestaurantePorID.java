@@ -4,6 +4,7 @@ import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
+import br.com.fiap.restaurante.core.mappers.RestauranteMapper;
 
 public class UseCaseBuscarRestaurantePorID extends FactoryRestauranteUseCase {
 
@@ -22,6 +23,6 @@ public class UseCaseBuscarRestaurantePorID extends FactoryRestauranteUseCase {
         if(restauranteExistente == null)
             throw new EntidadeNaoEncontradaException("Restaurante", id.toString());
 
-        return restauranteExistente;
+        return RestauranteMapper.toOutput(restauranteExistente);
     }
 }

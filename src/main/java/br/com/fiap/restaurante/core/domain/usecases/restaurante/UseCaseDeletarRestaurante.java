@@ -18,30 +18,7 @@ public class UseCaseDeletarRestaurante {
     }
 
     public boolean run(Long id) throws EntidadeJaExisteException {
-        try {
 
-
-            Restaurante restauranteExistente = new UseCaseBuscarRestaurantePorNome(gateway).run(dto.nome());
-            if (restauranteExistente != null)
-                throw new EntidadeJaExisteException("Restaurante", dto.nome());
-
-        } catch (EntidadeNaoEncontradaException ex) {
-
-        }
-
-        final Restaurante novoRestaurante = Restaurante.create(
-                dto.nome(), dto.tipoCozinha(), dto.horarioFuncionamento()
-        );
-
-        Restaurante cadastrado = gateway.cadastrar(novoRestaurante);
-        final Restaurante restauranteExistente2 = gateway.buscarRestaurantePorNome(dto.nome());
-
-
-
-
-
-
-        return cadastrado;
-
+        return gateway.deletar(id);
     }
 }

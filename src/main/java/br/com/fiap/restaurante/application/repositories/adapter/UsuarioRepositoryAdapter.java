@@ -5,6 +5,7 @@ import br.com.fiap.restaurante.application.repositories.jpa.UsuarioRepository;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioInputDTO;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioOutputDTO;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageUsuario;
+import br.com.fiap.restaurante.core.mappers.UsuarioMapper;
 
 /**
  * Implementação concreta do core.
@@ -34,7 +35,8 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
 
     @Override
     public UsuarioOutputDTO cadastrar(UsuarioInputDTO dto) {
-//        Map to UsuarioEntity;
+/// TODO/        Map to UsuarioEntity;
+
 
          repository.save(new Usuario());
          return null;

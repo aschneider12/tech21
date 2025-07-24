@@ -3,6 +3,7 @@ package  br.com.fiap.restaurante.core.domain.usecases.restaurante;
 import br.com.fiap.restaurante.core.domain.entities.Restaurante;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
+import br.com.fiap.restaurante.core.mappers.RestauranteMapper;
 
 import java.util.List;
 
@@ -25,6 +26,6 @@ public class UseCaseBuscarTodosRestaurantes {
 
         List<Restaurante> restaurantes = gateway.buscarTodosRestaurantes();
 
-        return restaurantes;
+        return RestauranteMapper.toOutput(restaurantes);
     }
 }

@@ -28,4 +28,12 @@ public class ItemCardapioMapper {
         return itensCardapio.stream().map(ItemCardapioMapper::toOutput).toList();
     }
 
+    public static List<ItemCardapio> toDomain(List<ItemCardapioOutputDTO> itensCardapioDTOS) {
+
+        return itensCardapioDTOS.stream().map(
+                i -> ItemCardapio.create(i.id(),i.nome(),i.descricao(),i.preco(),i.tipoVenda(),
+                        RestauranteMapper.toDomainWithoutRelationship(i.restauranteOutputDTO()),
+                        i.pathFoto())).toList();
+
+    }
 }
