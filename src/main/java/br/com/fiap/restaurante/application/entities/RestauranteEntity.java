@@ -1,16 +1,12 @@
 package br.com.fiap.restaurante.application.entities;
 
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
+import br.com.fiap.restaurante.core.domain.entities.ItemCardapio; // IMPORT NECESSÁRIO
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
 
-/**
- *
- * CLASSE JPA
- * Utilizada para persistência no banco de dados.
- */
 @Entity
 @Table(name = "restaurante")
 public class RestauranteEntity implements Serializable {
@@ -23,7 +19,7 @@ public class RestauranteEntity implements Serializable {
     private String tipoCozinha;
     private String horarioFuncionamento;
 
-    @OneToOne(fetch = FetchType.LAZY) // Carrega o endereço apenas quando for acessado
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "endereco_id", unique = true)
     private Endereco endereco;
 
@@ -32,7 +28,7 @@ public class RestauranteEntity implements Serializable {
     private Usuario dono;
 
     @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> itemsCardapio;
+    private List<ItemCardapio> itemsCardapio;
 
     public RestauranteEntity() {
     }
@@ -43,59 +39,34 @@ public class RestauranteEntity implements Serializable {
         this.horarioFuncionamento = dto.horarioFuncionamento();
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getters e Setters
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
 
-    public String getNome() {
-        return nome;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getNome() { return nome; }
 
-    public String getTipoCozinha() {
-        return tipoCozinha;
-    }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setTipoCozinha(String tipoCozinha) {
-        this.tipoCozinha = tipoCozinha;
-    }
+    public String getTipoCozinha() { return tipoCozinha; }
 
-    public String getHorarioFuncionamento() {
-        return horarioFuncionamento;
-    }
+    public void setTipoCozinha(String tipoCozinha) { this.tipoCozinha = tipoCozinha; }
 
-    public void setHorarioFuncionamento(String horarioFuncionamento) {
-        this.horarioFuncionamento = horarioFuncionamento;
-    }
+    public String getHorarioFuncionamento() { return horarioFuncionamento; }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
+    public void setHorarioFuncionamento(String horarioFuncionamento) { this.horarioFuncionamento = horarioFuncionamento; }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+    public Endereco getEndereco() { return endereco; }
 
-    public Usuario getDono() {
-        return dono;
-    }
+    public void setEndereco(Endereco endereco) { this.endereco = endereco; }
 
-    public void setDono(Usuario dono) {
-        this.dono = dono;
-    }
+    public Usuario getDono() { return dono; }
 
-    public List<Item> getItemsCardapio() {
-        return itemsCardapio;
-    }
+    public void setDono(Usuario dono) { this.dono = dono; }
 
-    public void setItemsCardapio(List<C> itemsCardapio) {
-        this.itemsCardapio = itemsCardapio;
-    }
+    public List<ItemCardapio> getItemsCardapio() { return itemsCardapio; }
+
+    public void setItemsCardapio(List<ItemCardapio> itemsCardapio) { this.itemsCardapio = itemsCardapio; }
 }
+

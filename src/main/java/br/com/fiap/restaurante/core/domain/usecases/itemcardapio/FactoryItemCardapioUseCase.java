@@ -1,13 +1,12 @@
 package br.com.fiap.restaurante.core.domain.usecases.itemcardapio;
 
-import br.com.fiap.restaurante.core.gateways.ItemsCardapioGateway;
+import br.com.fiap.restaurante.core.interfaces.gateway.IItemCardapioGateway;
 
 public class FactoryItemCardapioUseCase {
 
-    protected  final ItemsCardapioGateway gateway;
+    protected final IItemCardapioGateway gateway;
 
-    public FactoryItemCardapioUseCase(ItemsCardapioGateway gateway) { this.gateway = gateway; }
-
-
-
+    public FactoryItemCardapioUseCase(IItemCardapioGateway gateway) {
+        this.gateway = gateway;
+    }
 }

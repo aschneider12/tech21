@@ -1,6 +1,6 @@
 package br.com.fiap.restaurante.application.repositories.adapter;
 
-import br.com.fiap.restaurante.application.repositories.jpa.ItemRepository;
+import br.com.fiap.restaurante.application.repositories.jpa.ItemCardapioRepository;
 import br.com.fiap.restaurante.core.domain.entities.ItemCardapio;
 import br.com.fiap.restaurante.core.interfaces.gateway.IItemCardapioGateway;
 import org.springframework.stereotype.Component;
@@ -10,9 +10,9 @@ import java.util.List;
 @Component
 public class ItemCardapioRepositoryAdapter implements IItemCardapioGateway {
 
-    private final ItemRepository repository;
+    private final ItemCardapioRepository repository;
 
-    public ItemCardapioRepositoryAdapter(ItemRepository repository) {
+    public ItemCardapioRepositoryAdapter(ItemCardapioRepository repository) {
         this.repository = repository;
     }
 
