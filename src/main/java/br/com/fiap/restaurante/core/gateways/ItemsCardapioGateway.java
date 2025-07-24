@@ -5,10 +5,9 @@ import br.com.fiap.restaurante.core.dtos.itemcardapio.ItemCardapioInputDTO;
 import br.com.fiap.restaurante.core.dtos.itemcardapio.ItemCardapioOutputDTO;
 import br.com.fiap.restaurante.core.interfaces.gateway.IItemCardapioGateway;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageItemCardapio;
+import br.com.fiap.restaurante.core.mappers.ItemCardapioMapper;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ItemsCardapioGateway implements IItemCardapioGateway {
 
@@ -27,8 +26,11 @@ public class ItemsCardapioGateway implements IItemCardapioGateway {
 
         ItemCardapioInputDTO dto = ItemCardapioInputDTO.fromEntity(itemCardapio);
 
-        final ItemCardapioOutputDTO ic = this.dataStorageItemCardapio.cadastrar(dto);
-        return itemCardapio.create(ic.nome(),ic.descricao(),ic.preco(),ic.tipoVenda());
+        final ItemCardapioOutputDTO dtpoCadastrado= this.dataStorageItemCardapio.cadastrar(dto);
+
+        return ItemCardapioMapper.toDomain(dtpoCadastrado);
+
+//        return itemCardapio.create(ic.nome(),ic.descricao(),ic.preco(),ic.tipoVenda());
     }
 
     @Override
@@ -36,12 +38,14 @@ public class ItemsCardapioGateway implements IItemCardapioGateway {
 
         List<ItemCardapioOutputDTO> retornoDTOs = dataStorageItemCardapio.buscarTodosItensCardapio();
 
-        List<ItemCardapio> concreteItemCardapios = retornoDTOs.stream().map(dto
-                    -> ItemCardapio.create(dto.id(),dto.nome(), dto.descricao(), dto.preco(), dto.tipoVenda()))
-                    .collect(Collectors.toList());
+        return ItemCardapioMapper.toDomain(retornoDTOs);
+
+//        List<ItemCardapio> concreteItemCardapios = retornoDTOs.stream().map(dto
+//                    -> ItemCardapio.create(dto.id(),dto.nome(), dto.descricao(), dto.preco(), dto.tipoVenda()))
+//                    .collect(Collectors.toList());
 
 
-        return concreteItemCardapios;
+//        return concreteItemCardapios;
     }
 
 
@@ -50,7 +54,9 @@ public class ItemsCardapioGateway implements IItemCardapioGateway {
 
         ItemCardapioOutputDTO retornoDTO = dataStorageItemCardapio.buscarItemCardapioPorNome(nomeItem);
 
-        return ItemCardapio.create(retornoDTO.id() ,retornoDTO.nome(), retornoDTO.descricao(), retornoDTO.preco(), retornoDTO.tipoVenda());
+        return ItemCardapioMapper.toDomain(retornoDTO);
+
+        //.create(retornoDTO.id() ,retornoDTO.nome(), retornoDTO.descricao(), retornoDTO.preco(), retornoDTO.tipoVenda());
 
     }
 
@@ -58,8 +64,9 @@ public class ItemsCardapioGateway implements IItemCardapioGateway {
     public ItemCardapio buscarItemCardapioPorIdentificador(Long id) {
 
         ItemCardapioOutputDTO retornoDTO = dataStorageItemCardapio.buscarItemCardapioPorIdentificador(id);
+        return ItemCardapioMapper.toDomain(retornoDTO);
 
-        return ItemCardapio.create(retornoDTO.id() ,retornoDTO.nome(), retornoDTO.descricao(), retornoDTO.preco(), retornoDTO.tipoVenda());
+       // return ItemCardapio.create(retornoDTO.id() ,retornoDTO.nome(), retornoDTO.descricao(), retornoDTO.preco(), retornoDTO.tipoVenda());
 
     }
 

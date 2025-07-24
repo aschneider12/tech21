@@ -3,6 +3,7 @@ package br.com.fiap.restaurante.application.mappers;
 import br.com.fiap.restaurante.application.dtos.RestauranteRequestDTO;
 import br.com.fiap.restaurante.application.dtos.RestauranteResponseDTO;
 import br.com.fiap.restaurante.application.entities.RestauranteEntity;
+import br.com.fiap.restaurante.application.entities.UsuarioPerfil;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteInputDTO;
 import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
 import br.com.fiap.restaurante.core.dtos.usuario.UsuarioOutputDTO;
@@ -20,12 +21,14 @@ public interface RestauranteMapper {
     RestauranteResponseDTO toClient(RestauranteOutputDTO dtoFromDomain);
     List<RestauranteResponseDTO> toClientList(List<RestauranteOutputDTO> dtosFromDomain);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "dono", source = "dono", qualifiedByName = "convertDonoToUsuarioDTO")
     RestauranteInputDTO toInputDomain(RestauranteRequestDTO insertDTO);
 
     @Mapping(target = "dono.perfis", ignore = true)
     RestauranteOutputDTO toOutputDomain(RestauranteEntity entityFromDataBase);
 
+    @Mapping(target = "dono.perfis", ignore = true)
     RestauranteEntity toEntity(RestauranteInputDTO dto);
 
     List<RestauranteOutputDTO> toOutputDomain(List<RestauranteEntity> entityFromDataBase);

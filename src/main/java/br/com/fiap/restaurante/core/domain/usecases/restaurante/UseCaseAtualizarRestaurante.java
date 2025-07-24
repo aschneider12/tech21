@@ -20,9 +20,11 @@ public class UseCaseAtualizarRestaurante {
         return new UseCaseAtualizarRestaurante(gateway);
     }
 
-    public RestauranteOutputDTO run(RestauranteInputDTO dto, Long id) throws EntidadeJaExisteException {
+    public RestauranteOutputDTO run(RestauranteInputDTO dto, Long id)
+            throws EntidadeNaoEncontradaException {
 
         Restaurante restaurante = gateway.buscarRestaurantePorIdentificador(id);
+
         if(restaurante == null)
             throw new EntidadeNaoEncontradaException("Restaurante", "ID - "+id);
 

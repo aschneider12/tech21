@@ -9,6 +9,7 @@ import br.com.fiap.restaurante.core.dtos.usuario.UsuarioOutputDTO;
 import br.com.fiap.restaurante.core.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.core.gateways.UsuarioGateway;
 import br.com.fiap.restaurante.core.interfaces.storage.IDataStorageUsuario;
+import br.com.fiap.restaurante.core.mappers.UsuarioMapper;
 
 import java.util.List;
 
@@ -42,7 +43,10 @@ public class UsuarioDomainController {
 
             var usuario = useCaseCadastrarUsuario.run(dto);
             // PODEMOS INCLUIR UM PRESENTER
-            return UsuarioOutputDTO.fromEntity(usuario);
+
+           // return UsuarioOutputDTO.fromEntity(usuario);
+
+            return null;
 
         } catch (EntidadeJaExisteException e) {
             System.err.println(e.getMessage());

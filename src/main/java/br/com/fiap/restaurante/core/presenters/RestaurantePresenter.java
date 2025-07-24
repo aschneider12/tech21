@@ -11,12 +11,13 @@ public class RestaurantePresenter {
         //  final String identificacao = restaurante.getIdentificacaoInterna();
         //  final String identificacaoOfuscada = identificacao.charAt(1) + "..." + identificacao.charAt(identificacao.length() - 1);
 
-        return new RestauranteOutputDTO(
-                restaurante.getId(),
-                restaurante.getNome(),
-                restaurante.getTipoCozinha(),
-                restaurante.getHorarioFuncionamento()
-        );
+//        return new RestauranteOutputDTO(
+//                restaurante.getId(),
+//                restaurante.getNome(),
+//                restaurante.getTipoCozinha(),
+//                restaurante.getHorarioFuncionamento()
+//        );
+        return null;
     }
 
 }
