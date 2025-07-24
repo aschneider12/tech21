@@ -26,4 +26,6 @@ public interface RestauranteMapper {
     @Mapping(target = "endereco", ignore = true)
     @Mapping(target = "itemsCardapio", ignore = true)
     RestauranteEntity toEntity(RestauranteInputDTO dto);
+
+    List<RestauranteOutputDTO> toOutputDomain(List<RestauranteEntity> entityFromDataBase);
 }
