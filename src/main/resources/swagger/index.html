@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentação da API - Swagger UI</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
+</head>
+<body>
+<div id="swagger-ui"></div>
+
+<script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+<script>
+    const ui = SwaggerUIBundle({
+      url: "swagger.yaml",  // ou use "swagger.json" se estiver em JSON
+      dom_id: '#swagger-ui',
+      presets: [
+        SwaggerUIBundle.presets.apis
+      ],
+      layout: "BaseLayout"
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: API de Restaurantes
+  version: 1.0.0
+  description: Documentação da API para gerenciamento de restaurantes.
+
+tags:
+  - name: Restaurantes
+    description: Operações relacionadas aos restaurantes
+
+paths:
+  /restaurantes:
+    post:
+      tags:
+        - Restaurantes
+      summary: Criar um novo restaurante
+      description: Endpoint para cadastrar um restaurante com dados completos.
+      operationId: InserirRestaurante
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurante'
+      responses:
+        '201':
+          description: Restaurante criado com sucesso.
+        '400':
+          description: Erro de validação nos campos da requisição.
+        '500':
+          description: Erro interno no servidor.
+
+components:
+  schemas:
+    Restaurante:
+      type: object
+      required:
+        - nome
+        - tipoCozinha
+        - horarioFuncionamento
+        - dono
+      properties:
+        nome:
+          type: string
+          example: Restaurante Sabor da Terra
+          description: Nome do restaurante
+        tipoCozinha:
+          type: string
+          example: Italiana
+          description: Tipo da cozinha
+        horarioFuncionamento:
+          type: string
+          example: 08:00 - 18:00
+          description: Horário de funcionamento
+        dono:
+          type: integer
+          format: int64
+          example: 1
+          description: ID do dono do restaurante
+        endereco:
+          $ref: '#/components/schemas/Endereco'
+
+    Endereco:
+      type: object
+      required:
+        - rua
+        - numero
+        - bairro
+        - cep
+        - cidade
+        - estado
+      properties:
+        rua:
+          type: string
+          example: Rua das Flores
+        numero:
+          type: string
+          example: "123"
+        complemento:
+          type: string
+          example: Apto 101
+        bairro:
+          type: string
+          example: Centro
+        cep:
+          type: string
+          example: 12345-678
+        cidade:
+          type: string
+          example: São Paulo
+        estado:
+          type: string
+          example: SP
