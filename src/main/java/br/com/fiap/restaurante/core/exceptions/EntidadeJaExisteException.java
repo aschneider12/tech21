@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.core.exceptions;
+package br.com.fiap.restaurante.domain.exceptions;
 
 public class EntidadeJaExisteException extends RuntimeException {
 

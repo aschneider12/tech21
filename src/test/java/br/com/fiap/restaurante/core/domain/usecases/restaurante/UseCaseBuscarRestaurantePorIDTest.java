@@ -1,9 +1,10 @@
-package br.com.fiap.restaurante.core.domain.usecases.restaurante;
+package br.com.fiap.restaurante.domain.domain.usecases.restaurante;
 
-import br.com.fiap.restaurante.core.domain.entities.Restaurante;
-import br.com.fiap.restaurante.core.dtos.restaurante.RestauranteOutputDTO;
-import br.com.fiap.restaurante.core.exceptions.EntidadeNaoEncontradaException;
-import br.com.fiap.restaurante.core.interfaces.gateway.IRestauranteGateway;
+import br.com.fiap.restaurante.core.usecases.restaurante.UseCaseBuscarRestaurantePorID;
+import br.com.fiap.restaurante.domain.domain.models.Restaurante;
+import br.com.fiap.restaurante.application.dtos.restaurante.RestauranteOutputDTO;
+import br.com.fiap.restaurante.domain.exceptions.EntidadeNaoEncontradaException;
+import br.com.fiap.restaurante.domain.domain.interfaces.gateway.IRestauranteGateway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

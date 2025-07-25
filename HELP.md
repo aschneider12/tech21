@@ -26,7 +26,7 @@ docker exec -it postgres-restaurante psql -U postgres -d restaurante
 ### 1. Cadastrar um usuário
 
 ```bash
-curl -X POST http://localhost:8080/usuario \
+curl -X POST http://localhost:8080/usuarioEntity \
   -H "Content-Type: application/json" \
   -d '{
     "nome": "Fazendo Teste",
@@ -54,7 +54,7 @@ O retorno incluirá o token JWT. Copie **somente** o valor do token (sem aspas o
 ### 3. Acessar endpoints protegidos
 
 ```bash
-curl -X GET http://localhost:8080/usuario \
+curl -X GET http://localhost:8080/usuarioEntity \
   -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
@@ -63,7 +63,7 @@ curl -X GET http://localhost:8080/usuario \
 ## Como trocar a senha
 
 ```bash
-curl -X PATCH http://localhost:8080/usuario/mudar-senha/ID_DO_USUARIO \
+curl -X PATCH http://localhost:8080/usuarioEntity/mudar-senha/ID_DO_USUARIO \
   -H "Authorization: Bearer SEU_TOKEN_AQUI" \
   -H "Content-Type: application/json" \
   -d '{
