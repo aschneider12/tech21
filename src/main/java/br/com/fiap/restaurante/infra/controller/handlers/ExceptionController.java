@@ -1,7 +1,7 @@
 package br.com.fiap.restaurante.infra.controller.handlers;
 
-import br.com.fiap.restaurante.domain.exceptions.ErrorResponse;
-import br.com.fiap.restaurante.domain.exceptions.ValidationException;
+import br.com.fiap.restaurante.application.exceptions.ErrorResponse;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

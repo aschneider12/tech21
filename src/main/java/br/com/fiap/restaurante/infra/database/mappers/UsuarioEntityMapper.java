@@ -1,9 +1,10 @@
 package br.com.fiap.restaurante.infra.database.mappers;
 
-import br.com.fiap.restaurante.core.domain.models.Usuario;
+import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioPerfil;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -17,23 +18,24 @@ public interface UsuarioEntityMapper {
 
     UsuarioEntityMapper INSTANCE = Mappers.getMapper(UsuarioEntityMapper.class);
 
-    @Mapping(source = "perfis", target = "perfis", qualifiedByName = "mapStringsToUsuarioPerfil")
-    Usuario toDomain(UsuarioEntity usuarioEntity);
+    @Mapping(target = "perfis", source = "perfis")
+    @IterableMapping(qualifiedByName = "mapStringsToUsuarioPerfil")
+    Usuario toDomain(UsuarioEntity entity);
 
-    @Mapping(source = "perfis", target = "perfis", qualifiedByName = "mapUsuarioPerfilToStrings")
-    UsuarioEntity toEntity(Usuario usuarioFromDomain);
-
+    @Mapping(target = "perfis", source = "perfis")
+    @IterableMapping(qualifiedByName = "mapUsuarioPerfilToStrings")
+    UsuarioEntity toEntity(Usuario domain);
 
     @Named("mapStringsToUsuarioPerfil")
-    default List<String> map(List<UsuarioPerfil> perfis) {
+    default List<String> mapStrings(List<UsuarioPerfil> perfis) {
         if (perfis == null) return null;
         return perfis.stream()
-                .map(u -> u.getTipoUsuario().name()) // extrai o nome do perfil
+                .map(u -> u.getTipoUsuario().name())
                 .collect(Collectors.toList());
     }
 
     @Named("mapUsuarioPerfilToStrings")
-    default List<UsuarioPerfil> mapStrings(List<String> perfis) {
+    default List<UsuarioPerfil> mapPerfis(List<String> perfis) {
         if (perfis == null) return null;
         return perfis.stream()
                 .map(p -> {
@@ -44,4 +46,5 @@ public interface UsuarioEntityMapper {
                 .collect(Collectors.toList());
     }
 }
+
 

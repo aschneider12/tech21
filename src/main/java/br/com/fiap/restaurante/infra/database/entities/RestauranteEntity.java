@@ -23,7 +23,7 @@ public class RestauranteEntity implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Carrega o endereço apenas quando for acessado
     @JoinColumn(name = "endereco_id", unique = true)
-    private Endereco endereco;
+    private EnderecoEntity endereco;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", nullable = true)
@@ -35,7 +35,7 @@ public class RestauranteEntity implements Serializable {
     public RestauranteEntity() {
     }
 
-    public RestauranteEntity(Long id, String nome, String tipoCozinha, String horarioFuncionamento, Endereco endereco, UsuarioEntity dono, List<Item> itensCardapio) {
+    public RestauranteEntity(Long id, String nome, String tipoCozinha, String horarioFuncionamento, EnderecoEntity endereco, UsuarioEntity dono, List<Item> itensCardapio) {
         this.id = id;
         this.nome = nome;
         this.tipoCozinha = tipoCozinha;
@@ -77,11 +77,11 @@ public class RestauranteEntity implements Serializable {
         this.horarioFuncionamento = horarioFuncionamento;
     }
 
-    public Endereco getEndereco() {
+    public EnderecoEntity getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(Endereco endereco) {
+    public void setEndereco(EnderecoEntity endereco) {
         this.endereco = endereco;
     }
 

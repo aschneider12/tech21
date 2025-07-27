@@ -1,10 +1,9 @@
 package br.com.fiap.restaurante.infra.database.repositories.adapter;
 
+import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageUsuario;
+import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
-import br.com.fiap.restaurante.application.dtos.usuario.UsuarioInputDTO;
-import br.com.fiap.restaurante.application.dtos.usuario.UsuarioOutputDTO;
-import br.com.fiap.restaurante.domain.domain.interfaces.storage.IDataStorageUsuario;
 
 /**
  * Implementação concreta do core.
@@ -33,7 +32,7 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
     }
 
     @Override
-    public UsuarioOutputDTO cadastrar(UsuarioInputDTO dto) {
+    public Usuario cadastrar(Usuario dto) {
 /// TODO/        Map to UsuarioEntity;
 
 
@@ -42,7 +41,7 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
     }
 
     @Override
-    public UsuarioOutputDTO buscarUsuarioPorLogin(String login) {
+    public Usuario buscarUsuarioPorLogin(String login) {
         return null;
     }
 }

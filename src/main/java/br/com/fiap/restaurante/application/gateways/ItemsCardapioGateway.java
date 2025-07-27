@@ -1,11 +1,8 @@
 package br.com.fiap.restaurante.application.gateways;
 
-import br.com.fiap.restaurante.application.dtos.itemcardapio.ItemCardapioInputDTO;
-import br.com.fiap.restaurante.application.dtos.itemcardapio.ItemCardapioOutputDTO;
-import br.com.fiap.restaurante.core.domain.interfaces.gateway.IItemCardapioGateway;
-import br.com.fiap.restaurante.domain.domain.interfaces.storage.IDataStorageItemCardapio;
-import br.com.fiap.restaurante.domain.domain.models.ItemCardapio;
-import br.com.fiap.restaurante.infra.controller.mappers.ItemCardapioMapper;
+import br.com.fiap.restaurante.domain.interfaces.gateway.IItemCardapioGateway;
+import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageItemCardapio;
+import br.com.fiap.restaurante.domain.models.ItemCardapio;
 
 import java.util.List;
 
@@ -24,21 +21,22 @@ public class ItemsCardapioGateway implements IItemCardapioGateway {
     @Override
     public ItemCardapio cadastrar(ItemCardapio itemCardapio) {
 
-        ItemCardapioInputDTO dto = ItemCardapioInputDTO.fromEntity(itemCardapio);
+//        ItemCardapioInputDTO dto = ItemCardapioInputDTO.fromEntity(itemCardapio);
 
-        final ItemCardapioOutputDTO dtpoCadastrado= this.dataStorageItemCardapio.cadastrar(dto);
+        var dtpoCadastrado= this.dataStorageItemCardapio.cadastrar(itemCardapio);
 
-        return ItemCardapioMapper.toDomain(dtpoCadastrado);
+//        return ItemCardapioMapper.toDomain(dtpoCadastrado);
 
 //        return itemCardapio.create(ic.nome(),ic.descricao(),ic.preco(),ic.tipoVenda());
+        return null;
     }
 
     @Override
     public List<ItemCardapio> buscarTodosItems() {
 
-        List<ItemCardapioOutputDTO> retornoDTOs = dataStorageItemCardapio.buscarTodosItensCardapio();
-
-        return ItemCardapioMapper.toDomain(retornoDTOs);
+//        List<ItemCardapioOutput> retornoDTOs = dataStorageItemCardapio.buscarTodosItensCardapio();
+//
+//        return ItemCardapioMapper.toDomain(retornoDTOs);
 
 //        List<ItemCardapio> concreteItemCardapios = retornoDTOs.stream().map(dto
 //                    -> ItemCardapio.create(dto.id(),dto.nome(), dto.descricao(), dto.preco(), dto.tipoVenda()))
@@ -46,28 +44,31 @@ public class ItemsCardapioGateway implements IItemCardapioGateway {
 
 
 //        return concreteItemCardapios;
+        return null;
     }
 
 
     @Override
     public ItemCardapio buscarItemCardapioPorNome(String nomeItem) {
 
-        ItemCardapioOutputDTO retornoDTO = dataStorageItemCardapio.buscarItemCardapioPorNome(nomeItem);
-
-        return ItemCardapioMapper.toDomain(retornoDTO);
+//        ItemCardapioOutput retornoDTO = dataStorageItemCardapio.buscarItemCardapioPorNome(nomeItem);
+//
+//        return ItemCardapioMapper.toDomain(retornoDTO);
 
         //.create(retornoDTO.id() ,retornoDTO.nome(), retornoDTO.descricao(), retornoDTO.preco(), retornoDTO.tipoVenda());
 
+        return null;
     }
 
     @Override
     public ItemCardapio buscarItemCardapioPorIdentificador(Long id) {
 
-        ItemCardapioOutputDTO retornoDTO = dataStorageItemCardapio.buscarItemCardapioPorIdentificador(id);
-        return ItemCardapioMapper.toDomain(retornoDTO);
+//        ItemCardapioOutput retornoDTO = dataStorageItemCardapio.buscarItemCardapioPorIdentificador(id);
+//        return ItemCardapioMapper.toDomain(retornoDTO);
 
        // return ItemCardapio.create(retornoDTO.id() ,retornoDTO.nome(), retornoDTO.descricao(), retornoDTO.preco(), retornoDTO.tipoVenda());
 
+        return null;
     }
 
 }

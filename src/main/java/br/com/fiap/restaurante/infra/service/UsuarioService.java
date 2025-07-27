@@ -6,7 +6,7 @@ import br.com.fiap.restaurante.infra.dtos.MudarSenhaDTO;
 import br.com.fiap.restaurante.infra.dtos.UsuarioInsertDTO;
 import br.com.fiap.restaurante.infra.dtos.UsuarioResponseDTO;
 import br.com.fiap.restaurante.infra.dtos.UsuarioUpdateDTO;
-import br.com.fiap.restaurante.domain.exceptions.ValidationException;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

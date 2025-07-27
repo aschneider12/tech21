@@ -28,7 +28,7 @@ public class UsuarioEntity implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id", nullable = true)
-   	private Endereco endereco;
+   	private EnderecoEntity endereco;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonManagedReference //json irá serializar os perfis
@@ -85,11 +85,11 @@ public class UsuarioEntity implements Serializable {
 		this.dataUltimaAlteracao = dataUltimaAlteracao;
 	}
 
-	public Endereco getEndereco() {
+	public EnderecoEntity getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(EnderecoEntity endereco) {
 		this.endereco = endereco;
 	}
 

@@ -1,8 +1,8 @@
 package br.com.fiap.restaurante.application.gateways;
 
-import br.com.fiap.restaurante.core.domain.interfaces.gateway.IRestauranteGateway;
-import br.com.fiap.restaurante.core.domain.interfaces.storage.IDataStorageRestaurante;
-import br.com.fiap.restaurante.core.domain.models.Restaurante;
+import br.com.fiap.restaurante.domain.interfaces.gateway.IRestauranteGateway;
+import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageRestaurante;
+import br.com.fiap.restaurante.domain.models.Restaurante;
 
 import java.util.List;
 

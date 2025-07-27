@@ -21,7 +21,7 @@ public class UsuarioPerfil implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
     @JsonBackReference //json irá ignorar esse lado da referência, evita ref circular inifinita
-    private UsuarioEntity usuarioEntity;
+    private UsuarioEntity usuario;
 
     public UsuarioPerfil() {
 
@@ -29,16 +29,16 @@ public class UsuarioPerfil implements Serializable {
 
     public UsuarioPerfil(UsuarioEntity usuarioEntity, TipoUsuario tipoUsuario) {
         this.usuarioId = usuarioEntity.getId();
-        this.usuarioEntity = usuarioEntity;
+        this.usuario = usuarioEntity;
         this.tipoUsuario = tipoUsuario;
     }
 
     public UsuarioEntity getUsuario() {
-        return usuarioEntity;
+        return usuario;
     }
 
     public void setUsuario(UsuarioEntity usuarioEntity) {
-        this.usuarioEntity = usuarioEntity;
+        this.usuario = usuarioEntity;
     }
 
     public TipoUsuario getTipoUsuario() {

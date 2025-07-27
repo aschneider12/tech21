@@ -1,14 +1,14 @@
 package br.com.fiap.restaurante.application.presenters;
 
-import br.com.fiap.restaurante.domain.domain.models.ItemCardapio;
-import br.com.fiap.restaurante.application.dtos.itemcardapio.ItemCardapioOutputDTO;
+import br.com.fiap.restaurante.application.output.ItemCardapioOutput;
+import br.com.fiap.restaurante.domain.models.ItemCardapio;
 
 ///TODO validar restaurante, incluir nos testes
 public class ItemCardapioPresenter {
 
-    public static ItemCardapioOutputDTO toDTO(ItemCardapio itemCardapio) {
+    public static ItemCardapioOutput toDTO(ItemCardapio itemCardapio) {
 
-        return new ItemCardapioOutputDTO(
+        return new ItemCardapioOutput(
                 itemCardapio.getId(),
                 itemCardapio.getNome(),
                 itemCardapio.getDescricao(),

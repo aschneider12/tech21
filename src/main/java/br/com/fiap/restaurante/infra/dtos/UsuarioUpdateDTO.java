@@ -1,6 +1,6 @@
 package br.com.fiap.restaurante.infra.dtos;
 
-import br.com.fiap.restaurante.infra.database.entities.Endereco;
+import br.com.fiap.restaurante.infra.database.entities.EnderecoEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -26,7 +26,7 @@ public record UsuarioUpdateDTO(
     String login,
 
     @Schema
-    Endereco endereco
+    EnderecoEntity endereco
 ) { }
 
 

@@ -4,7 +4,7 @@ import br.com.fiap.restaurante.infra.dtos.PerfilResponseDTO;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioPerfil;
-import br.com.fiap.restaurante.domain.exceptions.ValidationException;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

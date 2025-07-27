@@ -1,8 +1,10 @@
 package br.com.fiap.restaurante.application.gateways;
 
-import br.com.fiap.restaurante.core.domain.interfaces.gateway.IUsuarioGateway;
-import br.com.fiap.restaurante.core.domain.interfaces.storage.IDataStorageUsuario;
-import br.com.fiap.restaurante.core.domain.models.Usuario;
+import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
+import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageUsuario;
+import br.com.fiap.restaurante.domain.models.Usuario;
+
+import java.util.List;
 
 public class UsuarioGateway implements IUsuarioGateway {
 
@@ -23,7 +25,7 @@ public class UsuarioGateway implements IUsuarioGateway {
 
         var cadastrado = this.dataSource.cadastrar(usuario);
 
-        return Usuario.fromDTO(cadastrado);
+        return cadastrado;
     }
 
     @Override
@@ -39,5 +41,15 @@ public class UsuarioGateway implements IUsuarioGateway {
     @Override
     public Usuario buscarUsuarioPorLogin(String login) {
         return null;
+    }
+
+    @Override
+    public void adicionarPerfisUsuario(Long id) {
+
+    }
+
+    @Override
+    public List<String> buscarPerfisUsuario(Long id) {
+        return List.of();
     }
 }

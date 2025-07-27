@@ -1,6 +1,6 @@
 package br.com.fiap.restaurante.infra.dtos;
 
-import br.com.fiap.restaurante.infra.database.entities.Endereco;
+import br.com.fiap.restaurante.infra.database.entities.EnderecoEntity;
 
 public record EnderecoResponseDTO(
         Long id,
@@ -10,7 +10,7 @@ public record EnderecoResponseDTO(
         String estado,
         String cep
 ) {
-    public EnderecoResponseDTO (Endereco endereco){
+    public EnderecoResponseDTO (EnderecoEntity endereco){
 
         this(
                 endereco.getId(),
