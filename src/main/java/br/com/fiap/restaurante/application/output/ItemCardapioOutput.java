@@ -38,7 +38,8 @@ public record ItemCardapioOutput(
     }
 
     public static List<ItemCardapioOutput> fromDomain(List<ItemCardapio> itensCardapio) {
-
-        return itensCardapio.stream().map(ItemCardapioOutput::fromDomain).toList();
+        if(itensCardapio != null )
+            return itensCardapio.stream().map(ItemCardapioOutput::fromDomain).toList();
+        return null;
     }
 }

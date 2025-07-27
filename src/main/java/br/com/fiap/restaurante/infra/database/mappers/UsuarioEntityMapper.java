@@ -18,12 +18,12 @@ public interface UsuarioEntityMapper {
 
     UsuarioEntityMapper INSTANCE = Mappers.getMapper(UsuarioEntityMapper.class);
 
-    @Mapping(target = "perfis", source = "perfis")
-    @IterableMapping(qualifiedByName = "mapStringsToUsuarioPerfil")
+    @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapStringsToUsuarioPerfil")
+//    @IterableMapping(qualifiedByName = "mapStringsToUsuarioPerfil")
     Usuario toDomain(UsuarioEntity entity);
 
-    @Mapping(target = "perfis", source = "perfis")
-    @IterableMapping(qualifiedByName = "mapUsuarioPerfilToStrings")
+    @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapUsuarioPerfilToStrings")
+//    @IterableMapping(qualifiedByName = "mapUsuarioPerfilToStrings")
     UsuarioEntity toEntity(Usuario domain);
 
     @Named("mapStringsToUsuarioPerfil")
@@ -31,7 +31,7 @@ public interface UsuarioEntityMapper {
         if (perfis == null) return null;
         return perfis.stream()
                 .map(u -> u.getTipoUsuario().name())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Named("mapUsuarioPerfilToStrings")
@@ -43,7 +43,7 @@ public interface UsuarioEntityMapper {
                     up.setTipoUsuario(TipoUsuario.valueOf(p));
                     return up;
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 }
 

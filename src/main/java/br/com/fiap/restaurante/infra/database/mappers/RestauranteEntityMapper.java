@@ -23,9 +23,11 @@ public interface RestauranteEntityMapper {
 
     @Mapping(target = "dono", source = "dono", ignore = true)
     @Mapping(target = "dono.perfis", source = "dono.perfis", ignore = true)
+    @Mapping(target = "itensCardapio", source = "itensCardapio", ignore = true)
     Restaurante toDomain(RestauranteEntity restauranteEntity);
 
     @Mapping(target = "dono", source = "dono", ignore = true)
     @Mapping(target = "dono.perfis", source = "dono.perfis", ignore = true)
+    @Mapping(target = "itensCardapio", source = "itensCardapio", ignore = true)
     List<Restaurante> toDomain(List<RestauranteEntity> restaurantesEntities);
 }

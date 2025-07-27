@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.infra.mappers;
 
+import br.com.fiap.restaurante.application.input.UsuarioInput;
 import br.com.fiap.restaurante.application.output.UsuarioOutput;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioPerfil;
@@ -17,28 +18,27 @@ public interface UsuarioDTOMapper {
 
     UsuarioDTOMapper INSTANCE = Mappers.getMapper(UsuarioDTOMapper.class);
 
-    @Mapping(source = "perfis", target = "perfis", qualifiedByName = "mapStringsToUsuarioPerfil")
-    UsuarioDTO toDTO(UsuarioOutput usuario);
+//    @Mapping(source = "perfis", target = "perfis", qualifiedByName = "mapTipoUsuarioToStrings")
+//    UsuarioDTO toDTO(UsuarioOutput usuario);
+//
+//    @Mapping(source = "perfis", target = "perfis", qualifiedByName = "mapStringToTipoUsuario")
+//    UsuarioInput toInputApplication(UsuarioDTO usuario);
+//
+//    @Named("mapTipoUsuarioToStrings")
+//    default List<String> mapTipoUsuarioToStrings(List<TipoUsuario> perfis) {
+//        if (perfis == null) return null;
+//        return perfis.stream()
+//                .map(u -> u.name()) // extrai o nome do perfil
+//                .toList();
+//    }
+//
+//    @Named("mapStringToTipoUsuario")
+//    default List<TipoUsuario> mapStringToTipoUsuario(List<String> perfis) {
+//        if (perfis == null) return null;
+//        return perfis.stream()
+//                .map(TipoUsuario::valueOf) // extrai o nome do perfil
+//                .toList();
+//    }
 
-
-    @Named(value = "mapUsuarioPerfilToStrings")
-    default List<String> mapUsuarioPerfil(List<UsuarioPerfil> perfis) {
-        if (perfis == null) return null;
-        return perfis.stream()
-                .map(u -> u.getTipoUsuario().name()) // extrai o nome do perfil
-                .toList();
-    }
-
-    @Named(value = "mapStringsToUsuarioPerfil")
-    default List<UsuarioPerfil> mapStrings(List<String> perfis) {
-        if (perfis == null) return null;
-        return perfis.stream()
-                .map(p -> {
-                    UsuarioPerfil up = new UsuarioPerfil();
-                    up.setTipoUsuario(TipoUsuario.valueOf(p));
-                    return up;
-                })
-                .toList();
-    }
 }
 

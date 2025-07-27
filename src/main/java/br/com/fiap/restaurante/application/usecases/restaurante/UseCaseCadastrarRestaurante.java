@@ -2,10 +2,12 @@ package br.com.fiap.restaurante.application.usecases.restaurante;
 
 import br.com.fiap.restaurante.application.input.RestauranteInput;
 import br.com.fiap.restaurante.application.output.RestauranteOutput;
+import br.com.fiap.restaurante.application.usecases.usuario.UseCaseBuscarUsuarioPorID;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IRestauranteGateway;
 import br.com.fiap.restaurante.domain.models.Restaurante;
 import br.com.fiap.restaurante.application.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.infra.dtos.RestauranteDTO;
+import org.hibernate.engine.spi.AbstractDelegatingWrapperOptions;
 
 public class UseCaseCadastrarRestaurante {
 
@@ -29,6 +31,7 @@ public class UseCaseCadastrarRestaurante {
         if (restauranteExistente != null)
             throw new EntidadeJaExisteException("Restaurante", restaurante.getNome());
 
+//        UseCaseBuscarUsuarioPorID.create();
         Restaurante cadastrado = gateway.cadastrar(restaurante);
 
         return RestauranteOutput.fromDomain(cadastrado);

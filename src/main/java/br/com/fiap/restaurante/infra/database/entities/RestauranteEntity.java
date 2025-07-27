@@ -25,7 +25,7 @@ public class RestauranteEntity implements Serializable {
     @JoinColumn(name = "endereco_id", unique = true)
     private EnderecoEntity endereco;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "usuario_id", nullable = true)
     private UsuarioEntity dono;
 
