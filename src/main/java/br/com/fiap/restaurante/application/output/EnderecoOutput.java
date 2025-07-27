@@ -14,9 +14,10 @@ public record EnderecoOutput (
 ) {
 
     public static EnderecoOutput fromDomain(Endereco e) {
-
-        return new EnderecoOutput(e.getId(), e.getRua(), e.getNumero(),
-                e.getCidade(), e.getEstado(), e.getEstado());
+        if(e != null )
+            return new EnderecoOutput(e.getId(), e.getRua(), e.getNumero(),
+                    e.getCidade(), e.getEstado(), e.getEstado());
+        return null;
     }
 
     public static EnderecoOutput create(

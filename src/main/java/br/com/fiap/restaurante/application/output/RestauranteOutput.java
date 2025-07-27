@@ -18,11 +18,12 @@ public record RestauranteOutput(
      List<ItemCardapioOutput> itensCardapio) {
 
     public static RestauranteOutput fromDomain(Restaurante r) {
-
-        return new RestauranteOutput (r.getId(), r.getNome(), r.getTipoCozinha(), r.getHorarioFuncionamento(),
-               EnderecoOutput.fromDomain(r.getEndereco()),
-               UsuarioOutput.fromDomain(r.getDono()),
-               ItemCardapioOutput.fromDomain(r.getItensCardapio()));
+        if(r != null)
+            return new RestauranteOutput (r.getId(), r.getNome(), r.getTipoCozinha(), r.getHorarioFuncionamento(),
+                   EnderecoOutput.fromDomain(r.getEndereco()),
+                   UsuarioOutput.fromDomain(r.getDono()),
+                   ItemCardapioOutput.fromDomain(r.getItensCardapio()));
+        return null;
     }
 
     public static List<RestauranteOutput> fromDomain(List<Restaurante> restaurantes) {

@@ -30,11 +30,13 @@ public record ItemCardapioOutput(
     }
 
     public static ItemCardapioOutput fromDomain(ItemCardapio i) {
+        if(i != null)
+            return new ItemCardapioOutput(i.getId(), i.getNome(), i.getDescricao(),
+                    i.getPreco(), i.getTipoVenda(),
+                    RestauranteOutput.fromDomainNoRelations(i.getRestaurante()),
+                    i.getPathFoto());
 
-        return new ItemCardapioOutput(i.getId(), i.getNome(), i.getDescricao(),
-                i.getPreco(), i.getTipoVenda(),
-                RestauranteOutput.fromDomainNoRelations(i.getRestaurante()),
-                i.getPathFoto());
+        return null;
     }
 
     public static List<ItemCardapioOutput> fromDomain(List<ItemCardapio> itensCardapio) {

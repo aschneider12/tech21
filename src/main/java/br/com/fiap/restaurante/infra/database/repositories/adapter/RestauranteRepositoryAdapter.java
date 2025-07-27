@@ -49,7 +49,7 @@ public class RestauranteRepositoryAdapter implements IDataStorageRestaurante {
         else
             throw new EntidadeNaoEncontradaException("Restaurante", "ID - "+id);
 
-        return false;//FALSE ou EXCEPTION?
+        return true;//FALSE ou EXCEPTION?
     }
 
     @Override

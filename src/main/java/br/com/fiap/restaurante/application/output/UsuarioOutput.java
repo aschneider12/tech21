@@ -31,10 +31,10 @@ public record UsuarioOutput(
     }
 
     public static UsuarioOutput fromDomain(Usuario u) {
-
-        return new UsuarioOutput(u.getId(), u.getNome(),u.getEmail(), u.getLogin(), u.getSenha(),
-                u.getDataUltimaAlteracao(), u.getPerfis(),
-                EnderecoOutput.fromDomain(u.getEndereco()));
-
+        if(u != null)
+            return new UsuarioOutput(u.getId(), u.getNome(),u.getEmail(), u.getLogin(), u.getSenha(),
+                    u.getDataUltimaAlteracao(), u.getPerfis(),
+                    EnderecoOutput.fromDomain(u.getEndereco()));
+        return null;
     }
 }
