@@ -28,6 +28,9 @@ public class ItemCardapio {
 
     }
 
+    //validar preço
+    //validar se pertence a algum restaurante
+
     public static ItemCardapio create(
             String nome,
             String descricao,

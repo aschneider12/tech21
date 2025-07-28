@@ -29,13 +29,13 @@ public class RestauranteEntity implements Serializable {
     @JoinColumn(name = "usuario_id", nullable = true)
     private UsuarioEntity dono;
 
-    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> itensCardapio;
+    @OneToMany(mappedBy = "restaurante", fetch = FetchType.LAZY)
+    private List<ItemCardapioEntity> itensCardapio;
 
     public RestauranteEntity() {
     }
 
-    public RestauranteEntity(Long id, String nome, String tipoCozinha, String horarioFuncionamento, EnderecoEntity endereco, UsuarioEntity dono, List<Item> itensCardapio) {
+    public RestauranteEntity(Long id, String nome, String tipoCozinha, String horarioFuncionamento, EnderecoEntity endereco, UsuarioEntity dono, List<ItemCardapioEntity> itensCardapio) {
         this.id = id;
         this.nome = nome;
         this.tipoCozinha = tipoCozinha;
@@ -93,11 +93,11 @@ public class RestauranteEntity implements Serializable {
         this.dono = dono;
     }
 
-    public List<Item> getItensCardapio() {
+    public List<ItemCardapioEntity> getItensCardapio() {
         return itensCardapio;
     }
 
-    public void setItensCardapio(List<Item> itensCardapio) {
+    public void setItensCardapio(List<ItemCardapioEntity> itensCardapio) {
         this.itensCardapio = itensCardapio;
     }
 }

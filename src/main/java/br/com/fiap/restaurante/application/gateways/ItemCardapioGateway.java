@@ -6,16 +6,16 @@ import br.com.fiap.restaurante.domain.models.ItemCardapio;
 
 import java.util.List;
 
-public class ItemsCardapioGateway implements IItemCardapioGateway {
+public class ItemCardapioGateway implements IItemCardapioGateway {
 
     private final IDataStorageItemCardapio dataStorageItemCardapio;
 
-    private ItemsCardapioGateway(IDataStorageItemCardapio dataStorageItemCardapio) {
+    private ItemCardapioGateway(IDataStorageItemCardapio dataStorageItemCardapio) {
         this.dataStorageItemCardapio = dataStorageItemCardapio;
     }
 
-    public static ItemsCardapioGateway create(IDataStorageItemCardapio dataStorageItemCardapio) {
-        return new ItemsCardapioGateway(dataStorageItemCardapio);
+    public static ItemCardapioGateway create(IDataStorageItemCardapio dataStorageItemCardapio) {
+        return new ItemCardapioGateway(dataStorageItemCardapio);
     }
 
     @Override
@@ -32,20 +32,27 @@ public class ItemsCardapioGateway implements IItemCardapioGateway {
     }
 
     @Override
-    public List<ItemCardapio> buscarTodosItems() {
+    public ItemCardapio atualizar(ItemCardapio itemCardapio) {
+        return null;
+    }
 
+    @Override
+    public void deletar(Long itemCardapioId) {
+
+    }
+
+    @Override
+    public List<ItemCardapio> buscarTodosItems(Long restauranteId) {
+
+        return dataStorageItemCardapio.buscarTodosItensCardapio(restauranteId);
+
+    }
 //        List<ItemCardapioOutput> retornoDTOs = dataStorageItemCardapio.buscarTodosItensCardapio();
-//
 //        return ItemCardapioMapper.toDomain(retornoDTOs);
-
 //        List<ItemCardapio> concreteItemCardapios = retornoDTOs.stream().map(dto
 //                    -> ItemCardapio.create(dto.id(),dto.nome(), dto.descricao(), dto.preco(), dto.tipoVenda()))
 //                    .collect(Collectors.toList());
-
-
 //        return concreteItemCardapios;
-        return null;
-    }
 
 
     @Override
@@ -63,12 +70,11 @@ public class ItemsCardapioGateway implements IItemCardapioGateway {
     @Override
     public ItemCardapio buscarItemCardapioPorIdentificador(Long id) {
 
-//        ItemCardapioOutput retornoDTO = dataStorageItemCardapio.buscarItemCardapioPorIdentificador(id);
-//        return ItemCardapioMapper.toDomain(retornoDTO);
+//      ItemCardapioOutput retornoDTO = dataStorageItemCardapio.buscarItemCardapioPorIdentificador(id);
+//      return ItemCardapioMapper.toDomain(retornoDTO);
+//      return ItemCardapio.create(retornoDTO.id() ,retornoDTO.nome(), retornoDTO.descricao(), retornoDTO.preco(), retornoDTO.tipoVenda());
 
-       // return ItemCardapio.create(retornoDTO.id() ,retornoDTO.nome(), retornoDTO.descricao(), retornoDTO.preco(), retornoDTO.tipoVenda());
-
-        return null;
+        return dataStorageItemCardapio.buscarItemCardapioPorIdentificador(id);
     }
 
 }

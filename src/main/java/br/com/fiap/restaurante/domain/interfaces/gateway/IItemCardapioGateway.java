@@ -7,7 +7,12 @@ import java.util.List;
 public interface IItemCardapioGateway {
 
     ItemCardapio cadastrar(ItemCardapio itemCardapio);
-    List<ItemCardapio> buscarTodosItems();
-    ItemCardapio buscarItemCardapioPorIdentificador(Long id);
-    ItemCardapio buscarItemCardapioPorNome(String nomeItem);
+    ItemCardapio atualizar(ItemCardapio itemCardapio);
+    void deletar(Long itemCardapioId);
+
+    List<ItemCardapio> buscarTodosItems(Long restauranteId);
+
+    ItemCardapio buscarItemCardapioPorIdentificador(Long itemCardapioId);
+
+    ItemCardapio buscarItemCardapioPorNome(String nomeItemCardapio);
 }
