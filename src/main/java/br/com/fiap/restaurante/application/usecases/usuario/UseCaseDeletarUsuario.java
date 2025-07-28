@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.application.usecases.usuario;
 
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
 
 public class UseCaseDeletarUsuario {
@@ -15,7 +16,10 @@ public class UseCaseDeletarUsuario {
     }
 
     public boolean run(Long id) {
-        //TODO - verificar tipo do retorno, fazer as devidas verificações
-        return gateway.deletar(id);
+
+        if(!gateway.deletar(id))
+            throw new ValidationException("Usuário não deletado!");
+
+        return true;
     }
 }

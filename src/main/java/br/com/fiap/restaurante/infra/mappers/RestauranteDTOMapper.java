@@ -29,7 +29,7 @@ public interface RestauranteDTOMapper {
 
     @Named("convertDonoToUsuario")
     default UsuarioOutput mapLongToUsuario(Long dono) {
-        return UsuarioOutput.create(dono, null, null,null, null,null,null,null);
+        return UsuarioOutput.create(dono, null,null, null,null,null,null);
     }
 
     @Named("convertUsuarioToDono")

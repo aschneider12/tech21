@@ -19,8 +19,10 @@ public interface UsuarioEntityMapper {
     UsuarioEntityMapper INSTANCE = Mappers.getMapper(UsuarioEntityMapper.class);
 
     @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapStringsToUsuarioPerfil")
-//    @IterableMapping(qualifiedByName = "mapStringsToUsuarioPerfil")
     Usuario toDomain(UsuarioEntity entity);
+
+    @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapStringsToUsuarioPerfil")
+    List<Usuario> toDomain(List<UsuarioEntity> entities);
 
     @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapUsuarioPerfilToStrings")
 //    @IterableMapping(qualifiedByName = "mapUsuarioPerfilToStrings")

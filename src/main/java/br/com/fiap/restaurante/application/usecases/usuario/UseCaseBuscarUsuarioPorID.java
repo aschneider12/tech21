@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.application.usecases.usuario;
 
+import br.com.fiap.restaurante.application.output.UsuarioOutput;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
 import br.com.fiap.restaurante.domain.models.Usuario;
 
@@ -15,11 +16,11 @@ public class UseCaseBuscarUsuarioPorID {
         return new UseCaseBuscarUsuarioPorID(gateway);
     }
 
-    public Usuario run(Long id) {
+    public UsuarioOutput run(Long id) {
 
-        gateway.buscarUsuarioPorIdentificador(id);
+        Usuario usuario = gateway.buscarUsuarioPorIdentificador(id);
 
-        return null;
+        return UsuarioOutput.fromDomain(usuario);
     }
 
 }

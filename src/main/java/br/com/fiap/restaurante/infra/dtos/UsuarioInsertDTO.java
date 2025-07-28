@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.infra.dtos;
 
+import br.com.fiap.restaurante.application.input.EnderecoInput;
 import br.com.fiap.restaurante.infra.database.entities.EnderecoEntity;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,8 +32,10 @@ public record UsuarioInsertDTO(
     @NotNull(message = "Tipo de usuário não pode ser nulo, pelo menos um tipo deve ser informado.")
     List<TipoUsuario> perfis,
 
+    TipoUsuario tipoUsuario,
+
     @Schema
-    EnderecoEntity endereco
+    EnderecoDTO endereco
 ) { }
 
 

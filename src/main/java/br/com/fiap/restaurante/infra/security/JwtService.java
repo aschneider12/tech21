@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.infra.security;
 
 
+import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -24,10 +25,22 @@ public class JwtService {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
+    @Deprecated
     public String gerarToken(String login, TipoUsuario tipoUsuario) {
         return Jwts.builder()
                 .setSubject(login)
                 .claim("tipo", tipoUsuario.name())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String gerarToken(String login) {
+
+        return Jwts.builder()
+                .setSubject(login)
+                .claim("login", login)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getKey(), SignatureAlgorithm.HS256)

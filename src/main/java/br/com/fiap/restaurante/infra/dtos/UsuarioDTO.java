@@ -10,7 +10,6 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record UsuarioDTO(
-
         Long id,
 
     @NotBlank(message = "Nome não pode ser vazio.")

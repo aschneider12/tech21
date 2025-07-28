@@ -7,10 +7,17 @@ import java.util.List;
 public interface IUsuarioGateway {
 
     Usuario cadastrar(Usuario usuario);
+    Usuario atualizar(Usuario usuario);
     boolean deletar(Long id);
+
+    List<Usuario> buscarTodosUsuarios();
+
     Usuario buscarUsuarioPorIdentificador(Long id);
     Usuario buscarUsuarioPorLogin(String login);
+
     void adicionarPerfisUsuario(Long id);
     List<String> buscarPerfisUsuario(Long id);
+
+    void atualizarNovaSenhaUsuario(Long id, String newPasswordHash);
 
 }

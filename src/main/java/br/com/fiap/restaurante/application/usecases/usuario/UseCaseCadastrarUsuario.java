@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.application.usecases.usuario;
 
 import br.com.fiap.restaurante.application.input.UsuarioInput;
+import br.com.fiap.restaurante.application.output.UsuarioOutput;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
 import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.application.exceptions.EntidadeJaExisteException;
@@ -20,15 +21,18 @@ public class UseCaseCadastrarUsuario {
         return new UseCaseCadastrarUsuario(gateway);
     }
 
-    public Usuario run(UsuarioInput input) {
+    public UsuarioOutput run(UsuarioInput input) {
 
         final Usuario usuarioExistente = gateway.buscarUsuarioPorLogin(input.nome());
 
         if (usuarioExistente != null)
             throw new EntidadeJaExisteException("Usuário", input.nome());
 
-        final Usuario novoUsuario = UsuarioInput.toDomain(input);
+        //validar existencia de outros usuarios
+        //validar senha forte
 
-        return gateway.cadastrar(novoUsuario);
+        Usuario cadastrado = gateway.cadastrar(UsuarioInput.toDomain(input));
+
+        return UsuarioOutput.fromDomain(cadastrado);
     }
 }

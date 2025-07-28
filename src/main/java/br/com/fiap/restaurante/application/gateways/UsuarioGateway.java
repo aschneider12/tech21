@@ -29,18 +29,33 @@ public class UsuarioGateway implements IUsuarioGateway {
     }
 
     @Override
+    public Usuario atualizar(Usuario usuario) {
+
+        return dataSource.atualizar(usuario);
+    }
+
+    @Override
     public boolean deletar(Long id) {
-        return false;
+
+        return dataSource.deletar(id);
+    }
+
+    @Override
+    public List<Usuario> buscarTodosUsuarios() {
+
+        return dataSource.buscarTodosUsuarios();
     }
 
     @Override
     public Usuario buscarUsuarioPorIdentificador(Long id) {
-        return null;
+
+        return dataSource.buscarUsuarioPorIdentificador(id);
     }
 
     @Override
     public Usuario buscarUsuarioPorLogin(String login) {
-        return null;
+
+        return dataSource.buscarUsuarioPorLogin(login);
     }
 
     @Override
@@ -51,5 +66,10 @@ public class UsuarioGateway implements IUsuarioGateway {
     @Override
     public List<String> buscarPerfisUsuario(Long id) {
         return List.of();
+    }
+
+    @Override
+    public void atualizarNovaSenhaUsuario(Long id, String newPasswordHash) {
+        dataSource.atualizarNovaSenha(id, newPasswordHash);
     }
 }

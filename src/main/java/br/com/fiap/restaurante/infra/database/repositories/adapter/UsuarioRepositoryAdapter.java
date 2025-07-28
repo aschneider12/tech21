@@ -1,9 +1,14 @@
 package br.com.fiap.restaurante.infra.database.repositories.adapter;
 
+import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageUsuario;
 import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
+import br.com.fiap.restaurante.infra.database.mappers.UsuarioEntityMapper;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
+
+import java.util.List;
 
 /**
  * Implementação concreta do core.
@@ -17,8 +22,8 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
     }
 
     @Override
-    public void atualizarNovaSenha(String novaSenha, Long idUsuario) {
-        repository.updateNovaSenha(novaSenha,idUsuario);
+    public void atualizarNovaSenha( Long idUsuario, String newPasswordHash) {
+        repository.updateNovaSenha(newPasswordHash, idUsuario);
     }
 
     @Override
@@ -32,16 +37,58 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
     }
 
     @Override
-    public Usuario cadastrar(Usuario dto) {
-/// TODO/        Map to UsuarioEntity;
+    public Usuario cadastrar(Usuario usuario) {
 
+        UsuarioEntity entity = UsuarioEntityMapper.INSTANCE.toEntity(usuario);
 
-         repository.save(new UsuarioEntity());
-         return null;
+        entity = repository.save(entity);
+
+        return UsuarioEntityMapper.INSTANCE.toDomain(entity);
+    }
+
+    @Override
+    public Usuario atualizar(Usuario usuario) {
+
+        UsuarioEntity entity = UsuarioEntityMapper.INSTANCE.toEntity(usuario);
+
+        entity = repository.save(entity);
+
+        return UsuarioEntityMapper.INSTANCE.toDomain(entity);
+    }
+
+    @Override
+    public boolean deletar(Long id) {
+
+        if(repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        } else
+            return false;
     }
 
     @Override
     public Usuario buscarUsuarioPorLogin(String login) {
-        return null;
+
+        UsuarioEntity usuarioEntityBD = repository.findByLogin(login)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário", login));
+
+        return UsuarioEntityMapper.INSTANCE.toDomain(usuarioEntityBD);
+    }
+
+    @Override
+    public Usuario buscarUsuarioPorIdentificador(Long id) {
+
+        UsuarioEntity usuarioEntityBD = repository.findById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário", "<ID: "+id+">"));
+
+        return UsuarioEntityMapper.INSTANCE.toDomain(usuarioEntityBD);
+    }
+
+    @Override
+    public List<Usuario> buscarTodosUsuarios() {
+
+        List<UsuarioEntity> all = repository.findAll();
+
+        return UsuarioEntityMapper.INSTANCE.toDomain(all);
     }
 }

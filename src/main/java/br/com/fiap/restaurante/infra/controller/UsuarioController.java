@@ -1,70 +1,109 @@
 package br.com.fiap.restaurante.infra.controller;
 
-import br.com.fiap.restaurante.infra.dtos.MudarSenhaDTO;
-import br.com.fiap.restaurante.infra.dtos.UsuarioInsertDTO;
-import br.com.fiap.restaurante.infra.dtos.UsuarioResponseDTO;
-import br.com.fiap.restaurante.infra.dtos.UsuarioUpdateDTO;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
+import br.com.fiap.restaurante.application.gateways.UsuarioGateway;
+import br.com.fiap.restaurante.application.input.UsuarioInput;
+import br.com.fiap.restaurante.application.output.UsuarioOutput;
+import br.com.fiap.restaurante.application.usecases.usuario.*;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
-import br.com.fiap.restaurante.infra.service.UsuarioService;
-import io.swagger.v3.oas.annotations.Operation;
+import br.com.fiap.restaurante.infra.database.repositories.adapter.UsuarioRepositoryAdapter;
+import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
+import br.com.fiap.restaurante.infra.doc.UsuarioDocController;
+import br.com.fiap.restaurante.infra.dtos.*;
+import br.com.fiap.restaurante.infra.mappers.UsuarioDTOMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class UsuarioController implements UsuarioDocController {
 
-    @Autowired
-    UsuarioService service;
+    private PasswordEncoder passwordEncoder;
+    private final UsuarioGateway gateway;
+
+    public UsuarioController(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
+        this.gateway = UsuarioGateway.create(new UsuarioRepositoryAdapter(repository));
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @PostMapping
-    @Operation(description = "Cadastrar um novo usuário")
+    @Override
     public ResponseEntity<UsuarioResponseDTO> cadastrar(@RequestBody @Valid UsuarioInsertDTO usuarioDTO) {
 
-        UsuarioResponseDTO responseDTO = service.cadastrar(usuarioDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+        UsuarioInput input = UsuarioDTOMapper.INSTANCE.toInputApplication(usuarioDTO);
+
+        UseCaseCadastrarUsuario uc = UseCaseCadastrarUsuario.create(gateway);
+        UsuarioOutput output = uc.run(input);
+
+        UsuarioResponseDTO outputDTO = UsuarioDTOMapper.INSTANCE.toResponse(output);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(outputDTO);
+
     }
 
     @PutMapping("/{id}")
-    @Operation(description = "Atualizar usuário existente.")
-
+    @Override
     public ResponseEntity<UsuarioResponseDTO> atualizar(@RequestBody @Valid UsuarioUpdateDTO usuarioDTO,
                                                         @PathVariable(required = true) Long id) {
 
-        UsuarioResponseDTO responseDTO  = service.atualizar(id, usuarioDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+        UsuarioInput input = UsuarioDTOMapper.INSTANCE.toInputApplication(usuarioDTO);
+
+        UseCaseAtualizarUsuario uc = UseCaseAtualizarUsuario.create(gateway);
+        UsuarioOutput output = uc.run(id, input);
+
+        UsuarioResponseDTO outputDTO = UsuarioDTOMapper.INSTANCE.toResponse(output);
+
+        return ResponseEntity.status(HttpStatus.OK).body(outputDTO);
     }
 
     @DeleteMapping("/{id}")
-    @Operation(description = "Deletar usuário.")
+    @Override
     public ResponseEntity<String> deletar(@PathVariable(required = true) Long id) {
-        service.deletar(id);
+
+        var uc = UseCaseDeletarUsuario.create(gateway);
+
+        uc.run(id);
+
         return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado!");
     }
 
     @GetMapping
-    @Operation(description = "Retorna uma lista contendo todos os usuários.")
-    public ResponseEntity<List<UsuarioEntity>> buscarTodos() {
-        List<UsuarioEntity> all = service.buscarTodosUsuarios();
-        return ResponseEntity.status(HttpStatus.OK).body(all);
+    @Override
+    public ResponseEntity<List<UsuarioResponseDTO>> buscarTodos() {
+
+        var uc =  UseCaseBuscarTodosUsuarios.create(gateway);
+
+        List<UsuarioResponseDTO> response = UsuarioDTOMapper.INSTANCE.toResponse(uc.run());
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{id}")
-    @Operation(description = "Buscar usuário por ID.")
+    @Override
     public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable(required = true) Long id) {
 
-        UsuarioResponseDTO dtoResponse = new UsuarioResponseDTO(service.buscarUsuarioPorId(id));
+        var uc = UseCaseBuscarUsuarioPorID.create(gateway);
+        UsuarioOutput output = uc.run(id);
+
+        UsuarioResponseDTO dtoResponse = UsuarioDTOMapper.INSTANCE.toResponse(output);
+
         return ResponseEntity.status(HttpStatus.OK).body(dtoResponse);
     }
 
-    @Operation(summary = "Altera a senha do usuário.")
     @PatchMapping("/mudar-senha/{id}")
+    @Override
     public ResponseEntity<Void> mudarSenha(@RequestBody(required = true) MudarSenhaDTO mudarSenhaDTO, @PathVariable Long id) {
-        this.service.mudarSenha(mudarSenhaDTO, id);
+
+        var uc = UseCaseAlterarSenhaUsuario.create(gateway, passwordEncoder);
+
+        uc.run(id, mudarSenhaDTO.senhaAntiga(), mudarSenhaDTO.senhaNova());
+
         return ResponseEntity.noContent().build();
     }
 }

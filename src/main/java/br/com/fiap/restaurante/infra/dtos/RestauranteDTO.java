@@ -22,5 +22,5 @@ public record RestauranteDTO(
         Long dono,
 
         @Valid
-        EnderecoRequestDTO endereco
+        EnderecoDTO endereco
 ) {}

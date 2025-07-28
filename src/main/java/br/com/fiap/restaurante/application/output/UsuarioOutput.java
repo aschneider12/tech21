@@ -12,7 +12,7 @@ public record UsuarioOutput(
         String nome,
         String email,
         String login,
-        String senha,
+//        String senha,
         LocalDateTime dataUltimaAlteracao,
         List<String> perfis,
         EnderecoOutput endereco
@@ -22,19 +22,26 @@ public record UsuarioOutput(
                                        String nome,
                                        String email,
                                        String login,
-                                       String senha,
+//                                       String senha,
                                        LocalDateTime dataUltimaAlteracao,
                                        List<String> perfis,
                                        EnderecoOutput endereco){
 
-        return new UsuarioOutput(id,nome,email,login,senha,dataUltimaAlteracao,perfis,endereco);
+        return new UsuarioOutput(id,nome,email,login,dataUltimaAlteracao,perfis,endereco);
     }
 
     public static UsuarioOutput fromDomain(Usuario u) {
         if(u != null)
-            return new UsuarioOutput(u.getId(), u.getNome(),u.getEmail(), u.getLogin(), u.getSenha(),
+            return new UsuarioOutput(u.getId(), u.getNome(),u.getEmail(), u.getLogin(), // u.getSenha(),
                     u.getDataUltimaAlteracao(), u.getPerfis(),
                     EnderecoOutput.fromDomain(u.getEndereco()));
         return null;
+    }
+
+    public static List<UsuarioOutput> fromDomain(List<Usuario> us) {
+        if(us != null && !us.isEmpty())
+            return us.stream().map(UsuarioOutput::fromDomain).toList();
+
+        return List.of();
     }
 }
