@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "50e627da-f701-4995-a1d3-eee5df0cda51",
-		"name": "TECH_CHAL_GP83",
+		"_postman_id": "3a2f113f-291d-4f06-b68e-dd5b00ecdd98",
+		"name": "TECH_CHAL_GP83 Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21463207"
+		"_exporter_id": "44920548"
 	},
 	"item": [
 		{
@@ -478,7 +478,70 @@
 		},
 		{
 			"name": "item",
-			"item": []
+			"item": [
+				{
+					"name": "get cardapio",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/restaurante/1/cardapio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"1",
+								"cardapio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get item cardapio",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/restaurante/1/cardapio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"1",
+								"cardapio"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "perfis",
@@ -531,7 +594,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\",\"ADMINISTRADOR\"]\r\n}",
+							"raw": "{\r\n    \"perfis\" : [\"ADMIN\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -571,7 +634,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\"]\r\n}",
+							"raw": "{\r\n    \"perfis\" : []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -764,7 +827,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"login\": \"admin\",\r\n    \"senha\": \"adminadmin\",\r\n    \"tipoUsuario\": \"DONO\"\r\n}",
+					"raw": "{\r\n    \"login\": \"admin\",\r\n    \"senha\": \"adminadmin\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
