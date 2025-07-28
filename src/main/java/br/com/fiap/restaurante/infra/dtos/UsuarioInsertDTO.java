@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
+import java.util.Set;
 
 public record UsuarioInsertDTO(
 
@@ -30,7 +31,7 @@ public record UsuarioInsertDTO(
     String senha,
 
     @NotNull(message = "Tipo de usuário não pode ser nulo, pelo menos um tipo deve ser informado.")
-    List<TipoUsuario> perfis,
+    Set<TipoUsuario> perfis,
 
     TipoUsuario tipoUsuario,
 

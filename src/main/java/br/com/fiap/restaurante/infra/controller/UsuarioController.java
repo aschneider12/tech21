@@ -1,18 +1,16 @@
 package br.com.fiap.restaurante.infra.controller;
 
-import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.application.gateways.UsuarioGateway;
 import br.com.fiap.restaurante.application.input.UsuarioInput;
 import br.com.fiap.restaurante.application.output.UsuarioOutput;
 import br.com.fiap.restaurante.application.usecases.usuario.*;
-import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
+import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseAlterarSenhaUsuario;
 import br.com.fiap.restaurante.infra.database.repositories.adapter.UsuarioRepositoryAdapter;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
 import br.com.fiap.restaurante.infra.doc.UsuarioDocController;
 import br.com.fiap.restaurante.infra.dtos.*;
 import br.com.fiap.restaurante.infra.mappers.UsuarioDTOMapper;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;

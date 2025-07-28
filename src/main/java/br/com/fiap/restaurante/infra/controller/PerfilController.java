@@ -1,9 +1,8 @@
 package br.com.fiap.restaurante.infra.controller;
 
 import br.com.fiap.restaurante.application.gateways.UsuarioGateway;
-import br.com.fiap.restaurante.application.usecases.usuario.UseCaseAdicionarPerfisUsuario;
-import br.com.fiap.restaurante.application.usecases.usuario.UseCaseBuscarPerfisUsuario;
-import br.com.fiap.restaurante.application.usecases.usuario.UseCaseRemoverPerfisUsuario;
+import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseAdicionarPerfisUsuario;
+import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseBuscarPerfisUsuario;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
 import br.com.fiap.restaurante.infra.database.repositories.adapter.UsuarioRepositoryAdapter;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
@@ -15,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/usuario/{usuarioId}/perfil")
@@ -26,6 +26,7 @@ public class PerfilController implements PerfilDocController {
 
     public PerfilController(UsuarioRepository repository) {
         gateway = UsuarioGateway.create(new UsuarioRepositoryAdapter(repository));
+//        perfilGateway = PerfilGateway.create(new usuariioper)
     }
 
     @Override
@@ -34,16 +35,11 @@ public class PerfilController implements PerfilDocController {
 
         var uc = UseCaseBuscarPerfisUsuario.create(gateway);
 
-        List<String> perfis = uc.run(usuarioId);
+        Set<String> perfis = uc.run(usuarioId);
 
         List<TipoUsuario> perfisEnum = perfis.stream().map(TipoUsuario::valueOf).toList();
 
-
-        //  PerfilResponseDTO dto = service.listarPerfis(usuarioId);
-
-       // List<String> perfis = domainController.listarPerfisUsuario(usuarioId);
-
-        return ResponseEntity.ok(new PerfilResponseDTO("usuario nome", perfisEnum));
+        return ResponseEntity.ok(new PerfilResponseDTO("ID - "+usuarioId, perfisEnum));
     }
     @Override
     @PostMapping
@@ -64,12 +60,12 @@ public class PerfilController implements PerfilDocController {
     public ResponseEntity<Void> removerPerfis(
             @PathVariable Long usuarioId,
             @RequestBody PerfilRequestDTO dto) {
-
-        var uc = UseCaseRemoverPerfisUsuario.create(gateway);
-
-        List<String> perfisDel = dto.perfis().stream().map(Enum::name).toList();
-
-        uc.run(usuarioId, perfisDel);
+//
+//        var uc = UseCaseRemoverPerfisUsuario.create(gateway);
+//
+//        List<String> perfisDel = dto.perfis().stream().map(Enum::name).toList();
+//
+//        uc.run(usuarioId, perfisDel);
 
         return ResponseEntity.noContent().build();
     }

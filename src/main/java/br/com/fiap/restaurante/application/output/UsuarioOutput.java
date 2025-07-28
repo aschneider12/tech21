@@ -5,6 +5,7 @@ import br.com.fiap.restaurante.infra.dtos.EnderecoDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public record UsuarioOutput(
 
@@ -14,7 +15,7 @@ public record UsuarioOutput(
         String login,
 //        String senha,
         LocalDateTime dataUltimaAlteracao,
-        List<String> perfis,
+        Set<String> perfis,
         EnderecoOutput endereco
 ) {
 
@@ -24,7 +25,7 @@ public record UsuarioOutput(
                                        String login,
 //                                       String senha,
                                        LocalDateTime dataUltimaAlteracao,
-                                       List<String> perfis,
+                                       Set<String> perfis,
                                        EnderecoOutput endereco){
 
         return new UsuarioOutput(id,nome,email,login,dataUltimaAlteracao,perfis,endereco);

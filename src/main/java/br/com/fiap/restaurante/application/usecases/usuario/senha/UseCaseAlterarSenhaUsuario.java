@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.application.usecases.usuario;
+package br.com.fiap.restaurante.application.usecases.usuario.senha;
 
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.application.exceptions.ValidationException;

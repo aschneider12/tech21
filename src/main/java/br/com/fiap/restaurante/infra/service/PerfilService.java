@@ -3,14 +3,15 @@ package br.com.fiap.restaurante.infra.service;
 import br.com.fiap.restaurante.infra.dtos.PerfilResponseDTO;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
-import br.com.fiap.restaurante.infra.database.entities.UsuarioPerfil;
+import br.com.fiap.restaurante.infra.database.entities.UsuarioPerfilEntity;
 import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Deprecated
 @Service
@@ -27,10 +28,10 @@ public class PerfilService {
         UsuarioEntity usuarioEntity = repository.findById(usuarioId)
                 .orElseThrow(() -> new ValidationException("Usuário não encontrado - ID: "+usuarioId));
 
-        List<UsuarioPerfil> perfis = usuarioEntity.getPerfis();
+        Set<UsuarioPerfilEntity> perfis = usuarioEntity.getPerfis();
 
         if(perfis != null)
-            listaDePerfis = perfis.stream().map(UsuarioPerfil::getTipoUsuario).toList();
+            listaDePerfis = perfis.stream().map(UsuarioPerfilEntity::getTipoUsuario).toList();
 
         return new PerfilResponseDTO(usuarioEntity.getNome(), listaDePerfis);
     }
@@ -41,12 +42,12 @@ public class PerfilService {
                 .orElseThrow(() -> new ValidationException("Usuário não encontrado - ID: "+usuarioId));
 
         if(usuarioEntity.getPerfis() == null)
-            usuarioEntity.setPerfis(new ArrayList<>());
+            usuarioEntity.setPerfis(new HashSet<>());
 
         usuarioEntity.getPerfis().addAll(
                 perfisAdd.stream()
                         .map(tipoUsuario -> {
-                            UsuarioPerfil add = new UsuarioPerfil(usuarioEntity, tipoUsuario);
+                            UsuarioPerfilEntity add = new UsuarioPerfilEntity(usuarioEntity, tipoUsuario);
                             if(!usuarioEntity.getPerfis().contains(add))
                                 return add;
                             else return null;

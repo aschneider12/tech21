@@ -1,8 +1,10 @@
-package br.com.fiap.restaurante.application.usecases.usuario;
+package br.com.fiap.restaurante.application.usecases.usuario.perfil;
 
 import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
+import br.com.fiap.restaurante.domain.models.Usuario;
 
 import java.util.List;
+import java.util.Set;
 
 public class UseCaseBuscarPerfisUsuario {
 
@@ -16,9 +18,9 @@ public class UseCaseBuscarPerfisUsuario {
         return new UseCaseBuscarPerfisUsuario(gateway);
     }
 
-    public List<String> run(Long usuarioId) {
+    public Set<String> run(Long usuarioId) {
 
-//        gateway.buscarTodosPerfisUsuario(usuarioId);
-        throw new RuntimeException("Não implementado!");
+        Usuario usuario = gateway.buscarUsuarioPorIdentificador(usuarioId);
+       return usuario.getPerfis();
     }
 }

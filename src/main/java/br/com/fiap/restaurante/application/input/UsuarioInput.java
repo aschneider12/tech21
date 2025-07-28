@@ -4,6 +4,7 @@ import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.dtos.EnderecoDTO;
 
 import java.util.List;
+import java.util.Set;
 
 public record UsuarioInput (
 
@@ -13,7 +14,7 @@ public record UsuarioInput (
 
         String login,
         String senha,
-        List<String> perfis,
+        Set<String> perfis,
         EnderecoInput endereco
 ) {
     public static UsuarioInput create(
@@ -21,10 +22,10 @@ public record UsuarioInput (
                                            String email,
                                            String login,
                                            String senha,
-                                           List<String> perfis,
+                                           Set<String> perfis,
                                            EnderecoInput endereco){
 
-        return new UsuarioInput(nome,email,login,senha,perfis, endereco);
+        return new UsuarioInput(nome,email,login,senha, perfis, endereco);
     }
     public static Usuario toDomain(UsuarioInput input) {
 

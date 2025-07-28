@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
@@ -32,9 +32,13 @@ public class UsuarioEntity implements Serializable {
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonManagedReference //json irá serializar os perfis
-	private List<UsuarioPerfil> perfis;
+	private Set<UsuarioPerfilEntity> perfis;
 
 	public UsuarioEntity() {
+	}
+
+	public UsuarioEntity(Long id) {
+		this.id = id;
 	}
 
 	public Long getId() {
@@ -93,11 +97,11 @@ public class UsuarioEntity implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public List<UsuarioPerfil> getPerfis() {
+	public Set<UsuarioPerfilEntity> getPerfis() {
 		return perfis;
 	}
 
-	public void setPerfis(List<UsuarioPerfil> perfis) {
+	public void setPerfis(Set<UsuarioPerfilEntity> perfis) {
 		this.perfis = perfis;
 	}
 }

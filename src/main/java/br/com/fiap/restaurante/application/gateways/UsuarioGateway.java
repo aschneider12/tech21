@@ -58,14 +58,12 @@ public class UsuarioGateway implements IUsuarioGateway {
         return dataSource.buscarUsuarioPorLogin(login);
     }
 
-    @Override
-    public void adicionarPerfisUsuario(Long id) {
-
-    }
 
     @Override
     public List<String> buscarPerfisUsuario(Long id) {
-        return List.of();
+
+//        dataSource.bu
+        return null;
     }
 
     @Override

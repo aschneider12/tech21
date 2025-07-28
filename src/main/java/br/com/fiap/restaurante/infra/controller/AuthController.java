@@ -1,9 +1,9 @@
 package br.com.fiap.restaurante.infra.controller;
 
 import br.com.fiap.restaurante.application.gateways.UsuarioGateway;
-import br.com.fiap.restaurante.application.usecases.usuario.UseCaseGerarTokenUsuario;
-import br.com.fiap.restaurante.application.usecases.usuario.UseCaseValidarLogin;
-import br.com.fiap.restaurante.application.usecases.usuario.UseCaseValidarToken;
+import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseGerarTokenUsuario;
+import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseValidarLogin;
+import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseValidarToken;
 import br.com.fiap.restaurante.infra.database.repositories.adapter.UsuarioRepositoryAdapter;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
 import br.com.fiap.restaurante.infra.doc.AuthDocController;

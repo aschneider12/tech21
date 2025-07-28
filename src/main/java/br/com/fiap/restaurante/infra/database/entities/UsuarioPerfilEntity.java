@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity(name = "usuario_perfil")
-public class UsuarioPerfil implements Serializable {
+public class UsuarioPerfilEntity implements Serializable {
 
     @Id
     @Column(name = "usuario_id", nullable = false)
@@ -23,11 +23,11 @@ public class UsuarioPerfil implements Serializable {
     @JsonBackReference //json irá ignorar esse lado da referência, evita ref circular inifinita
     private UsuarioEntity usuario;
 
-    public UsuarioPerfil() {
+    public UsuarioPerfilEntity() {
 
     }
 
-    public UsuarioPerfil(UsuarioEntity usuarioEntity, TipoUsuario tipoUsuario) {
+    public UsuarioPerfilEntity(UsuarioEntity usuarioEntity, TipoUsuario tipoUsuario) {
         this.usuarioId = usuarioEntity.getId();
         this.usuario = usuarioEntity;
         this.tipoUsuario = tipoUsuario;
@@ -60,7 +60,7 @@ public class UsuarioPerfil implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        UsuarioPerfil that = (UsuarioPerfil) o;
+        UsuarioPerfilEntity that = (UsuarioPerfilEntity) o;
         return Objects.equals(usuarioId, that.usuarioId) && tipoUsuario == that.tipoUsuario;
     }
 

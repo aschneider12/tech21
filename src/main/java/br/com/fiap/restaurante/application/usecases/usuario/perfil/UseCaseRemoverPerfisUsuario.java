@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.application.usecases.usuario;
+package br.com.fiap.restaurante.application.usecases.usuario.perfil;
 
 
 import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
@@ -18,6 +18,8 @@ public class UseCaseRemoverPerfisUsuario {
     }
 
     public void run(Long usuarioId, List<String> perfisDel) {
+
+//        gateway.re(usuarioId, perfisDel);
         throw new RuntimeException("Não implementado!");
     }
 }

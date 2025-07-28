@@ -3,14 +3,12 @@ package br.com.fiap.restaurante.infra.database.mappers;
 import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
-import br.com.fiap.restaurante.infra.database.entities.UsuarioPerfil;
-import org.mapstruct.IterableMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import br.com.fiap.restaurante.infra.database.entities.UsuarioPerfilEntity;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -18,35 +16,41 @@ public interface UsuarioEntityMapper {
 
     UsuarioEntityMapper INSTANCE = Mappers.getMapper(UsuarioEntityMapper.class);
 
-    @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapStringsToUsuarioPerfil")
+    @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapUsuarioPerfilToStrings")
     Usuario toDomain(UsuarioEntity entity);
 
-    @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapStringsToUsuarioPerfil")
     List<Usuario> toDomain(List<UsuarioEntity> entities);
 
-    @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapUsuarioPerfilToStrings")
-//    @IterableMapping(qualifiedByName = "mapUsuarioPerfilToStrings")
-    UsuarioEntity toEntity(Usuario domain);
+    @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapStringsToUsuarioPerfil")
+    UsuarioEntity toEntity(Usuario domain, @Context Long idUsuario);
 
-    @Named("mapStringsToUsuarioPerfil")
-    default List<String> mapStrings(List<UsuarioPerfil> perfis) {
-        if (perfis == null) return null;
-        return perfis.stream()
-                .map(u -> u.getTipoUsuario().name())
-                .toList();
+    default UsuarioEntity toEntity(Usuario domain){
+
+        return toEntity(domain, domain.getId());
     }
 
     @Named("mapUsuarioPerfilToStrings")
-    default List<UsuarioPerfil> mapPerfis(List<String> perfis) {
-        if (perfis == null) return null;
-        return perfis.stream()
+    default Set<String> mapStrings(Set<UsuarioPerfilEntity> usuarioPerfis) {
+        if (usuarioPerfis == null) return null;
+        return usuarioPerfis.stream()
+                .map(u -> u.getTipoUsuario().name())
+                .collect(Collectors.toSet());
+    }
+
+    @Named("mapStringsToUsuarioPerfil")
+    default Set<UsuarioPerfilEntity> mapPerfis(Set<String> stringPerfis, @Context Long contextId) {
+        if (stringPerfis == null) return null;
+        return stringPerfis.stream()
                 .map(p -> {
-                    UsuarioPerfil up = new UsuarioPerfil();
+                    UsuarioPerfilEntity up = new UsuarioPerfilEntity();
+                    up.setUsuarioId(contextId);
                     up.setTipoUsuario(TipoUsuario.valueOf(p));
                     return up;
                 })
-                .toList();
+                .collect(Collectors.toSet());
     }
+
 }
+
 
 

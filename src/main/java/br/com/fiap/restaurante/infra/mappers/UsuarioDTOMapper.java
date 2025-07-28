@@ -3,8 +3,6 @@ package br.com.fiap.restaurante.infra.mappers;
 import br.com.fiap.restaurante.application.input.UsuarioInput;
 import br.com.fiap.restaurante.application.output.UsuarioOutput;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
-import br.com.fiap.restaurante.infra.database.entities.UsuarioPerfil;
-import br.com.fiap.restaurante.infra.dtos.UsuarioDTO;
 import br.com.fiap.restaurante.infra.dtos.UsuarioInsertDTO;
 import br.com.fiap.restaurante.infra.dtos.UsuarioResponseDTO;
 import br.com.fiap.restaurante.infra.dtos.UsuarioUpdateDTO;
@@ -14,6 +12,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -41,19 +40,19 @@ public interface UsuarioDTOMapper {
     UsuarioInput toInputApplication(UsuarioUpdateDTO usuario);
 
     @Named("mapStringToTipoUsuario")
-    default List<String> mapTipoUsuarioToStrings(List<TipoUsuario> perfis) {
+    default Set<String> mapTipoUsuarioToStrings(Set<TipoUsuario> perfis) {
         if (perfis == null) return null;
         return perfis.stream()
                 .map(u -> u.name()) // extrai o nome do perfil
-                .toList();
+                .collect(Collectors.toSet());
     }
 
     @Named("mapTipoUsuarioToStrings")
-    default List<TipoUsuario> mapStringToTipoUsuario(List<String> perfis) {
+    default Set<TipoUsuario> mapStringToTipoUsuario(Set<String> perfis) {
         if (perfis == null) return null;
         return perfis.stream()
                 .map(TipoUsuario::valueOf) // extrai o nome do perfil
-                .toList();
+                .collect(Collectors.toSet());
     }
 
 }

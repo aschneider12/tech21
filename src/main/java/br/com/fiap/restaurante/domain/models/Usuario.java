@@ -2,6 +2,7 @@ package br.com.fiap.restaurante.domain.models;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class Usuario {
 
@@ -12,7 +13,7 @@ public class Usuario {
     private String senha;
     private LocalDateTime dataUltimaAlteracao;
     private Endereco endereco;
-    private List<String> perfis;
+    private Set<String> perfis;
 
     public Usuario() {
     }
@@ -23,7 +24,7 @@ public class Usuario {
 
     public Usuario(Long id, String nome, String email, String login,
                    String senha,
-                   Endereco endereco, List<String> perfis) {
+                   Endereco endereco, Set<String> perfis) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -89,11 +90,11 @@ public class Usuario {
         this.endereco = endereco;
     }
 
-    public List<String> getPerfis() {
+    public Set<String> getPerfis() {
         return perfis;
     }
 
-    public void setPerfis(List<String> perfis) {
+    public void setPerfis(Set<String> perfis) {
         this.perfis = perfis;
     }
 }

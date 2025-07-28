@@ -15,9 +15,8 @@ public interface IUsuarioGateway {
     Usuario buscarUsuarioPorIdentificador(Long id);
     Usuario buscarUsuarioPorLogin(String login);
 
-    void adicionarPerfisUsuario(Long id);
-    List<String> buscarPerfisUsuario(Long id);
 
+    List<String> buscarPerfisUsuario(Long id);
     void atualizarNovaSenhaUsuario(Long id, String newPasswordHash);
 
 }
