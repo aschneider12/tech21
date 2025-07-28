@@ -1,9 +1,13 @@
 package br.com.fiap.restaurante.application.usecases.usuario.perfil;
 
 
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
+import br.com.fiap.restaurante.domain.models.Usuario;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UseCaseRemoverPerfisUsuario {
 
@@ -17,9 +21,21 @@ public class UseCaseRemoverPerfisUsuario {
         return new UseCaseRemoverPerfisUsuario(gateway);
     }
 
-    public void run(Long usuarioId, List<String> perfisDel) {
+    public void run(Long usuarioId, Set<String> perfisDel) {
 
-//        gateway.re(usuarioId, perfisDel);
-        throw new RuntimeException("Não implementado!");
+        if(perfisDel == null || perfisDel.isEmpty())
+            throw new ValidationException("Nenhum perfil informado para ser removido.");
+
+
+        Usuario usuario = gateway.buscarUsuarioPorIdentificador(usuarioId);
+
+        if(usuario.getPerfis() == null)
+            usuario.setPerfis(new HashSet<>());
+
+        usuario.getPerfis().removeAll(
+                perfisDel
+        );
+
+        gateway.atualizar(usuario);
     }
 }

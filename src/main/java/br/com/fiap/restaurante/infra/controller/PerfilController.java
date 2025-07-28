@@ -3,6 +3,7 @@ package br.com.fiap.restaurante.infra.controller;
 import br.com.fiap.restaurante.application.gateways.UsuarioGateway;
 import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseAdicionarPerfisUsuario;
 import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseBuscarPerfisUsuario;
+import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseRemoverPerfisUsuario;
 import br.com.fiap.restaurante.infra.database.entities.TipoUsuario;
 import br.com.fiap.restaurante.infra.database.repositories.adapter.UsuarioRepositoryAdapter;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/usuario/{usuarioId}/perfil")
@@ -47,7 +49,7 @@ public class PerfilController implements PerfilDocController {
             @PathVariable Long usuarioId,
             @RequestBody PerfilRequestDTO dto) {
 
-        List<String> perfisString = dto.perfis().stream().map(Enum::name).toList();
+        Set<String> perfisString = dto.perfis().stream().map(Enum::name).collect(Collectors.toSet());
 
         var uc = UseCaseAdicionarPerfisUsuario.create(gateway);
         uc.run(usuarioId, perfisString);
@@ -60,12 +62,12 @@ public class PerfilController implements PerfilDocController {
     public ResponseEntity<Void> removerPerfis(
             @PathVariable Long usuarioId,
             @RequestBody PerfilRequestDTO dto) {
-//
-//        var uc = UseCaseRemoverPerfisUsuario.create(gateway);
-//
-//        List<String> perfisDel = dto.perfis().stream().map(Enum::name).toList();
-//
-//        uc.run(usuarioId, perfisDel);
+
+        var uc = UseCaseRemoverPerfisUsuario.create(gateway);
+
+        Set<String> perfisDel = dto.perfis().stream().map(Enum::name).collect(Collectors.toSet());
+
+        uc.run(usuarioId, perfisDel);
 
         return ResponseEntity.noContent().build();
     }
