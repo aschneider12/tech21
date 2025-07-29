@@ -7,7 +7,9 @@ import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
 import br.com.fiap.restaurante.infra.database.mappers.UsuarioEntityMapper;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
+import org.springframework.data.domain.Sort;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -41,6 +43,8 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
 
         UsuarioEntity entity = UsuarioEntityMapper.INSTANCE.toEntity(usuario);
 
+        entity.setDataUltimaAlteracao(LocalDateTime.now());
+
         entity = repository.save(entity);
 
         return UsuarioEntityMapper.INSTANCE.toDomain(entity);
@@ -50,6 +54,8 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
     public Usuario atualizar(Usuario usuario) {
 
         UsuarioEntity entity = UsuarioEntityMapper.INSTANCE.toEntity(usuario);
+
+        entity.setDataUltimaAlteracao(LocalDateTime.now());
 
         entity = repository.save(entity);
 
@@ -87,7 +93,8 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
     @Override
     public List<Usuario> buscarTodosUsuarios() {
 
-        List<UsuarioEntity> all = repository.findAll();
+
+        List<UsuarioEntity> all = repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 
         return UsuarioEntityMapper.INSTANCE.toDomain(all);
     }

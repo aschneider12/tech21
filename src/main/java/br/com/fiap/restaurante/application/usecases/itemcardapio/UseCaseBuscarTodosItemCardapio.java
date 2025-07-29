@@ -1,5 +1,6 @@
 package br.com.fiap.restaurante.application.usecases.itemcardapio;
 
+import br.com.fiap.restaurante.application.output.ItemCardapioOutput;
 import br.com.fiap.restaurante.domain.models.ItemCardapio;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IItemCardapioGateway;
 
@@ -15,10 +16,11 @@ public class UseCaseBuscarTodosItemCardapio {
         return new UseCaseBuscarTodosItemCardapio(gateway);
     }
 
-    public List<ItemCardapio> run () {
+    public List<ItemCardapioOutput> run (Long restauranteId) {
 
-        List<ItemCardapio> itemCardapios = gateway.buscarTodosItems();
+        List<ItemCardapio> itensCardapio = gateway.buscarTodosItems(restauranteId);
 
-        return itemCardapios;
+        return ItemCardapioOutput.fromDomain(itensCardapio);
+
     }
 }

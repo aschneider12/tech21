@@ -19,6 +19,9 @@ public class Usuario {
     public Usuario() {
     }
 
+    //validar se email é valido
+    //validar se a senha é forte aqui dentro
+
     public Usuario(Long id) {
         this.id = id;
     }

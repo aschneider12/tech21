@@ -8,9 +8,14 @@ public interface IDataStorageItemCardapio {
 
     ItemCardapio cadastrar(ItemCardapio itemCardapio);
 
-    List<ItemCardapio> buscarTodosItensCardapio();
+    ItemCardapio atualizar(ItemCardapio itemCardapio);
 
-    ItemCardapio buscarItemCardapioPorIdentificador(Long id);
+    boolean deletar(Long itemCardapioId);
+
+    List<ItemCardapio> buscarTodosItensCardapio(Long restauranteId);
+
+    ItemCardapio buscarItemCardapioPorIdentificador(Long itemCardapioId);
+
     ItemCardapio buscarItemCardapioPorNome(String nome);
 
 

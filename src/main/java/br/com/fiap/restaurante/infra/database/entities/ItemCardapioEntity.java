@@ -5,9 +5,8 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "item")
-public class Item implements Serializable {
+@Entity(name = "item")
+public class ItemCardapioEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,7 +28,7 @@ public class Item implements Serializable {
 
     private String pathFoto;
 
-    public Item() {
+    public ItemCardapioEntity() {
     }
 
     public Long getId() {

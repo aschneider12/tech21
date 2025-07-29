@@ -1,6 +1,6 @@
 package br.com.fiap.restaurante.infra.service;
 
-import br.com.fiap.restaurante.infra.database.entities.Item;
+import br.com.fiap.restaurante.infra.database.entities.ItemCardapioEntity;
 import br.com.fiap.restaurante.infra.database.entities.RestauranteEntity;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.ItemRepository;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.RestauranteRepository;
@@ -38,30 +38,30 @@ public class ItemService {
         RestauranteEntity restaurante = restauranteRepository.findById(dto.restauranteId())
             .orElseThrow(() -> new EntityNotFoundException("Restaurante não encontrado"));
 
-        Item item = new Item();
-        item.setNome(dto.nome());
-        item.setDescricao(dto.descricao());
-        item.setPreco(dto.preco());
-        item.setTipoVenda(dto.tipoVenda());
-        item.setRestaurante(restaurante);
-        item.setPathFoto(dto.pathFoto());
+        ItemCardapioEntity itemCardapioEntity = new ItemCardapioEntity();
+        itemCardapioEntity.setNome(dto.nome());
+        itemCardapioEntity.setDescricao(dto.descricao());
+        itemCardapioEntity.setPreco(dto.preco());
+        itemCardapioEntity.setTipoVenda(dto.tipoVenda());
+        itemCardapioEntity.setRestaurante(restaurante);
+        itemCardapioEntity.setPathFoto(dto.pathFoto());
 
-        itemRepository.save(item);
-        return toDTO(item);
+        itemRepository.save(itemCardapioEntity);
+        return toDTO(itemCardapioEntity);
     }
 
     public ItemResponseDTO atualizar(Long id, ItemRequestDTO dto) {
-        Item item = itemRepository.findById(id)
+        ItemCardapioEntity itemCardapioEntity = itemRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Item não encontrado"));
 
-        item.setNome(dto.nome());
-        item.setDescricao(dto.descricao());
-        item.setPreco(dto.preco());
-        item.setTipoVenda(dto.tipoVenda());
-        item.setPathFoto(dto.pathFoto());
+        itemCardapioEntity.setNome(dto.nome());
+        itemCardapioEntity.setDescricao(dto.descricao());
+        itemCardapioEntity.setPreco(dto.preco());
+        itemCardapioEntity.setTipoVenda(dto.tipoVenda());
+        itemCardapioEntity.setPathFoto(dto.pathFoto());
 
-        itemRepository.save(item);
-        return toDTO(item);
+        itemRepository.save(itemCardapioEntity);
+        return toDTO(itemCardapioEntity);
     }
 
     public void deletar(Long id) {
@@ -71,15 +71,15 @@ public class ItemService {
         itemRepository.deleteById(id);
     }
 
-    private ItemResponseDTO toDTO(Item item) {
+    private ItemResponseDTO toDTO(ItemCardapioEntity itemCardapioEntity) {
         return new ItemResponseDTO(
-            item.getId(),
-            item.getNome(),
-            item.getDescricao(),
-            item.getPreco(),
-            item.getTipoVenda(),
-            item.getRestaurante().getId(),
-            item.getPathFoto()
+            itemCardapioEntity.getId(),
+            itemCardapioEntity.getNome(),
+            itemCardapioEntity.getDescricao(),
+            itemCardapioEntity.getPreco(),
+            itemCardapioEntity.getTipoVenda(),
+            itemCardapioEntity.getRestaurante().getId(),
+            itemCardapioEntity.getPathFoto()
         );
     }
 }
