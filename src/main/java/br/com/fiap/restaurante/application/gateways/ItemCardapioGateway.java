@@ -37,7 +37,9 @@ public class ItemCardapioGateway implements IItemCardapioGateway {
     }
 
     @Override
-    public void deletar(Long itemCardapioId) {
+    public boolean deletar(Long itemCardapioId) {
+
+        dataStorageItemCardapio.deletar(itemCardapioId);
 
     }
 

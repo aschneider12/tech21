@@ -8,7 +8,7 @@ public interface IItemCardapioGateway {
 
     ItemCardapio cadastrar(ItemCardapio itemCardapio);
     ItemCardapio atualizar(ItemCardapio itemCardapio);
-    void deletar(Long itemCardapioId);
+    boolean deletar(Long itemCardapioId);
 
     List<ItemCardapio> buscarTodosItems(Long restauranteId);
 

@@ -64,12 +64,12 @@ public class ItemService {
         return toDTO(itemCardapioEntity);
     }
 
-    public void deletar(Long id) {
-        if (!itemRepository.existsById(id)) {
-            throw new EntityNotFoundException("Item não encontrado");
-        }
-        itemRepository.deleteById(id);
-    }
+//    public void deletar(Long id) {
+//        if (!itemRepository.existsById(id)) {
+//            throw new EntityNotFoundException("Item não encontrado");
+//        }
+//        itemRepository.deleteById(id);
+//    }
 
     private ItemResponseDTO toDTO(ItemCardapioEntity itemCardapioEntity) {
         return new ItemResponseDTO(

@@ -4,6 +4,7 @@ import br.com.fiap.restaurante.application.gateways.ItemCardapioGateway;
 import br.com.fiap.restaurante.application.output.ItemCardapioOutput;
 import br.com.fiap.restaurante.application.usecases.itemcardapio.UseCaseBuscarItemCardapioPorID;
 import br.com.fiap.restaurante.application.usecases.itemcardapio.UseCaseBuscarTodosItemCardapio;
+import br.com.fiap.restaurante.application.usecases.itemcardapio.UseCaseDeletarItemCardapio;
 import br.com.fiap.restaurante.domain.models.ItemCardapio;
 import br.com.fiap.restaurante.infra.database.mappers.ItemCardapioEntityMapper;
 import br.com.fiap.restaurante.infra.database.repositories.adapter.ItemCardapioRepositoryAdapter;
@@ -72,7 +73,13 @@ public class ItemCardapioController implements ItemCardapioDocController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long restauranteId, @PathVariable Long id) {
-        service.deletar(id);
+
+        var uc = UseCaseDeletarItemCardapio.create(gateway);
+
+        if(uc.run(restauranteId, id))
+
+        if(service.deletar(id))
+
         return ResponseEntity.noContent().build();
     }
 }

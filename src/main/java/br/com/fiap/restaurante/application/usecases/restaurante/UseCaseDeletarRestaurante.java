@@ -14,8 +14,8 @@ public class UseCaseDeletarRestaurante {
         return new UseCaseDeletarRestaurante(gateway);
     }
 
-    public boolean run(Long id) throws EntidadeJaExisteException {
+    public boolean run(Long restauranteId) throws EntidadeJaExisteException {
 
-        return gateway.deletar(id);
+        return gateway.deletar(restauranteId);
     }
 }

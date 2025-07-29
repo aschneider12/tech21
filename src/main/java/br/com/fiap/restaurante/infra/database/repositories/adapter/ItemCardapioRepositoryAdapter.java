@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.infra.database.repositories.adapter;
 
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageItemCardapio;
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageUsuario;
 import br.com.fiap.restaurante.domain.models.ItemCardapio;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 public class ItemCardapioRepositoryAdapter implements IDataStorageItemCardapio {
@@ -44,13 +46,14 @@ public class ItemCardapioRepositoryAdapter implements IDataStorageItemCardapio {
     }
 
     @Override
-    public boolean deletar(Long id) {
+    public boolean deletar(Long itemCardapioId) {
 
-        if(repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
-        } else
-            return false;
+        if(repository.existsById(itemCardapioId))
+            repository.deleteById(itemCardapioId);
+        else
+            throw new EntidadeNaoEncontradaException("Item Cardápio", "ID - "+itemCardapioId);
+
+        return true;//FALSE ou EXCEPTION?
     }
 
     @Override
