@@ -1,12 +1,14 @@
 package br.com.fiap.restaurante.helper;
 
 import br.com.fiap.restaurante.domain.models.Endereco;
+import br.com.fiap.restaurante.domain.models.ItemCardapio;
 import br.com.fiap.restaurante.domain.models.Restaurante;
 import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.EnderecoEntity;
 import br.com.fiap.restaurante.infra.database.entities.RestauranteEntity;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -50,5 +52,19 @@ public abstract class Helper {
         Endereco endereco = new Endereco(1L, "Rua teste", "123", "São Paulo", "São Paulo", "00000-000");
         return new Restaurante("Restaurante teste", "Cozinha teste", "Noturno", endereco, gerarUsuario());
     }
+
+    public static ItemCardapio gerarItemCardapio(){
+        return ItemCardapio.create(
+          "item teste",
+          "Descrição teste",
+                BigDecimal.valueOf(10.00),
+          "Delivery",
+          gerarRestaurante(),
+          "./caminhoteste.png"
+        );
+
+    }
+
+
 
 }

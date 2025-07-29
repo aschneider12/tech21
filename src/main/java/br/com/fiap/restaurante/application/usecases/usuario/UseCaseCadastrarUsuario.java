@@ -23,10 +23,10 @@ public class UseCaseCadastrarUsuario {
 
     public UsuarioOutput run(UsuarioInput input) {
 
-        final Usuario usuarioExistente = gateway.buscarUsuarioPorLogin(input.nome());
+        final Usuario usuarioExistente = gateway.buscarUsuarioPorLogin(input.login());
 
         if (usuarioExistente != null)
-            throw new EntidadeJaExisteException("Usuário", input.nome());
+            throw new EntidadeJaExisteException("Usuário", input.login());
 
         //validar existencia de outros usuarios
         //validar senha forte
