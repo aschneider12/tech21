@@ -2,6 +2,7 @@ package br.com.fiap.restaurante.domain.models;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class Usuario {
@@ -96,5 +97,17 @@ public class Usuario {
 
     public void setPerfis(Set<String> perfis) {
         this.perfis = perfis;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

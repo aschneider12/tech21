@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -103,5 +104,17 @@ public class UsuarioEntity implements Serializable {
 
 	public void setPerfis(Set<UsuarioPerfilEntity> perfis) {
 		this.perfis = perfis;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || getClass() != o.getClass()) return false;
+		UsuarioEntity that = (UsuarioEntity) o;
+		return Objects.equals(id, that.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(id);
 	}
 }

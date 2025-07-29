@@ -79,7 +79,7 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
     public Usuario buscarUsuarioPorIdentificador(Long id) {
 
         UsuarioEntity usuarioEntityBD = repository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário", "<ID: "+id+">"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário", "ID: "+id));
 
         return UsuarioEntityMapper.INSTANCE.toDomain(usuarioEntityBD);
     }

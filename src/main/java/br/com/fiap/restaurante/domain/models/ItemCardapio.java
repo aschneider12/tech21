@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.domain.models;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class ItemCardapio {
 
@@ -115,4 +116,17 @@ public class ItemCardapio {
 //    public void setRestaurante(Restaurante restaurante) {
 //        this.restaurante = restaurante;
 //    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemCardapio that = (ItemCardapio) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

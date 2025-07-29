@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -99,5 +100,17 @@ public class RestauranteEntity implements Serializable {
 
     public void setItensCardapio(List<Item> itensCardapio) {
         this.itensCardapio = itensCardapio;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        RestauranteEntity that = (RestauranteEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

@@ -1,5 +1,7 @@
 package br.com.fiap.restaurante.domain.models;
 
+import java.util.Objects;
+
 public class Endereco {
 
     private Long id;
@@ -67,5 +69,17 @@ public class Endereco {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Endereco endereco = (Endereco) o;
+        return Objects.equals(id, endereco.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

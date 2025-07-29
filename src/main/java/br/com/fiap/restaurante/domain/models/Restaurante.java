@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.domain.models;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Restaurante {
 
@@ -96,4 +97,15 @@ public class Restaurante {
         this.endereco = endereco;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Restaurante that = (Restaurante) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
