@@ -1,10 +1,10 @@
 package br.com.fiap.restaurante.application.usecases.itemcardapio;
 
+import br.com.fiap.restaurante.application.exceptions.EntidadeJaExisteException;
+import br.com.fiap.restaurante.application.input.ItemCardapioInput;
 import br.com.fiap.restaurante.application.output.ItemCardapioOutput;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IItemCardapioGateway;
 import br.com.fiap.restaurante.domain.models.ItemCardapio;
-
-import java.util.List;
 
 public class UseCaseCadastrarItemCardapio {
 
@@ -16,12 +16,16 @@ public class UseCaseCadastrarItemCardapio {
         return new UseCaseCadastrarItemCardapio(gateway);
     }
 
-    public List<ItemCardapioOutput> run (Long restauranteId) {
+    public ItemCardapioOutput run (ItemCardapioInput input) {
 
-        List<ItemCardapio> itensCardapio = gateway.buscarTodosItems(restauranteId);
+        ItemCardapio itemCardapio = ItemCardapioInput.toDomain(input);
 
-        return ItemCardapioOutput.fromDomain(itensCardapio);
+       var existente = gateway.buscarItemCardapioPorNome(itemCardapio.getNome());
+       if(existente != null)
+           throw new EntidadeJaExisteException("Item Cardápio", itemCardapio.getNome());
 
+        var cadastrado = gateway.cadastrar(itemCardapio);
+
+        return ItemCardapioOutput.fromDomain(cadastrado);
     }
-
 }

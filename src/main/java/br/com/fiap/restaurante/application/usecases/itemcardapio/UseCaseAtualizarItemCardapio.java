@@ -1,5 +1,9 @@
 package br.com.fiap.restaurante.application.usecases.itemcardapio;
 
+import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
+import br.com.fiap.restaurante.application.input.ItemCardapioInput;
+import br.com.fiap.restaurante.application.input.RestauranteInput;
 import br.com.fiap.restaurante.application.output.ItemCardapioOutput;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IItemCardapioGateway;
 import br.com.fiap.restaurante.domain.models.ItemCardapio;
@@ -16,12 +20,22 @@ public class UseCaseAtualizarItemCardapio {
         return new UseCaseAtualizarItemCardapio(gateway);
     }
 
-    public List<ItemCardapioOutput> run (Long restauranteId) {
+    public ItemCardapioOutput run (Long itemCardapioId, ItemCardapioInput input) {
 
-        List<ItemCardapio> itensCardapio = gateway.buscarTodosItems(restauranteId);
+        var item = gateway.buscarItemCardapioPorIdentificador(itemCardapioId);
+        if(item == null)
+            throw new EntidadeNaoEncontradaException("Item Cardápio", "ID - "+itemCardapioId);
 
-        return ItemCardapioOutput.fromDomain(itensCardapio);
+        if(!item.getRestaurante().getId().equals(input.restauranteId()))
+            throw new ValidationException("Item não pertence ao restauranteId informado!");
 
+        item = ItemCardapioInput.toDomain(input);
+
+        item.setId(itemCardapioId);
+
+        item = gateway.atualizar(item);
+
+        return ItemCardapioOutput.fromDomain(item);
     }
 
 }

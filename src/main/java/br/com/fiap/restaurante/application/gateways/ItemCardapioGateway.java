@@ -23,24 +23,24 @@ public class ItemCardapioGateway implements IItemCardapioGateway {
 
 //        ItemCardapioInputDTO dto = ItemCardapioInputDTO.fromEntity(itemCardapio);
 
-        var dtpoCadastrado= this.dataStorageItemCardapio.cadastrar(itemCardapio);
+        var cadastrado = this.dataStorageItemCardapio.cadastrar(itemCardapio);
 
 //        return ItemCardapioMapper.toDomain(dtpoCadastrado);
 
 //        return itemCardapio.create(ic.nome(),ic.descricao(),ic.preco(),ic.tipoVenda());
-        return null;
+        return cadastrado;
     }
 
     @Override
     public ItemCardapio atualizar(ItemCardapio itemCardapio) {
-        return null;
+
+        return dataStorageItemCardapio.atualizar(itemCardapio);
     }
 
     @Override
     public boolean deletar(Long itemCardapioId) {
 
-        dataStorageItemCardapio.deletar(itemCardapioId);
-
+        return dataStorageItemCardapio.deletar(itemCardapioId);
     }
 
     @Override

@@ -1,7 +1,7 @@
-//package br.com.fiap.restaurante.domain.usecases.restaurante;
+//package br.com.fiap.restauranteId.domain.usecases.restauranteId;
 //
-//import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
-//import br.com.fiap.restaurante.application.usecases.restaurante.UseCaseBuscarRestaurantePorID;
+//import br.com.fiap.restauranteId.application.exceptions.EntidadeNaoEncontradaException;
+//import br.com.fiap.restauranteId.application.usecases.restauranteId.UseCaseBuscarRestaurantePorID;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;

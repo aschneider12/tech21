@@ -38,6 +38,7 @@ public class ItemCardapioRepositoryAdapter implements IDataStorageItemCardapio {
 
     @Override
     public ItemCardapio atualizar(ItemCardapio itemCardapio) {
+
         ItemCardapioEntity entity = ItemCardapioEntityMapper.INSTANCE.toEntity(itemCardapio);
 
         entity = repository.save(entity);

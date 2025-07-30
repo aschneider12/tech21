@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.application.input;
 
 import br.com.fiap.restaurante.domain.models.ItemCardapio;
+import br.com.fiap.restaurante.domain.models.Restaurante;
 
 import java.math.BigDecimal;
 
@@ -9,17 +10,14 @@ public record ItemCardapioInput (
         String descricao,
         BigDecimal preco,
         String tipoVenda,
+        Long restauranteId,
         String pathFoto
 ) {
-    public static ItemCardapioInput  fromEntity(ItemCardapio itemCardapio) {
-        return new ItemCardapioInput(
-                itemCardapio.getNome(),
-                itemCardapio.getDescricao(),
-                itemCardapio.getPreco(),
-                itemCardapio.getTipoVenda(),
-                itemCardapio.getPathFoto()
+    public static ItemCardapio toDomain(ItemCardapioInput input) {
 
-        );
+        return ItemCardapio.create(input.nome(), input.descricao(),
+                input.preco(), input.tipoVenda(), new Restaurante(input.restauranteId()),
+                input.pathFoto());
     }
 
 }

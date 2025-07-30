@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3a2f113f-291d-4f06-b68e-dd5b00ecdd98",
-		"name": "TECH_CHAL_GP83 Copy",
+		"_postman_id": "50e627da-f701-4995-a1d3-eee5df0cda51",
+		"name": "TECH_CHAL_GP83",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "44920548"
+		"_exporter_id": "21463207"
 	},
 	"item": [
 		{
@@ -317,7 +317,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"id\" : 1,\r\n    \"nome\": \"teste\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Senta no Canto\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9,\r\n   \"endereco\": {\r\n            \"rua\": \"Baixada da égua\",\r\n            \"numero\": \"114\",\r\n            \"cidade\": \"Sao Paulo\",\r\n            \"estado\": \"SP\",\r\n            \"cep\": \"21.922-490.\"        \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -325,15 +325,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/restaurante/12",
+							"raw": "http://localhost:8080/restaurante",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"restaurante",
-								"12"
+								"restaurante"
 							]
 						}
 					},
@@ -356,7 +355,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"id\" : 1,\r\n    \"nome\": \"teste\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Senta na Esquina\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9,\r\n   \"endereco\": {\r\n        \"id\" : 11 ,\r\n              \"rua\": \"Baixada da pqp\",\r\n            \"numero\": \"114\",\r\n            \"cidade\": \"Narnia\",\r\n            \"estado\": \"AC\",\r\n            \"cep\": \"21.922-490.\"        \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -364,7 +363,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/restaurante/12",
+							"raw": "http://localhost:8080/restaurante/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -372,7 +371,7 @@
 							"port": "8080",
 							"path": [
 								"restaurante",
-								"12"
+								"4"
 							]
 						}
 					},
@@ -430,7 +429,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/restaurante/1",
+							"raw": "http://localhost:8080/restaurante/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -438,7 +437,7 @@
 							"port": "8080",
 							"path": [
 								"restaurante",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -457,10 +456,10 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/restaurante/2",
+							"raw": "http://localhost:8080/restaurante/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -468,7 +467,7 @@
 							"port": "8080",
 							"path": [
 								"restaurante",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -495,7 +494,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/restaurante/1/cardapio",
+							"raw": "http://localhost:8080/restaurante/4/cardapio",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -503,7 +502,7 @@
 							"port": "8080",
 							"path": [
 								"restaurante",
-								"1",
+								"4",
 								"cardapio"
 							]
 						}
@@ -526,7 +525,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/restaurante/1/cardapio",
+							"raw": "http://localhost:8080/restaurante/1/cardapio/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -535,7 +534,121 @@
 							"path": [
 								"restaurante",
 								"1",
+								"cardapio",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/restaurante/1/cardapio/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"1",
+								"cardapio",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salvar item cardapio",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \r\n        \"nome\": \"Frango assado\",\r\n        \"descricao\": \"Melhor franguinho da região\",\r\n        \"preco\": 45.34,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/frangos/\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurante/4/cardapio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"4",
 								"cardapio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar cardapio",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \r\n        \"nome\": \"Frango mais caro do brasil\",\r\n        \"descricao\": \"Melhor franguinho da região\",\r\n        \"preco\": 150.00,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/frangos/\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurante/4/cardapio/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"4",
+								"cardapio",
+								"3"
 							]
 						}
 					},
@@ -594,7 +707,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"perfis\" : [\"ADMIN\"]\r\n}",
+							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\",\"ADMINISTRADOR\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -634,7 +747,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"perfis\" : []\r\n}",
+							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -692,7 +805,37 @@
 					"response": []
 				},
 				{
-					"name": "POST USUARIO",
+					"name": "GET BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/usuario/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CADASTRAR USUARIO",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -730,7 +873,7 @@
 					"response": []
 				},
 				{
-					"name": "PUT USUARIO",
+					"name": "ATUALIZAR USUARIO",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -746,7 +889,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"USUARIO ATUALIZADO ID 6\",\r\n    \"email\": \"denis@cold.com\",\r\n    \"login\": \"denislog\",\r\n    \"senha\" : \"denispass\",\r\n    \"tipoUsuario\": \"CLIENTE\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Pass: @New1234\",\r\n    \"email\": \"pass@pass.com\",\r\n    \"login\": \"admin\",\r\n    \"perfis\": [],\r\n    \"endereco\": {\r\n        \"id\": 2,\r\n        \"rua\": \"Morro do Dende\",\r\n        \"numero\": \"24\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"estado\": \"RJ\",\r\n        \"cep\": \"RJ\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -754,7 +897,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/usuario/6",
+							"raw": "http://localhost:8080/usuario/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -762,7 +905,7 @@
 							"port": "8080",
 							"path": [
 								"usuario",
-								"6"
+								"3"
 							]
 						}
 					},
@@ -784,7 +927,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/usuario/7",
+							"raw": "http://localhost:8080/usuario/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -792,7 +935,7 @@
 							"port": "8080",
 							"path": [
 								"usuario",
-								"7"
+								"10"
 							]
 						}
 					},
@@ -827,7 +970,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"login\": \"admin\",\r\n    \"senha\": \"adminadmin\"\r\n}",
+					"raw": "{\r\n    \"login\": \"admin\",\r\n    \"senha\": \"@New1234\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -866,7 +1009,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n    \"senhaAntiga\": \"admin\",\r\n    \"senhaNova\": \"nova_senhaW\"\r\n}",
+					"raw": " {\r\n    \"senhaAntiga\": \"@New1234\",\r\n    \"senhaNova\": \"<NOVASENHAAQUI>\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -874,7 +1017,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/usuario/mudar-senha/1",
+					"raw": "http://localhost:8080/usuario/mudar-senha/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -883,7 +1026,7 @@
 					"path": [
 						"usuario",
 						"mudar-senha",
-						"1"
+						"3"
 					]
 				}
 			},

@@ -24,6 +24,8 @@ public interface UsuarioEntityMapper {
     @Mapping(target = "perfis", source = "perfis", qualifiedByName = "mapStringsToUsuarioPerfil")
     UsuarioEntity toEntity(Usuario domain, @Context Long idUsuario);
 
+    List<UsuarioEntity> toEntity(List<Usuario> listFromDomain);
+
     default UsuarioEntity toEntity(Usuario domain){
 
         return toEntity(domain, domain.getId());

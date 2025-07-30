@@ -1,9 +1,11 @@
 package br.com.fiap.restaurante.infra.mappers;
 
+import br.com.fiap.restaurante.application.input.ItemCardapioInput;
 import br.com.fiap.restaurante.application.input.RestauranteInput;
 import br.com.fiap.restaurante.application.output.ItemCardapioOutput;
 import br.com.fiap.restaurante.application.output.RestauranteOutput;
 import br.com.fiap.restaurante.application.output.UsuarioOutput;
+import br.com.fiap.restaurante.infra.dtos.ItemRequestDTO;
 import br.com.fiap.restaurante.infra.dtos.ItemResponseDTO;
 import br.com.fiap.restaurante.infra.dtos.RestauranteDTO;
 import org.mapstruct.Mapper;
@@ -19,24 +21,24 @@ public interface ItemCardapioDTOMapper {
     ItemCardapioDTOMapper INSTANCE = Mappers.getMapper(ItemCardapioDTOMapper.class);
 
 //    @Mapping(target = "dataUltimaAlteracao", ignore = true)
-//    @Mapping(target = "dono", source = "dono", qualifiedByName = "convertUsuarioToDono")
+    @Mapping(source = "restauranteOutput.id", target = "restauranteId")
     ItemResponseDTO toDTO(ItemCardapioOutput itemFromDomain);
 
     List<ItemResponseDTO> toDTO(List<ItemCardapioOutput> itensFromDomain);
 
 //    @Mapping(target = "itensCardapio", ignore = true)
 //    @Mapping(target = "dono", source = "dono", qualifiedByName = "convertDonoToUsuario")
-    RestauranteInput toInputApplication(RestauranteDTO restauranteDTO);
+    ItemCardapioInput toInputApplication(ItemRequestDTO itemDTO);
 
-    @Named("convertDonoToUsuario")
-    default UsuarioOutput mapLongToUsuario(Long dono) {
-        return UsuarioOutput.create(dono, null,null, null,null,null,null);
-    }
-
-    @Named("convertUsuarioToDono")
-    default Long mapUsuarioToLong(UsuarioOutput dono) {
-        return dono.id();
-    }
+//    @Named("convertDonoToUsuario")
+//    default UsuarioOutput mapLongToUsuario(Long dono) {
+//        return UsuarioOutput.create(dono, null,null, null,null,null,null);
+//    }
+//
+//    @Named("convertUsuarioToDono")
+//    default Long mapUsuarioToLong(UsuarioOutput dono) {
+//        return dono.id();
+//    }
 
 
 }

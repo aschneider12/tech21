@@ -27,7 +27,7 @@ public class UseCaseDeletarItemCardapio {
             return gateway.deletar(item.getId());
 
         } else
-            throw new ValidationException("Item não pertence ao restaurante informado.");
+            throw new ValidationException("Item não pertence ao restauranteId informado.");
 
     }
 

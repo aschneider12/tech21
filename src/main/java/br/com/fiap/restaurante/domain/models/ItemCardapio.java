@@ -30,7 +30,7 @@ public class ItemCardapio {
     }
 
     //validar preço
-    //validar se pertence a algum restaurante
+    //validar se pertence a algum restauranteId
 
     public static ItemCardapio create(
             String nome,
@@ -54,14 +54,6 @@ public class ItemCardapio {
             String pathFoto
     ) {
         return new ItemCardapio(id, nome, descricao, preco, tipoVenda, restaurante, pathFoto);
-    }
-
-    public Restaurante getRestaurante() {
-        return restaurante;
-    }
-
-    public void setRestaurante(Restaurante restaurante) {
-        this.restaurante = restaurante;
     }
 
     public Long getId() {
@@ -112,14 +104,13 @@ public class ItemCardapio {
         this.pathFoto = pathFoto;
     }
 
-//    public Restaurante getRestaurante() {
-//        return restaurante;
-//    }
-//
-//    public void setRestaurante(Restaurante restaurante) {
-//        this.restaurante = restaurante;
-//    }
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
 
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
+    }
 
     @Override
     public boolean equals(Object o) {
