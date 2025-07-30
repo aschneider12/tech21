@@ -47,6 +47,8 @@ class UseCaseAtualizarRestauranteTest {
         Long id = 1L;
 
         var restaurante = Helper.gerarRestaurante();
+        restaurante.setId(id);
+
         var restauranteInput = RestauranteInput.create(
                 restaurante.getNome(),
                 restaurante.getTipoCozinha(),
@@ -61,10 +63,12 @@ class UseCaseAtualizarRestauranteTest {
                 ),
                 restaurante.getDono().getId()
         );
-        restaurante.setId(id);
+
+        Restaurante restauranteInputModel = RestauranteInput.toDomain(restauranteInput);
+        restauranteInputModel.setId(id);
 
         when(gateway.buscarRestaurantePorIdentificador(id)).thenReturn(restaurante);
-        when(gateway.atualizar(RestauranteInput.toDomain(restauranteInput))).thenReturn(restaurante);
+        when(gateway.atualizar(restauranteInputModel)).thenReturn(restauranteInputModel);
 
         RestauranteOutput restauranteAtualizado = useCase.run(restauranteInput, id);
 
@@ -72,11 +76,53 @@ class UseCaseAtualizarRestauranteTest {
                 .isNotNull()
                 .isInstanceOf(RestauranteOutput.class);
         assertThat(restauranteAtualizado.id()).isEqualTo(id);
-        assertThat(restauranteAtualizado.nome()).isEqualTo(restaurante.getNome());
-        assertThat(restauranteAtualizado.tipoCozinha()).isEqualTo(restaurante.getTipoCozinha());
-        assertThat(restauranteAtualizado.horarioFuncionamento()).isEqualTo(restaurante.getHorarioFuncionamento());
-        assertThat(restauranteAtualizado.dono()).isEqualTo(UsuarioOutput.fromDomain(restaurante.getDono()));
-        assertThat(restauranteAtualizado.endereco()).isEqualTo(EnderecoOutput.fromDomain(restaurante.getEndereco()));
+        assertThat(restauranteAtualizado.nome()).isEqualTo(restauranteInputModel.getNome());
+        assertThat(restauranteAtualizado.tipoCozinha()).isEqualTo(restauranteInputModel.getTipoCozinha());
+        assertThat(restauranteAtualizado.horarioFuncionamento()).isEqualTo(restauranteInputModel.getHorarioFuncionamento());
+        assertThat(restauranteAtualizado.dono()).isEqualTo(UsuarioOutput.fromDomain(restauranteInputModel.getDono()));
+        assertThat(restauranteAtualizado.endereco()).isEqualTo(EnderecoOutput.fromDomain(restauranteInputModel.getEndereco()));
+
+        verify(gateway, times(1)).buscarRestaurantePorIdentificador(id);
+        verify(gateway, times(1)).atualizar(any(Restaurante.class));
+    }
+
+    @Test
+    void devePermitirAtualizarDadosRestaurante() {
+        Long id = 1L;
+
+        var restaurante = Helper.gerarRestaurante();
+        restaurante.setId(id);
+
+        String nomeNovo = "Restaurante Explosivo";
+        String tipoCozinhaNovo = "Cozinha Explosiva";
+        var restauranteInput = RestauranteInput.create(
+                nomeNovo,
+                tipoCozinhaNovo,
+                restaurante.getHorarioFuncionamento(),
+                EnderecoInput.create(
+                        restaurante.getEndereco().getId(),
+                        restaurante.getEndereco().getRua(),
+                        restaurante.getEndereco().getNumero(),
+                        restaurante.getEndereco().getCidade(),
+                        restaurante.getEndereco().getEstado(),
+                        restaurante.getEndereco().getCep()
+                ),
+                restaurante.getDono().getId()
+        );
+
+        Restaurante restauranteInputModel = RestauranteInput.toDomain(restauranteInput);
+        restauranteInputModel.setId(id);
+
+        when(gateway.buscarRestaurantePorIdentificador(id)).thenReturn(restaurante);
+        when(gateway.atualizar(restauranteInputModel)).thenReturn(restauranteInputModel);
+
+        RestauranteOutput restauranteAtualizado = useCase.run(restauranteInput, id);
+
+        assertThat(restauranteAtualizado.nome()).isNotEqualTo(restaurante.getNome());
+        assertThat(restauranteAtualizado.nome()).isEqualTo(restauranteInputModel.getNome());
+
+        assertThat(restauranteAtualizado.tipoCozinha()).isNotEqualTo(restaurante.getTipoCozinha());
+        assertThat(restauranteAtualizado.tipoCozinha()).isEqualTo(restauranteInputModel.getTipoCozinha());
 
         verify(gateway, times(1)).buscarRestaurantePorIdentificador(id);
         verify(gateway, times(1)).atualizar(any(Restaurante.class));
@@ -87,6 +133,8 @@ class UseCaseAtualizarRestauranteTest {
         Long id = 1L;
 
         var restaurante = Helper.gerarRestaurante();
+        restaurante.setId(id);
+
         var restauranteInput = RestauranteInput.create(
                 restaurante.getNome(),
                 restaurante.getTipoCozinha(),
@@ -101,7 +149,6 @@ class UseCaseAtualizarRestauranteTest {
                 ),
                 restaurante.getDono().getId()
         );
-        restaurante.setId(id);
 
         when(gateway.buscarRestaurantePorIdentificador(id)).thenReturn(null);
 

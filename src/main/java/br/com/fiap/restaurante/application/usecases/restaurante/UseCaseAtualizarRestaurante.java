@@ -27,6 +27,7 @@ public class UseCaseAtualizarRestaurante {
             throw new EntidadeNaoEncontradaException("Restaurante", "ID - "+id);
 
         restaurante = RestauranteInput.toDomain(input);
+        restaurante.setId(id);
 
         //aqui, poderia ser enviada a entidade recuperada e só trocar os campos?
         //isso evitaria que a entidade ja possuisse campos e eles fossem desatualizados?
