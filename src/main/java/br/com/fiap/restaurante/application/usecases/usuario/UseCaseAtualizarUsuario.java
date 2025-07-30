@@ -1,6 +1,5 @@
 package br.com.fiap.restaurante.application.usecases.usuario;
 
-import br.com.fiap.restaurante.application.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.application.input.UsuarioInput;
 import br.com.fiap.restaurante.application.output.UsuarioOutput;
@@ -29,11 +28,11 @@ public class UseCaseAtualizarUsuario {
         if (usuarioExistente == null)
             throw new EntidadeNaoEncontradaException("Usuário", "ID <"+usuarioId+">");
 
-        UsuarioInput.toDomain(input);
-        //validar existencia de outros usuarios
-        //validar senha forte
+        var usuarioAtualizar = UsuarioInput.toDomain(input);
 
-        Usuario cadastrado = gateway.atualizar(UsuarioInput.toDomain(input));
+        usuarioAtualizar.validacoesDominio();
+
+        Usuario cadastrado = gateway.atualizar(usuarioAtualizar);
 
         return UsuarioOutput.fromDomain(cadastrado);
     }

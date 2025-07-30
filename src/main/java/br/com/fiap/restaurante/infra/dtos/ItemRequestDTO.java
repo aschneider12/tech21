@@ -1,17 +1,26 @@
 package br.com.fiap.restaurante.infra.dtos;
 
 import br.com.fiap.restaurante.infra.database.entities.TipoVenda;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class ItemRequestDTO {
 
+    @NotBlank(message = "O nome do item do cardápio não pode ser em branco!")
     String nome;
+
     String descricao;
+
+    @DecimalMin(value = "0.00", inclusive = true, message = "Preço do produto não pode ser menor que zero!")
     BigDecimal preco;
+
     TipoVenda tipoVenda;
+
     Long restauranteId;
+
     String pathFoto;
 
     public ItemRequestDTO() {
