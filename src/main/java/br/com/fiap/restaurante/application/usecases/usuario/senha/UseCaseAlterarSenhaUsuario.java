@@ -43,7 +43,6 @@ public class UseCaseAlterarSenhaUsuario {
         }
     }
 
-//    poderia estar dentro de usuario, ele sabe validar
     private void validarSenhaForte(String senha) {
 
         System.out.println("Senha no validador: " + senha); // Adicione esta linha para depurar
