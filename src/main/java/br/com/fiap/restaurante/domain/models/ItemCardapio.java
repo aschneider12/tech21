@@ -144,4 +144,17 @@ public class ItemCardapio {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    @Override
+    public String toString() {
+        return "ItemCardapio{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", preco=" + preco +
+                ", tipoVenda='" + tipoVenda + '\'' +
+                ", restaurante=" + restaurante +
+                ", pathFoto='" + pathFoto + '\'' +
+                '}';
+    }
 }
