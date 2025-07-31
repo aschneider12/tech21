@@ -11,15 +11,19 @@ public class UseCaseValidarToken {
 
     private final IUsuarioGateway gateway;
 
-    private UseCaseValidarToken(IUsuarioGateway gateway){
+    private UseCaseValidarToken(IUsuarioGateway gateway) {
         this.gateway = gateway;
     }
 
     public static UseCaseValidarToken create(IUsuarioGateway gateway) {
         return new UseCaseValidarToken(gateway);
     }
-    public boolean run(String authorization){
 
+    public boolean run(String authorization) {
         return jwtService.validarToken(authorization);
+    }
+
+    public void setJwtService(JwtService jwtService) {
+        this.jwtService = jwtService;
     }
 }
