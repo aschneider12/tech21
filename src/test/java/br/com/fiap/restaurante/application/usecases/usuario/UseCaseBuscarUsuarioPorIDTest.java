@@ -52,4 +52,20 @@ public class UseCaseBuscarUsuarioPorIDTest {
                 .isEqualTo(id);
         verify(gateway, times(1)).buscarUsuarioPorIdentificador(id);
     }
+
+    @Test
+    void deveRetornarNuloAoBuscarUsuarioPorIdQueNaoExiste(){
+        Long id = 1L;
+        var usuario = Helper.gerarUsuario();
+        usuario.setId(id);
+
+        when(gateway.buscarUsuarioPorIdentificador(id)).thenReturn(null);
+
+        UsuarioOutput usuarioRetornado = useCase.run(id);
+
+        assertThat(usuarioRetornado)
+                .isNull();
+
+        verify(gateway, times(1)).buscarUsuarioPorIdentificador(id);
+    }
 }

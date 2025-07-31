@@ -32,6 +32,7 @@ public class UseCaseCadastrarUsuario {
 
         var usuarioCadastrar = UsuarioInput.toDomain(input);
 
+
         usuarioCadastrar.validacoesDominio();
 
         Set<String> perfisTemp = usuarioCadastrar.getPerfis();

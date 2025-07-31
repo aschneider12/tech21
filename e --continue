@@ -1,0 +1,99 @@
+[33m990ba1e[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/item-teste[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mitem-teste[m[33m)[m enviando arquivo do diagrama
+[33m966c4d9[m Testes use case usuario/perfil
+[33me8ebc6e[m adicionando validacoes do dominio nos modelos da domain
+[33m5f0ed24[m finalizado crud de itens do cardapio, enviado json postman
+[33me587563[m Testes para usecases itemcardapio restaurante e usuario
+[33md4242cc[m commit dos usecase do cardapio
+[33m8e78738[m Merge branch 'main' of https://github.com/aschneider12/tech21
+[33m9f7d4c2[m Testes dos repositorios/adapters
+[33mfc8718f[m post man collections
+[33m1c623a8[m finalizando itens do cardapio
+[33m5192944[m remocao do perfil de usuario
+[33ma91f79d[m crud perfil, adicionando e listando, faltando remover
+[33mf4ff8d2[m concertando CRUD usuario e AUTH
+[33m8fa2147[m removido classpath e add ao gitignore
+[33ma60a087[m[33m ([m[1;31morigin/Crud-Restaurante[m[33m)[m crud restaurante funcionando
+[33me933bda[m correcoes no mapstruct do usuario
+[33mfbb4d8c[m erro no mapstruct do usuario
+[33mae85894[m mudanca nos pacotes pra atender clean arch (denovo)
+[33m548795a[m correcoes no restaurante, sem erros
+[33mca928e9[m Merge remote-tracking branch 'origin/test/restaurante' into Crud-Restaurante
+[33m8942272[m crud do restaurante, erro no mapper da entidade jpa ainda
+[33m527af83[m repository e mappers
+[33mdd6e9a8[m test: Teste da busca de resturante por ID
+[33me0df69f[m enviando os mappers do core
+[33m2e018d9[m Atualizando o CRUD restaurante, com erros
+[33m3a7eb35[m Devolvendo as classes da Raquel <Itens>
+[33m16784c3[m Merge branch 'refs/heads/creating-core'
+[33m02997d1[m Merge remote-tracking branch 'origin/Crud-Restaurante' into creating-core
+[33ma69580e[m CRUD Item para itens do cardápio
+[33mc1b0c31[m ajuste para Clean Arch, implementação do item do cardapio na camada core
+[33me4f537e[m criando use case perfil, teste no restaurante cadastrar
+[33m9eef353[m adicionando o mapper do restaurante, retornando para a view
+[33m2dea08d[m separando os contextos do core e da app para entidades e contrllers
+[33m03f5678[m correcao dos erros de importacao nas classes
+[33me549b3f[m merge core com crud-restaurante
+[33meadd634[m Merge branch 'creating-core' into Crud-Restaurante
+[33mf644662[m enviando todo o core de restaurante e parte do usuario
+[33m9a54f69[m Validações de senha e login
+[33m1c536a4[m Validações de senha e login
+[33m90a42c1[m Adição do cadastrar na controller do restaurante e seus respectivos DTOS de request,insert,response
+[33m0ca563b[m Correcao da senhas, alterado o update do usuario
+[33mbc8d7f9[m atualizado DER e collection postman
+[33me299454[m criando crud para PERFIL
+[33m4ce9d4d[m atualizado modelo do perfil
+[33maacc2ff[m modelagem, migrations, controller restaurante
+[33mc914878[m Merge branch 'main' of https://github.com/aschneider12/tech21 # Please enter a commit message to explain why this merge is necessary, # especially if it merges an updated upstream into a topic branch. # # Lines starting with '#' will be ignored, and an empty message aborts # the commit.
+[33m43041bc[m adicionadas as entidades, ainda com erro
+[33mbc08a01[m Add o projeto em pdf dentro de docs
+[33m393a017[m validacao ao alterar senha, nao permite senha fraca, valida senha antiga
+[33m8c6f1be[m doc: melhora collection do postman
+[33m1643257[m[33m ([m[1;31morigin/master[m[33m)[m corrigido o problema de compilação, porem 1 teste esta falhando
+[33m4b38175[m criado validar token, protegidas as rotas novamente
+[33maf59084[m arquivos de configuração devem ser ignorados
+[33mdd3ea69[m merge com o ultimo commit
+[33mb824ab5[m Update README.md
+[33meaf338e[m Merge pull request #4 from aschneider12/feature/auth-jwt-password-update
+[33mb52e5cc[m[33m ([m[1;31morigin/feature/auth-jwt-password-update[m[33m)[m Merge pull request #3 from aschneider12/main
+[33m05e01ee[m Autenticação JWT com validação por tipo de usuário, proteção de endpoints, troca de senha autenticada e validação de senha forte
+[33m2b28784[m add o endereco no flyway, descomentado na classe usuario
+[33ma2c6b9f[m Resolve conflitos e unifica HELP.md e application.properties
+[33mf19bf52[m Corrige erro de validação do Flyway e atualiza HELP.md
+[33m465b18b[m add as collections do json
+[33mfa29273[m liberado requests no usuario pra teste, criado v2 flyway pra validar senha
+[33m76db0a1[m Alterado o mudar senha para o usuário utilizando enconder
+[33m63d64c8[m Merge após commit da Raquel
+[33mb2003f3[m application properties
+[33mcc6cf49[m Fix conflicts
+[33mc368a10[m removido env do token
+[33mb5a7b59[m Merge branch 'feature/auth-jwt-password-update' into main
+[33md20a4f3[m Ajustado arquivos
+[33m0651f3d[m Limpeza de arquivos não ignorados e atualização do .gitignore
+[33md9e867b[m chore(gitignore): ignora arquivos temporários, sensíveis e de IDE
+[33mb4af4dc[m chore(config): externaliza segredos sensíveis para variáveis de ambiente
+[33mf17ca47[m Merge branch 'main' into feature/auth-jwt-password-update
+[33mc7b5a69[m feat(auth): implementa login com JWT, proteção de rotas e troca de senha segura
+[33mf7d0e77[m[33m ([m[1;31morigin/validationUsersDTO[m[33m)[m correcao de alguns imports apos merge, validacao update,delete
+[33md5675b2[m merge com a main
+[33m6b7d12f[m refatorando controller e service com os converter dto
+[33m9b8243f[m Merge branch 'main' of https://github.com/aschneider12/tech21
+[33ma0a30f6[m commit de teste
+[33me61254d[m Validações de senha e login
+[33m651d78f[m Validações de senha e login
+[33me6e172f[m Funcionalidade - Alterar senha
+[33m6d5f6fa[m correcao na validacao do usuario
+[33md2562f0[m add o doc do projeto
+[33ma297434[m[33m ([m[1;31morigin/swagger[m[33m)[m add o doc do projeto
+[33mbbfd758[m adicionado o swagger e as validation, criado o delete no usuario
+[33m7384c23[m Merge pull request #1 from aschneider12/flyway
+[33m9eb810a[m[33m ([m[1;31morigin/flyway[m[33m)[m criado o flyway da parte de usuario
+[33mf4a9742[m[33m ([m[1;31morigin/dev[m[33m)[m Removida a regra de negocio do modelo
+[33mb6b6e1c[m[33m ([m[1;31morigin/usuario-cadastrar[m[33m)[m Update README.md
+[33m9d1f703[m Implementação do endpoint de cadastro de usuário e adição do docker-compose.yml
+[33m20a4ccf[m add o dockerfile
+[33m215a777[m modificado ignore
+[33m742d9fd[m adicionando classes do usuario
+[33m7950ca4[m Corrigindo a pasta
+[33m057a84c[m v0.0.1 da app do restaurante
+[33m5aba0f4[m Update README.md
+[33mf6c7ed6[m Initial commit

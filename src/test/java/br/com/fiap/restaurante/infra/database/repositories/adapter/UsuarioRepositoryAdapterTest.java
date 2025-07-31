@@ -248,9 +248,4 @@ public class UsuarioRepositoryAdapterTest {
 
     }
 
-
-
-
-
-
 }

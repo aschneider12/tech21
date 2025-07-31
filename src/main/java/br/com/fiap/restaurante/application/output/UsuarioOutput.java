@@ -26,21 +26,21 @@ public record UsuarioOutput(
 //                                       String senha,
                                        LocalDateTime dataUltimaAlteracao,
                                        Set<String> perfis,
-                                       EnderecoOutput endereco){
+                                       EnderecoOutput endereco) {
 
-        return new UsuarioOutput(id,nome,email,login,dataUltimaAlteracao,perfis,endereco);
+        return new UsuarioOutput(id, nome, email, login, dataUltimaAlteracao, perfis, endereco);
     }
 
     public static UsuarioOutput fromDomain(Usuario u) {
-        if(u != null)
-            return new UsuarioOutput(u.getId(), u.getNome(),u.getEmail(), u.getLogin(), // u.getSenha(),
+        if (u != null)
+            return new UsuarioOutput(u.getId(), u.getNome(), u.getEmail(), u.getLogin(), // u.getSenha(),
                     u.getDataUltimaAlteracao(), u.getPerfis(),
                     EnderecoOutput.fromDomain(u.getEndereco()));
         return null;
     }
 
     public static List<UsuarioOutput> fromDomain(List<Usuario> us) {
-        if(us != null && !us.isEmpty())
+        if (us != null && !us.isEmpty())
             return us.stream().map(UsuarioOutput::fromDomain).toList();
 
         return List.of();

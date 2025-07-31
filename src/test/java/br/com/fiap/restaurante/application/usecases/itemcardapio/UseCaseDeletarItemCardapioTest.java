@@ -1,59 +1,78 @@
 package br.com.fiap.restaurante.application.usecases.itemcardapio;
 
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IItemCardapioGateway;
-import br.com.fiap.restaurante.domain.models.ItemCardapio;
-import br.com.fiap.restaurante.domain.models.Restaurante;
+import br.com.fiap.restaurante.helper.Helper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-class UseCaseDeletarItemCardapioTest {
+public class UseCaseDeletarItemCardapioTest {
 
     @Mock
     private IItemCardapioGateway gateway;
 
     private UseCaseDeletarItemCardapio useCase;
+    AutoCloseable mock;
 
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    void setup(){
+        mock = MockitoAnnotations.openMocks(this);
         useCase = UseCaseDeletarItemCardapio.create(gateway);
     }
 
-    @Test
-    void deveDeletarItemCardapioQuandoPertenceAoRestaurante() {
-        // Dados simulados
-        Long restauranteId = 1L;
-        Long itemId = 10L;
-        Restaurante restaurante = new Restaurante(restauranteId);
-
-        ItemCardapio item = ItemCardapio.create(
-            itemId,
-            "Pizza",
-            "Pizza de Calabresa",
-            new BigDecimal("39.90"),
-            "unidade",
-            restaurante,
-            "/img/pizza.png"
-        );
-
-        // Configura comportamento do mock
-        when(gateway.buscarItemCardapioPorIdentificador(itemId)).thenReturn(item);
-        when(gateway.deletar(itemId)).thenReturn(true);
-
-        // Executa o use case
-        boolean resultado = useCase.run(restauranteId, itemId);
-
-        // Verificações
-        assertTrue(resultado);
-        verify(gateway, times(1)).buscarItemCardapioPorIdentificador(itemId);
-        verify(gateway, times(1)).deletar(itemId);
+    @AfterEach
+    void teardown() throws Exception{
+        mock.close();
     }
-}
 
+    @Test
+    void devePermitirDeletarItemCardapio(){
+
+        Long idItemCardapio = 1L;
+        Long idRestaurante = 99L;
+
+        var itemCardapio = Helper.gerarItemCardapio();
+        itemCardapio.getRestaurante().setId(idRestaurante);
+        itemCardapio.setId(idItemCardapio);
+
+
+        when(gateway.buscarItemCardapioPorIdentificador(idItemCardapio)).thenReturn(itemCardapio);
+        when(gateway.deletar(idItemCardapio)).thenReturn(true);
+
+        boolean itemFoiDeletado = useCase.run(idRestaurante, idItemCardapio);
+
+        assertThat(itemFoiDeletado)
+                .isTrue();
+        verify(gateway, times(1)).deletar(idItemCardapio);
+        verify(gateway, times(1)).buscarItemCardapioPorIdentificador(idItemCardapio);
+    }
+
+    @Test
+    void deveFalharAoTentarDeletarItemCardapioDeRestauranteDiferenteDoInformado(){
+
+        Long idItemCardapio = 1L;
+        Long idRestaurante = 99L;
+
+        var itemCardapio = Helper.gerarItemCardapio();
+        itemCardapio.getRestaurante().setId(idRestaurante);
+        itemCardapio.setId(idItemCardapio);
+
+
+        when(gateway.buscarItemCardapioPorIdentificador(idItemCardapio)).thenReturn(itemCardapio);
+
+        assertThatThrownBy(() -> useCase.run(100L, idItemCardapio))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("Item não pertence ao restauranteId informado.");
+        verify(gateway, times(1)).buscarItemCardapioPorIdentificador(idItemCardapio);
+        verify(gateway, never()).deletar(idItemCardapio);
+    }
+
+
+}
