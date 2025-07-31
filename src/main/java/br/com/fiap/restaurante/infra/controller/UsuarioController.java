@@ -68,7 +68,7 @@ public class UsuarioController implements UsuarioDocController {
 
         uc.run(id);
 
-        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado!");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Usuário deletado!");
     }
 
     @GetMapping

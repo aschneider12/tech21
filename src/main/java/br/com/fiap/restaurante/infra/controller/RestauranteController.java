@@ -67,7 +67,7 @@ public class RestauranteController implements RestauranteDocController {
         var uc = factoryRestauranteUseCase.deletarRestaurante();
 
         if(uc.run(id))
-            return ResponseEntity.status(HttpStatus.OK).body("Restaurante deletado!");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Restaurante deletado!");
         else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi deletado!");
     }

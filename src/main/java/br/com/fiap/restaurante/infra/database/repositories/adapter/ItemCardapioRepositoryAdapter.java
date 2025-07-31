@@ -75,12 +75,8 @@ public class ItemCardapioRepositoryAdapter implements IDataStorageItemCardapio {
     @Override
     public ItemCardapio buscarItemCardapioPorNome(String nome) {
 
-//        UsuarioEntity usuarioEntityBD = repository.findByLogin(login)
-//                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário", login));
-//
-//        return UsuarioEntityMapper.INSTANCE.toDomain(usuarioEntityBD);
-//
-        return null;
-    }
+        Optional<ItemCardapioEntity> entityBD = repository.findByNome(nome);
 
+        return entityBD.map(ItemCardapioEntityMapper.INSTANCE::toDomain).orElse(null);
+    }
 }
