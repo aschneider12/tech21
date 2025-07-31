@@ -58,7 +58,7 @@ public abstract class Helper {
           "item teste",
           "Descrição teste",
                 BigDecimal.valueOf(10.00),
-          "Delivery",
+          "DELIVERY",
           gerarRestaurante(),
           "./caminhoteste.png"
         );

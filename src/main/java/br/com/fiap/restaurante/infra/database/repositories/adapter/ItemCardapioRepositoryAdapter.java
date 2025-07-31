@@ -66,10 +66,10 @@ public class ItemCardapioRepositoryAdapter implements IDataStorageItemCardapio {
 
     @Override
     public ItemCardapio buscarItemCardapioPorIdentificador(Long itemCardapioId) {
-        ItemCardapioEntity usuarioEntityBD = repository.findById(itemCardapioId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Item Car", "<ID: "+itemCardapioId+">"));
+        ItemCardapioEntity itemCardapioEntityBD = repository.findById(itemCardapioId)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Item Cardápio", "ID: "+itemCardapioId));
 
-        return ItemCardapioEntityMapper.INSTANCE.toDomain(usuarioEntityBD);
+        return ItemCardapioEntityMapper.INSTANCE.toDomain(itemCardapioEntityBD);
     }
 
     @Override

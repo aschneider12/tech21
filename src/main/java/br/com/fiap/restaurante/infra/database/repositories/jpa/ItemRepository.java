@@ -8,4 +8,6 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<ItemCardapioEntity, Long> {
 
     List<ItemCardapioEntity> findAllByRestauranteId(Long restauranteId);
+
+    Long id(Long id);
 }
