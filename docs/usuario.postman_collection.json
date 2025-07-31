@@ -2,56 +2,41 @@
 	"info": {
 		"_postman_id": "50e627da-f701-4995-a1d3-eee5df0cda51",
 		"name": "TECH_CHAL_GP83",
+		"description": "Grupo 83 - Tech Challenge\n\nRepositório - [https://github.com/aschneider12/tech21](https://github.com/aschneider12/tech21)\n\nProjeto: ShareFood",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21463207"
 	},
 	"item": [
 		{
-			"name": "simulação erros",
+			"name": "usuario",
 			"item": [
 				{
-					"name": "GET USUARIO 404",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"nome\": \"Clark Quenti\",\r\n        \"email\": \"clark@quenti.com\",\r\n        \"login\": \"teste\",\r\n        \"senha\": \"admin\",\r\n        \"dataUltimaAlteracao\": \"2025-05-09\",\r\n        \"endereco\": null,\r\n        \"tipoUsuario\": \"DONO\"\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"nome\": \"Clark Cold\",\r\n        \"email\": \"clark@cold.com\",\r\n        \"login\": \"outroteste\",\r\n        \"senha\": \"admin\",\r\n        \"dataUltimaAlteracao\": \"2025-05-09\",\r\n        \"endereco\": null,\r\n        \"tipoUsuario\": \"CLIENTE\"\r\n    }\r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
+					"name": "inserir usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Resposta contém ID do novo recurso\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"});\r",
+									"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"usuarioId\", response.id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/usuarios",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios"
-							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST USUARIO 400 - erro validação",
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -67,7 +52,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"\",\r\n    \"email\": \"denis123\",\r\n    \"login\": \"\",\r\n    \"senha\": \"denis\",\r\n    \"tipoUsuario\": null\r\n}",
+							"raw": "{\r\n    \"nome\": \"jb \",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis01\",\r\n    \"senha\": \"Denis9@12\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -89,7 +74,7 @@
 					"response": []
 				},
 				{
-					"name": "PUT USUARIO 400 - erro validação",
+					"name": "all usuarios",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -101,87 +86,37 @@
 								}
 							]
 						},
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"\",\r\n    \"email\": \"denis123\",\r\n    \"login\": \"\",\r\n    \"senha\": \"denis\",\r\n    \"tipoUsuario\": null\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/usuario/6",
+							"raw": "http://localhost:8080/usuario",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"usuario",
-								"6"
+								"usuario"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "PUT USUARIO 400 - erro usuário não encontrado",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"batatinha\",\r\n    \"email\": \"batatinha@email\",\r\n    \"login\": \"batatinha\",\r\n    \"senha\": \"batatinha123\",\r\n    \"tipoUsuario\": \"DONO\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/usuario/99",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"99"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "AUTH LOGIN 401 - erro usuário inválido",
+					"name": "usuario by id",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"const responseText = pm.response.text();\r",
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
 									"\r",
-									"const tokenPrefix = \"Token: \";\r",
-									"const tokenIndex = responseText.indexOf(tokenPrefix);\r",
-									"\r",
-									"if (tokenIndex !== -1) {\r",
-									"    const token = responseText.substring(tokenIndex + tokenPrefix.length).trim();\r",
-									"    pm.collectionVariables.set(\"tokenJwt\", token);\r",
-									"}"
+									"pm.test(\"Resposta contém nome do restaurante\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"nome\");\r",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -189,11 +124,200 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/usuario/{{usuarioId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"{{usuarioId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"jb atualizado\",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis01\",\r\n    \"perfis\": [\r\n        \"DONO\"\r\n    ],\r\n    \"endereco\": { \r\n        \"rua\": \"Morro do maracuja\",\r\n        \"numero\": \"24\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"estado\": \"RJ\",\r\n        \"cep\": \"RJ\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuario/{{usuarioId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"{{usuarioId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 204 - No Content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/usuario/{{usuarioId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"{{usuarioId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "perfis",
+			"item": [
+				{
+					"name": "buscar perfis usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/usuario/{{usuarioId}}/perfil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"{{usuarioId}}",
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salvar perfis usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"batatinha\",\r\n    \"senha\": \"batatinha\",\r\n    \"tipoUsuario\": \"DONO\"\r\n}",
+							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\",\"ADMINISTRADOR\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -201,22 +325,38 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/login",
+							"raw": "http://localhost:8080/usuario/{{usuarioId}}/perfil",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"auth",
-								"login"
+								"usuario",
+								"{{usuarioId}}",
+								"perfil"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "MUDAR SENHA 400 - erro usuário não encontrado",
+					"name": "delete perfil",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 204 - No Content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -228,11 +368,11 @@
 								}
 							]
 						},
-						"method": "PATCH",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n    \"senhaAntiga\": \"admin\",\r\n    \"senhaNova\": \"nova_senhaW\"\r\n}",
+							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -240,7 +380,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/usuario/mudar-senha/99",
+							"raw": "http://localhost:8080/usuario/{{usuarioId}}/perfil",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -248,48 +388,8 @@
 							"port": "8080",
 							"path": [
 								"usuario",
-								"mudar-senha",
-								"99"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "MUDAR SENHA 400 - erro senha fraca",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": " {\r\n    \"senhaAntiga\": \"admin\",\r\n    \"senhaNova\": \"hello\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/usuario/mudar-senha/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"mudar-senha",
-								"1"
+								"{{usuarioId}}",
+								"perfil"
 							]
 						}
 					},
@@ -302,6 +402,34 @@
 			"item": [
 				{
 					"name": "inserir restaurante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Resposta contém ID do novo recurso\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"});\r",
+									"\r",
+									"// Pega o corpo da resposta\r",
+									"let response = pm.response.json();\r",
+									"\r",
+									"// Define a variável de ambiente \"restauranteId\" com o valor do campo \"id\"\r",
+									"pm.environment.set(\"restauranteId\", response.id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -317,7 +445,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Senta no Canto\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9,\r\n   \"endereco\": {\r\n            \"rua\": \"Baixada da égua\",\r\n            \"numero\": \"114\",\r\n            \"cidade\": \"Sao Paulo\",\r\n            \"estado\": \"SP\",\r\n            \"cep\": \"21.922-490.\"        \r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"oas\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -339,7 +467,80 @@
 					"response": []
 				},
 				{
+					"name": "restaurante by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Resposta contém nome do restaurante\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"nome\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ID retornado é o mesmo buscado\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"restauranteId\")));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/restaurante/{{restauranteId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"{{restauranteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "update restaurante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let response = pm.response.json();\r",
+									"\r",
+									"// Define a variável de ambiente \"restauranteId\" com o valor do campo \"id\"\r",
+									"pm.environment.set(\"restauranteId\", response.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -355,7 +556,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Senta na Esquina\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9,\r\n   \"endereco\": {\r\n        \"id\" : 11 ,\r\n              \"rua\": \"Baixada da pqp\",\r\n            \"numero\": \"114\",\r\n            \"cidade\": \"Narnia\",\r\n            \"estado\": \"AC\",\r\n            \"cep\": \"21.922-490.\"        \r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"ohsiro atualizado\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9 ,\r\n    \"endereco\": { \r\n             \"rua\": \"Baixada da pqp\",\r\n            \"numero\": \"114\",\r\n            \"cidade\": \"Narnia\",\r\n            \"estado\": \"AC\",\r\n            \"cep\": \"21.922-490.\"        \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -363,7 +564,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/restaurante/4",
+							"raw": "http://localhost:8080/restaurante/{{restauranteId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -371,7 +572,7 @@
 							"port": "8080",
 							"path": [
 								"restaurante",
-								"4"
+								"{{restauranteId}}"
 							]
 						}
 					},
@@ -414,37 +615,22 @@
 					"response": []
 				},
 				{
-					"name": "restaurante by id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/restaurante/3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"restaurante",
-								"3"
-							]
+					"name": "delete restaurante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 204 - No Content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "apagar restaurante",
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -459,7 +645,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/restaurante/3",
+							"raw": "http://localhost:8080/restaurante/{{restauranteId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -467,7 +653,7 @@
 							"port": "8080",
 							"path": [
 								"restaurante",
-								"3"
+								"{{restauranteId}}"
 							]
 						}
 					},
@@ -478,6 +664,177 @@
 		{
 			"name": "item",
 			"item": [
+				{
+					"name": "inserir item cardapio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Resposta contém ID do novo recurso\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"itemCardapioId\", response.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{    \r\n        \"nome\": \"Panqueca\",\r\n        \"descricao\": \"Melhor franguinho da região\",\r\n        \"preco\": 45.34,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/frangos/\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurante/{{restauranteId}}/cardapio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"{{restauranteId}}",
+								"cardapio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get item cardapio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Resposta contém nome do item cardapio\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"nome\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/restaurante/{{restauranteId}}/cardapio/{{itemCardapioId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"{{restauranteId}}",
+								"cardapio",
+								"{{itemCardapioId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar cardapio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"// Define a variável de ambiente \"restauranteId\" com o valor do campo \"id\"\r",
+									"pm.environment.set(\"restauranteId\", response.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \r\n        \"nome\": \"Panqueca atualizada\",\r\n        \"descricao\": \"Melhor franguinho da região\",\r\n        \"preco\": 150.00,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/frangos/\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurante/{{restauranteId}}/cardapio/{{itemCardapioId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurante",
+								"{{restauranteId}}",
+								"cardapio",
+								"{{itemCardapioId}}"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "get cardapio",
 					"request": {
@@ -494,7 +851,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/restaurante/4/cardapio",
+							"raw": "http://localhost:8080/restaurante/{{restauranteId}}/cardapio",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -502,40 +859,8 @@
 							"port": "8080",
 							"path": [
 								"restaurante",
-								"4",
+								"{{restauranteId}}",
 								"cardapio"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get item cardapio",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/restaurante/1/cardapio/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"restaurante",
-								"1",
-								"cardapio",
-								"1"
 							]
 						}
 					},
@@ -543,6 +868,20 @@
 				},
 				{
 					"name": "delete item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 204 - No Content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -557,7 +896,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/restaurante/1/cardapio/1",
+							"raw": "http://localhost:8080/restaurante/{{restauranteId}}/cardapio/{{itemCardapioId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -565,90 +904,9 @@
 							"port": "8080",
 							"path": [
 								"restaurante",
-								"1",
+								"{{restauranteId}}",
 								"cardapio",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "salvar item cardapio",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "\r\n{\r\n    \r\n        \"nome\": \"Frango assado\",\r\n        \"descricao\": \"Melhor franguinho da região\",\r\n        \"preco\": 45.34,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/frangos/\"\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/restaurante/4/cardapio",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"restaurante",
-								"4",
-								"cardapio"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "atualizar cardapio",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "\r\n{\r\n    \r\n        \"nome\": \"Frango mais caro do brasil\",\r\n        \"descricao\": \"Melhor franguinho da região\",\r\n        \"preco\": 150.00,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/frangos/\"\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/restaurante/4/cardapio/3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"restaurante",
-								"4",
-								"cardapio",
-								"3"
+								"{{itemCardapioId}}"
 							]
 						}
 					},
@@ -657,291 +915,516 @@
 			]
 		},
 		{
-			"name": "perfis",
+			"name": "simulação erros",
 			"item": [
 				{
-					"name": "buscar perfis usuario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+					"name": "erros usuario",
+					"item": [
+						{
+							"name": "senha",
+							"item": [
 								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuario/3/perfil",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"3",
-								"perfil"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "salvar perfis usuario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+									"name": "usuario  - senha sem numero",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code é 400 - Bad Request\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Mensagem de erro contém texto sobre senha inválida\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.message).to.include(\"número\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{tokenJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nome\": \"Teste 01\",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis01\",\r\n    \"senha\": \"Denissemnumero\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuario",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuario"
+											]
+										}
+									},
+									"response": []
+								},
 								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\",\"ADMINISTRADOR\"]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/usuario/3/perfil",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"3",
-								"perfil"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete perfil",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+									"name": "usuario  - senha sem maiúscula",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code é 400 - Bad Request\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Mensagem de erro contém texto sobre senha inválida\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.message).to.include(\"maiúscula\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{tokenJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nome\": \"Teste 01\",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis01\",\r\n    \"senha\": \"denissemnume9\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuario",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuario"
+											]
+										}
+									},
+									"response": []
+								},
 								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
+									"name": "usuario  - senha 8 caracteres",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code é 400 - Bad Request\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Mensagem de erro contém texto sobre senha inválida\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.message).to.include(\"8\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{tokenJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nome\": \"Teste 01\",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis01\",\r\n    \"senha\": \"Den@2\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuario",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuario"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "usuario  - senha caracter especial",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code é 400 - Bad Request\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Mensagem de erro contém texto sobre senha inválida\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.message).to.include(\"especial\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{tokenJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nome\": \"Teste 01\",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis01\",\r\n    \"senha\": \"Denis123\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuario",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuario"
+											]
+										}
+									},
+									"response": []
 								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\"]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/usuario/3/perfil",
-							"protocol": "http",
-							"host": [
-								"localhost"
 							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"3",
-								"perfil"
-							]
+							"description": "validações da senha do usuário ao inserir"
+						},
+						{
+							"name": "GET USUARIO 404",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code é 404 - Not found\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenJwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"nome\": \"Clark Quenti\",\r\n        \"email\": \"clark@quenti.com\",\r\n        \"login\": \"teste\",\r\n        \"senha\": \"admin\",\r\n        \"dataUltimaAlteracao\": \"2025-05-09\",\r\n        \"endereco\": null,\r\n        \"tipoUsuario\": \"DONO\"\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"nome\": \"Clark Cold\",\r\n        \"email\": \"clark@cold.com\",\r\n        \"login\": \"outroteste\",\r\n        \"senha\": \"admin\",\r\n        \"dataUltimaAlteracao\": \"2025-05-09\",\r\n        \"endereco\": null,\r\n        \"tipoUsuario\": \"CLIENTE\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT USUARIO 400 - erro validação",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenJwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"\",\r\n    \"email\": \"denis123\",\r\n    \"login\": \"\",\r\n    \"senha\": \"denis\",\r\n    \"perfis\": [null]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuario/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT USUARIO 400 - erro usuário não encontrado",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenJwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"batatinha\",\r\n    \"email\": \"batatinha@email\",\r\n    \"login\": \"batatinha\",\r\n    \"senha\": \"batatinha123\",\r\n    \"tipoUsuario\": \"DONO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuario/99",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"99"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MUDAR SENHA 400 - erro usuário não encontrado",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenJwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n    \"senhaAntiga\": \"admin\",\r\n    \"senhaNova\": \"nova_senhaW\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuario/mudar-senha/99",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"mudar-senha",
+										"99"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MUDAR SENHA 400 - erro senha fraca",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenJwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n    \"senhaAntiga\": \"admin\",\r\n    \"senhaNova\": \"hello\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuario/mudar-senha/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"mudar-senha",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AUTH LOGIN 401 - erro usuário inválido",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseText = pm.response.text();\r",
+											"\r",
+											"const tokenPrefix = \"Token: \";\r",
+											"const tokenIndex = responseText.indexOf(tokenPrefix);\r",
+											"\r",
+											"if (tokenIndex !== -1) {\r",
+											"    const token = responseText.substring(tokenIndex + tokenPrefix.length).trim();\r",
+											"    pm.collectionVariables.set(\"tokenJwt\", token);\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\": \"batatinha\",\r\n    \"senha\": \"batatinha\",\r\n    \"tipoUsuario\": \"DONO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"description": "Essas requests serão executas após todas as inserções e exclusões e deverão retornar erros, somente referente ao USUÁRIO"
 				}
-			]
-		},
-		{
-			"name": "usuario",
-			"item": [
-				{
-					"name": "GET USUARIOS",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuario",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET BY ID",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuario/10",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"10"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CADASTRAR USUARIO",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"jack tequila\",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis\",\r\n    \"senha\": \"denis\",\r\n    \"tipoUsuario\": \"DONO\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/usuario",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ATUALIZAR USUARIO",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Pass: @New1234\",\r\n    \"email\": \"pass@pass.com\",\r\n    \"login\": \"admin\",\r\n    \"perfis\": [],\r\n    \"endereco\": {\r\n        \"id\": 2,\r\n        \"rua\": \"Morro do Dende\",\r\n        \"numero\": \"24\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"estado\": \"RJ\",\r\n        \"cep\": \"RJ\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/usuario/3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DELETE USUARIO",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuario/10",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"10"
-							]
-						}
-					},
-					"response": []
-				}
-			]
+			],
+			"description": "Essas requests serão executas após todas as inserções e exclusões e deverão retornar erros"
 		},
 		{
 			"name": "AUTH LOGIN",
@@ -1033,14 +1516,57 @@
 			"response": []
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{tokenJwt}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "tokenJwt",
 			"value": ""
 		},
 		{
-			"key": "token",
-			"value": ""
+			"key": "itemCardapioId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "restauranteId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "usuarioId",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
