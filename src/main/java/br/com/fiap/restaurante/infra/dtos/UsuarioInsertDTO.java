@@ -30,10 +30,8 @@ public record UsuarioInsertDTO(
 //        message = "Senha fraca. A senha deve ter pelo menos 8 caracteres e conter números.")
     String senha,
 
-    @NotNull(message = "Tipo de usuário não pode ser nulo, pelo menos um tipo deve ser informado.")
+    @NotNull(message = "Perfil de usuário não pode ser nulo, pelo menos um tipo deve ser informado.")
     Set<TipoUsuario> perfis,
-
-    TipoUsuario tipoUsuario,
 
     @Schema
     EnderecoDTO endereco

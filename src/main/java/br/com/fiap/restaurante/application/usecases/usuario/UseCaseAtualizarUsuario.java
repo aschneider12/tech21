@@ -30,10 +30,15 @@ public class UseCaseAtualizarUsuario {
 
         var usuarioAtualizar = UsuarioInput.toDomain(input);
 
+        //* campos não atualizados mais via usuários, e sim por UC's próprios *//
+        usuarioAtualizar.setId(usuarioId);
+        usuarioAtualizar.setPerfis(usuarioExistente.getPerfis());
+        usuarioAtualizar.setSenha(usuarioExistente.getSenha());
+
         usuarioAtualizar.validacoesDominio();
 
-        Usuario cadastrado = gateway.atualizar(usuarioAtualizar);
+        Usuario atualizado = gateway.atualizar(usuarioAtualizar);
 
-        return UsuarioOutput.fromDomain(cadastrado);
+        return UsuarioOutput.fromDomain(atualizado);
     }
 }

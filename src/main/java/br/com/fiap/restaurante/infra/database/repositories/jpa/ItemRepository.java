@@ -4,8 +4,10 @@ import br.com.fiap.restaurante.infra.database.entities.ItemCardapioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<ItemCardapioEntity, Long> {
 
     List<ItemCardapioEntity> findAllByRestauranteId(Long restauranteId);
+    Optional<ItemCardapioEntity> findByNome(String nome);
 }

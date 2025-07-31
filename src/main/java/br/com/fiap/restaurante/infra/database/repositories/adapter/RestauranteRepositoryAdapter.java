@@ -44,6 +44,8 @@ public class RestauranteRepositoryAdapter implements IDataStorageRestaurante {
     @Override
     public boolean deletar(Long id) {
 
+        //se houver mais de um restaurante no mesmo endereço dara problema
+
         if(repository.existsById(id))
             repository.deleteById(id);
         else
@@ -58,9 +60,6 @@ public class RestauranteRepositoryAdapter implements IDataStorageRestaurante {
         List<RestauranteEntity> all = repository.findAll();
 
         return RestauranteEntityMapper.INSTANCE.toDomain(all);
-//
-//        return all.stream().map(
-//                r -> new RestauranteOutputDTO(r.getId(),r.getNome(),r.getTipoCozinha(),r.getHorarioFuncionamento())).collect(Collectors.toList());
     }
 
     @Override
@@ -79,9 +78,7 @@ public class RestauranteRepositoryAdapter implements IDataStorageRestaurante {
 
         Optional<RestauranteEntity> restaurantDB = repository.findByNome(nome);
 
-        if(restaurantDB.isPresent())
-            return  RestauranteEntityMapper.INSTANCE.toDomain(restaurantDB.get());
+        return restaurantDB.map(RestauranteEntityMapper.INSTANCE::toDomain).orElse(null);
 
-        else return null;
     }
 }

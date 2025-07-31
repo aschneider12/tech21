@@ -4,11 +4,13 @@ import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaExcep
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageUsuario;
 import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
+import br.com.fiap.restaurante.infra.database.mappers.RestauranteEntityMapper;
 import br.com.fiap.restaurante.infra.database.mappers.UsuarioEntityMapper;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Implementação concreta do core.
@@ -73,10 +75,11 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
     @Override
     public Usuario buscarUsuarioPorLogin(String login) {
 
-        UsuarioEntity usuarioEntityBD = repository.findByLogin(login)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário", login));
+        Optional<UsuarioEntity> usuarioEntityBD = repository.findByLogin(login);
+        if(usuarioEntityBD.isPresent())
+            return  UsuarioEntityMapper.INSTANCE.toDomain(usuarioEntityBD.get());;
 
-        return UsuarioEntityMapper.INSTANCE.toDomain(usuarioEntityBD);
+        return null;
     }
 
     @Override

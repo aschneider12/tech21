@@ -14,6 +14,7 @@ public record EnderecoInput(
 ) {
 
     public static Endereco toDomain(EnderecoInput e) {
+        if(e == null) return null;
 
         return new Endereco(e.id(), e.rua(), e.numero(), e.cidade(), e.estado(), e.cep());
     }
