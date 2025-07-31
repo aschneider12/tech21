@@ -42,7 +42,6 @@ public class AuthController implements AuthDocController {
         if (valido) {
 
             var ucGerarToken = UseCaseGerarTokenUsuario.create(gateway, jwtService);
-
             String token = ucGerarToken.run(login);
 
             return ResponseEntity.ok("Usuário: " + login + "\nToken: " + token);
@@ -55,7 +54,7 @@ public class AuthController implements AuthDocController {
     @PostMapping("/validar-token")
     public ResponseEntity<String> validarToken(@RequestHeader String authorization) {
 
-        var ucValidarToken = UseCaseValidarToken.create(gateway);
+        var ucValidarToken = UseCaseValidarToken.create(gateway, jwtService);
         boolean tokenValido = ucValidarToken.run(authorization);
 
         if(tokenValido)
@@ -64,4 +63,5 @@ public class AuthController implements AuthDocController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token enviado é inválido");
     }
 }
+
 
