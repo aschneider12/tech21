@@ -43,10 +43,7 @@ public class UseCaseAlterarSenhaUsuario {
         }
     }
 
-//    poderia estar dentro de usuario, ele sabe validar
     private void validarSenhaForte(String senha) {
-
-        System.out.println("Senha no validador: " + senha); // Adicione esta linha para depurar
 
         if(senha == null)
             throw new ValidationException("Senha não pode ser nula!");
