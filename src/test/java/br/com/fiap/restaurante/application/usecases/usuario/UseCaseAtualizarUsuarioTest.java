@@ -63,7 +63,7 @@ public class UseCaseAtualizarUsuarioTest {
         usuario.setId(id);
 
         when(gateway.buscarUsuarioPorIdentificador(id)).thenReturn(usuario);
-        when(gateway.atualizar(UsuarioInput.toDomain(usuarioInput))).thenReturn(usuario);
+        when(gateway.atualizar(any(Usuario.class))).thenReturn(usuario);
 
         UsuarioOutput usuarioAtualizado = useCase.run(id, usuarioInput);
 
@@ -74,7 +74,7 @@ public class UseCaseAtualizarUsuarioTest {
         assertThat(usuarioAtualizado.login()).isEqualTo(usuario.getLogin());
         assertThat(usuarioAtualizado.email()).isEqualTo(usuario.getEmail());
         assertThat(usuarioAtualizado.id()).isEqualTo(usuario.getId());
-        verify(gateway, times(1)).atualizar(UsuarioInput.toDomain(usuarioInput));
+        verify(gateway, times(1)).atualizar(any(Usuario.class));
         verify(gateway, times(1)).buscarUsuarioPorIdentificador(id);
     }
 

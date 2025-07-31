@@ -166,17 +166,18 @@ public class UsuarioRepositoryAdapterTest {
         }
 
         @Test
-        void deveFalharCasoNaoEncontreUsuarioPorLogin(){
+        void deveRetornarNuloCasoNaoEncontreUsuarioPorLogin(){
             String login = "teste";
             when(usuarioRepository.findByLogin(any(String.class))).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> adapter.buscarUsuarioPorLogin(login))
-                    .isInstanceOf(EntidadeNaoEncontradaException.class)
-                    .hasMessageContaining("Usuário")
-                    .hasMessageContaining(String.valueOf(login));
+            var restauranteObtido = adapter.buscarUsuarioPorLogin(login);
 
+            assertThat(restauranteObtido)
+                    .isNull();
+            verify(usuarioRepository, times(1)).findByLogin(login);
 
         }
+
     }
 
 
