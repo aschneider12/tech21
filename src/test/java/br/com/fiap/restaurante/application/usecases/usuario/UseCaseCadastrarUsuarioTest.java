@@ -2,6 +2,7 @@ package br.com.fiap.restaurante.application.usecases.usuario;
 
 import br.com.fiap.restaurante.application.exceptions.EntidadeJaExisteException;
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.application.input.EnderecoInput;
 import br.com.fiap.restaurante.application.input.UsuarioInput;
 import br.com.fiap.restaurante.application.output.UsuarioOutput;
@@ -108,6 +109,37 @@ public class UseCaseCadastrarUsuarioTest {
                 .isInstanceOf(EntidadeJaExisteException.class)
                 .hasMessageContaining("Usuário")
                 .hasMessageContaining(usuarioInput.login());
+        verify(gateway, times(1)).buscarUsuarioPorLogin(login);
+        verify(gateway, never()).cadastrar(UsuarioInput.toDomain(usuarioInput));
+    }
+
+    @Test
+    void deveFalharAoTentarCadastrarUsuariosComDadosInvalidos(){
+        String login = "teste";
+
+        var usuario = Helper.gerarUsuario();
+        usuario.setSenha("1234");
+        var usuarioInput = UsuarioInput.create(
+                usuario.getNome(),
+                usuario.getEmail(),
+                login,
+                usuario.getSenha(),
+                usuario.getPerfis(),
+                EnderecoInput.create(
+                        usuario.getEndereco().getId(),
+                        usuario.getEndereco().getRua(),
+                        usuario.getEndereco().getNumero(),
+                        usuario.getEndereco().getCidade(),
+                        usuario.getEndereco().getEstado(),
+                        usuario.getEndereco().getCep()
+                )
+        );
+        usuario.setId(1L);
+
+        when(gateway.buscarUsuarioPorLogin(login)).thenReturn(null);
+
+        assertThatThrownBy(() -> useCase.run(usuarioInput))
+                .isInstanceOf(ValidationException.class);
         verify(gateway, times(1)).buscarUsuarioPorLogin(login);
         verify(gateway, never()).cadastrar(UsuarioInput.toDomain(usuarioInput));
     }

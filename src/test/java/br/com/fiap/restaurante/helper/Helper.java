@@ -41,7 +41,7 @@ public abstract class Helper {
         usuario.setNome("Nome teste");
         usuario.setEmail( "teste@fiap.com.br");
         usuario.setLogin("teste");
-        usuario.setSenha( "1234");
+        usuario.setSenha( "Senha1234*");
         usuario.setEndereco(endereco);
         usuario.setPerfis(new HashSet<>());
 

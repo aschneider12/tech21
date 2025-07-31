@@ -68,8 +68,8 @@ public class UseCaseBuscarTodosItemCardapioTest {
                     .isEqualTo(itensCardapio.get(i).getDescricao());
 
 
-            assertThat(todosItensCardapio.get(i).descricao())
-                    .isEqualTo(itensCardapio.get(i).getDescricao());
+            assertThat(todosItensCardapio.get(i).id())
+                    .isEqualTo(itensCardapio.get(i).getId());
         }
 
         verify(gateway, times(1)).buscarTodosItems(idRestaurante);

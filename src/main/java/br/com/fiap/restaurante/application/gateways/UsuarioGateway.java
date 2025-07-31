@@ -58,14 +58,6 @@ public class UsuarioGateway implements IUsuarioGateway {
         return dataSource.buscarUsuarioPorLogin(login);
     }
 
-
-    @Override
-    public List<String> buscarPerfisUsuario(Long id) {
-
-//        dataSource.bu
-        return null;
-    }
-
     @Override
     public void atualizarNovaSenhaUsuario(Long id, String newPasswordHash) {
         dataSource.atualizarNovaSenha(id, newPasswordHash);

@@ -73,4 +73,30 @@ public class UseCaseBuscarTodosUsuariosTest {
 
         verify(gateway, times(1)).buscarTodosUsuarios();
     }
+
+    @Test
+    void deveRetornarListaVazioCasoNaoExistaUsuarios(){
+
+        when(gateway.buscarTodosUsuarios()).thenReturn(List.of());
+
+        var todosUsuarios = useCase.run();
+
+        assertThat(todosUsuarios)
+                .isEmpty();
+
+        verify(gateway, times(1)).buscarTodosUsuarios();
+    }
+
+    @Test
+    void deveRetornarListaNuloCasoRetornoDeTodosOsUsuariosVenhaNulo(){
+
+        when(gateway.buscarTodosUsuarios()).thenReturn(null);
+
+        var todosUsuarios = useCase.run();
+
+        assertThat(todosUsuarios)
+                .isEmpty();
+
+        verify(gateway, times(1)).buscarTodosUsuarios();
+    }
 }
