@@ -3,9 +3,7 @@ package br.com.fiap.restaurante.infra.database.repositories.adapter;
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.helper.Helper;
-
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
-
 import br.com.fiap.restaurante.infra.database.mappers.UsuarioEntityMapper;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -15,12 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-
 import java.util.List;
 import java.util.Optional;
 
-
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -221,14 +218,11 @@ public class UsuarioRepositoryAdapterTest {
 
     @Test
     void devePermitirRetornarTodosOsUsuarios(){
-        List<Usuario> usuarios = List.of(
-                Helper.gerarUsuario(),
-                Helper.gerarUsuario(),
-                Helper.gerarUsuario()
+        List<UsuarioEntity> usuariosEntity = List.of(
+                Helper.gerarUsuarioEntity(),
+                Helper.gerarUsuarioEntity(),
+                Helper.gerarUsuarioEntity()
         );
-
-        List<UsuarioEntity> usuariosEntity = usuarios.stream().map(UsuarioEntityMapper.INSTANCE::toEntity).toList();
-
 
         when(usuarioRepository.findAll()).thenReturn(usuariosEntity);
 
@@ -236,18 +230,18 @@ public class UsuarioRepositoryAdapterTest {
 
         assertThat(todosUsuarios)
                 .isNotNull()
-                .hasSize(usuarios.size());
+                .hasSize(usuariosEntity.size());
 
 
-        for (int i = 0; i < usuarios.size(); i++) {
+        for (int i = 0; i < usuariosEntity.size(); i++) {
             assertThat(todosUsuarios.get(i).getNome())
-                    .isEqualTo(usuarios.get(i).getNome());
+                    .isEqualTo(usuariosEntity.get(i).getNome());
 
             assertThat(todosUsuarios.get(i).getEmail())
-                    .isEqualTo(usuarios.get(i).getEmail());
+                    .isEqualTo(usuariosEntity.get(i).getEmail());
 
             assertThat(todosUsuarios.get(i).getLogin())
-                    .isEqualTo(usuarios.get(i).getLogin());
+                    .isEqualTo(usuariosEntity.get(i).getLogin());
         }
 
         verify(usuarioRepository, times(1)).findAll();

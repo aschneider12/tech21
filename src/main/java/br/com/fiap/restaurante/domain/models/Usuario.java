@@ -1,7 +1,8 @@
 package br.com.fiap.restaurante.domain.models;
 
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
+
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,11 +20,41 @@ public class Usuario {
     public Usuario() {
     }
 
-    //validar se email é valido
-    //validar se a senha é forte aqui dentro
-
     public Usuario(Long id) {
         this.id = id;
+    }
+
+    public void validacoesDominio() throws ValidationException {
+        validarSenhaForte();
+        validarEmail();
+        validarCaracteresLogin();
+        removerCaracteresEspeciaisNome();
+    }
+
+    private void removerCaracteresEspeciaisNome() {
+        nome = nome.trim();
+    }
+
+    private void validarCaracteresLogin() {
+        login = login.trim();
+    }
+
+    private void validarEmail() {
+        if(!email.contains("@"))
+            throw  new ValidationException("E-mail inválido");
+    }
+
+    private void validarSenhaForte() {
+        if(senha == null)
+            throw new ValidationException("Senha não pode ser nula!");
+        if (!senha.matches(".*[A-Z].*"))
+            throw new ValidationException("Senha deve conter pelo menos uma letra maiúscula!");
+        if (!senha.matches(".*\\d.*"))
+            throw new ValidationException("Senha deve conter pelo menos um número.");
+        if (!senha.matches(".*[^a-zA-Z0-9].*"))
+            throw new ValidationException("Senha deve conter pelo menos um caracter especial.");
+        if (senha.length() < 8)
+            throw new ValidationException("Senha deve ter no mínimo 8 caracteres.");
     }
 
     public Usuario(Long id, String nome, String email, String login,
@@ -37,7 +68,15 @@ public class Usuario {
         this.endereco = endereco;
         this.perfis = perfis;
     }
-
+    public static Usuario create(
+            Long id, String nome, String email, String login,
+            String senha, Endereco endereco, Set<String> perfis
+    ) {
+        return new Usuario(
+                id,  nome, email, login,
+                senha,
+                endereco, perfis);
+    }
     public Long getId() {
         return id;
     }

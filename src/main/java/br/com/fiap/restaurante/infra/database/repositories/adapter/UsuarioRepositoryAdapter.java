@@ -1,13 +1,11 @@
 package br.com.fiap.restaurante.infra.database.repositories.adapter;
 
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
-import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageUsuario;
 import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
 import br.com.fiap.restaurante.infra.database.mappers.UsuarioEntityMapper;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -93,8 +91,8 @@ public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
     @Override
     public List<Usuario> buscarTodosUsuarios() {
 
-
-        List<UsuarioEntity> all = repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+//        List<UsuarioEntity> all = repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+                List<UsuarioEntity> all = repository.findAll();
 
         return UsuarioEntityMapper.INSTANCE.toDomain(all);
     }

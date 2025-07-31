@@ -21,6 +21,6 @@ public class UseCaseBuscarPerfisUsuario {
     public Set<String> run(Long usuarioId) {
 
         Usuario usuario = gateway.buscarUsuarioPorIdentificador(usuarioId);
-       return usuario.getPerfis();
+        return usuario.getPerfis();
     }
 }

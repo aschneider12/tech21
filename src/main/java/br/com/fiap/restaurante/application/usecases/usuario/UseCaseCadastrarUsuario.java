@@ -28,10 +28,11 @@ public class UseCaseCadastrarUsuario {
         if (usuarioExistente != null)
             throw new EntidadeJaExisteException("Usuário", input.login());
 
-        //validar existencia de outros usuarios
-        //validar senha forte
+        var usuarioCadastrar = UsuarioInput.toDomain(input);
 
-        Usuario cadastrado = gateway.cadastrar(UsuarioInput.toDomain(input));
+        usuarioCadastrar.validacoesDominio();
+
+        Usuario cadastrado = gateway.cadastrar(usuarioCadastrar);
 
         return UsuarioOutput.fromDomain(cadastrado);
     }

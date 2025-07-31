@@ -30,7 +30,8 @@ public class UseCaseRemoverPerfisUsuario {
         Usuario usuario = gateway.buscarUsuarioPorIdentificador(usuarioId);
 
         if(usuario.getPerfis() == null)
-            usuario.setPerfis(new HashSet<>());
+            throw new ValidationException("Usuário não possui perfis para serem removidos");
+
 
         usuario.getPerfis().removeAll(
                 perfisDel

@@ -20,9 +20,11 @@ public class UseCaseCadastrarItemCardapio {
 
         ItemCardapio itemCardapio = ItemCardapioInput.toDomain(input);
 
-       var existente = gateway.buscarItemCardapioPorNome(itemCardapio.getNome());
-       if(existente != null)
+        var existente = gateway.buscarItemCardapioPorNome(itemCardapio.getNome());
+        if(existente != null)
            throw new EntidadeJaExisteException("Item Cardápio", itemCardapio.getNome());
+
+        itemCardapio.validacoesDominio();
 
         var cadastrado = gateway.cadastrar(itemCardapio);
 

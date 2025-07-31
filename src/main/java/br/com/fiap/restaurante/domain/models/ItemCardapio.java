@@ -1,5 +1,7 @@
 package br.com.fiap.restaurante.domain.models;
 
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -17,6 +19,17 @@ public class ItemCardapio {
     public ItemCardapio() {
     }
 
+    /* Como nem sempre é possível ter um único construtor as validações
+        são realizadas após o objeto ter sido criado, assim, pode ser chamado
+        a qualquer momento após sua criação.
+     *
+     * @throws ValidationException
+     */
+    public void validacoesDominio() throws ValidationException {
+        validarPreco();
+        validarRestaurante();
+    }
+
     private ItemCardapio(Long id, String nome, String descricao, BigDecimal preco, String tipoVenda,
                          Restaurante restaurante, String pathFoto) {
         this.id = id;
@@ -29,8 +42,16 @@ public class ItemCardapio {
 
     }
 
-    //validar preço
-    //validar se pertence a algum restauranteId
+    private void validarRestaurante() {
+        if(this.restaurante == null || this.restaurante.getId() == null)
+                throw new ValidationException("O item do cardápio obrigatoriamente deve pertencer a um restaurante!");
+    }
+
+    private void validarPreco() {
+        if (this.preco != null)
+            if (this.preco.compareTo(BigDecimal.ZERO) < 0)
+                throw new ValidationException("Preço do produto não pode ser menor que zero!");
+    }
 
     public static ItemCardapio create(
             String nome,
