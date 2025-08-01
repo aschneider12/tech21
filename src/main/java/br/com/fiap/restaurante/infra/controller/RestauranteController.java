@@ -4,12 +4,16 @@ import br.com.fiap.restaurante.application.gateways.RestauranteGateway;
 import br.com.fiap.restaurante.application.input.RestauranteInput;
 import br.com.fiap.restaurante.application.output.RestauranteOutput;
 import br.com.fiap.restaurante.application.usecases.restaurante.FactoryRestauranteUseCase;
+import br.com.fiap.restaurante.application.usecases.restaurante.UseCaseAtualizarRestaurante;
+import br.com.fiap.restaurante.application.usecases.restaurante.UseCaseBuscarTodosRestaurantes;
+import br.com.fiap.restaurante.application.usecases.restaurante.UseCaseCadastrarRestaurante;
 import br.com.fiap.restaurante.infra.database.repositories.adapter.RestauranteRepositoryAdapter;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.RestauranteRepository;
 import br.com.fiap.restaurante.infra.doc.RestauranteDocController;
 import br.com.fiap.restaurante.infra.dtos.RestauranteDTO;
 import br.com.fiap.restaurante.infra.mappers.RestauranteDTOMapper;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +26,9 @@ public class RestauranteController implements RestauranteDocController {
 
     private final FactoryRestauranteUseCase factoryRestauranteUseCase;
 
-    public RestauranteController(RestauranteRepository repository) {
+    public RestauranteController(FactoryRestauranteUseCase factory ) {
 
-        var gateway = RestauranteGateway.create(new RestauranteRepositoryAdapter(repository));
-        factoryRestauranteUseCase = new FactoryRestauranteUseCase(gateway);
+        factoryRestauranteUseCase = factory;
     }
 
     @Override
@@ -90,6 +93,7 @@ public class RestauranteController implements RestauranteDocController {
     public ResponseEntity<List<RestauranteDTO>> buscarTodos() {
 
         var uc = factoryRestauranteUseCase.buscarTodosRestaurantes();
+
         List<RestauranteOutput> all = uc.run();
 
         List<RestauranteDTO> restauranteResponseDTOS = RestauranteDTOMapper.INSTANCE.toDTO(all);

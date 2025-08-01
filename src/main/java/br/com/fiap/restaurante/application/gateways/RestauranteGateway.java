@@ -3,14 +3,16 @@ package br.com.fiap.restaurante.application.gateways;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IRestauranteGateway;
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageRestaurante;
 import br.com.fiap.restaurante.domain.models.Restaurante;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class RestauranteGateway implements IRestauranteGateway {
 
     private final IDataStorageRestaurante dataSource;
 
-    private RestauranteGateway(IDataStorageRestaurante iDataStorageRestaurante) {
+    public RestauranteGateway(IDataStorageRestaurante iDataStorageRestaurante) {
         this.dataSource = iDataStorageRestaurante;
     }
 

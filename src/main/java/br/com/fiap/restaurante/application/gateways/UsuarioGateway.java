@@ -3,9 +3,12 @@ package br.com.fiap.restaurante.application.gateways;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageUsuario;
 import br.com.fiap.restaurante.domain.models.Usuario;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Component
 public class UsuarioGateway implements IUsuarioGateway {
 
     private final IDataStorageUsuario dataSource;

@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@Tag(name = "Controller de usuários",
+@Tag(name = "Controle de usuários",
         description = "Operações relacionadas ao CRUD dos usuários")
 public interface UsuarioDocController {
 
@@ -27,7 +27,7 @@ public interface UsuarioDocController {
     @Operation(description = "Retorna uma lista contendo todos os usuários.")
     ResponseEntity<List<UsuarioResponseDTO>> buscarTodos();
 
-    @Operation(description = "Buscar usuário por ID.")
+    @Operation(description = "Buscar um usuário por ID.")
     ResponseEntity<UsuarioResponseDTO> buscarPorId(Long id);
 
     @Operation(summary = "Altera a senha do usuário.")

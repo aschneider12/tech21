@@ -22,12 +22,10 @@ import java.util.List;
 @RequestMapping("/usuario")
 public class UsuarioController implements UsuarioDocController {
 
-    private PasswordEncoder passwordEncoder;
-    private final UsuarioGateway gateway;
+    private final FactoryUsuarioUseCase factory;
 
-    public UsuarioController(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
-        this.gateway = UsuarioGateway.create(new UsuarioRepositoryAdapter(repository));
-        this.passwordEncoder = passwordEncoder;
+    public UsuarioController(FactoryUsuarioUseCase factory) {
+        this.factory = factory;
     }
 
     @PostMapping
@@ -36,7 +34,7 @@ public class UsuarioController implements UsuarioDocController {
 
         UsuarioInput input = UsuarioDTOMapper.INSTANCE.toInputApplication(usuarioDTO);
 
-        UseCaseCadastrarUsuario uc = UseCaseCadastrarUsuario.create(gateway);
+        UseCaseCadastrarUsuario uc = factory.cadastrarUsuario();
         UsuarioOutput output = uc.run(input);
 
         UsuarioResponseDTO outputDTO = UsuarioDTOMapper.INSTANCE.toResponse(output);
@@ -52,7 +50,7 @@ public class UsuarioController implements UsuarioDocController {
 
         UsuarioInput input = UsuarioDTOMapper.INSTANCE.toInputApplication(usuarioDTO);
 
-        UseCaseAtualizarUsuario uc = UseCaseAtualizarUsuario.create(gateway);
+        UseCaseAtualizarUsuario uc = factory.atualizarUsuario();
         UsuarioOutput output = uc.run(id, input);
 
         UsuarioResponseDTO outputDTO = UsuarioDTOMapper.INSTANCE.toResponse(output);
@@ -64,7 +62,7 @@ public class UsuarioController implements UsuarioDocController {
     @Override
     public ResponseEntity<String> deletar(@PathVariable(required = true) Long id) {
 
-        var uc = UseCaseDeletarUsuario.create(gateway);
+        UseCaseDeletarUsuario uc = factory.deletarUsuario();
 
         uc.run(id);
 
@@ -75,7 +73,7 @@ public class UsuarioController implements UsuarioDocController {
     @Override
     public ResponseEntity<List<UsuarioResponseDTO>> buscarTodos() {
 
-        var uc =  UseCaseBuscarTodosUsuarios.create(gateway);
+        UseCaseBuscarTodosUsuarios uc =  factory.buscarTodosUsuarios();
 
         List<UsuarioResponseDTO> response = UsuarioDTOMapper.INSTANCE.toResponse(uc.run());
 
@@ -86,7 +84,7 @@ public class UsuarioController implements UsuarioDocController {
     @Override
     public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable(required = true) Long id) {
 
-        var uc = UseCaseBuscarUsuarioPorID.create(gateway);
+        UseCaseBuscarUsuarioPorID uc = factory.buscarUsuarioPorID();
         UsuarioOutput output = uc.run(id);
 
         UsuarioResponseDTO dtoResponse = UsuarioDTOMapper.INSTANCE.toResponse(output);
@@ -98,7 +96,7 @@ public class UsuarioController implements UsuarioDocController {
     @Override
     public ResponseEntity<Void> mudarSenha(@RequestBody(required = true) MudarSenhaDTO mudarSenhaDTO, @PathVariable Long id) {
 
-        var uc = UseCaseAlterarSenhaUsuario.create(gateway, passwordEncoder);
+        UseCaseAlterarSenhaUsuario uc = factory.alterarSenhaUsuario();
 
         uc.run(id, mudarSenhaDTO.senhaAntiga(), mudarSenhaDTO.senhaNova());
 

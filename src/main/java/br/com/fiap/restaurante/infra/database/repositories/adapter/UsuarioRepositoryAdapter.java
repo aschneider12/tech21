@@ -7,6 +7,8 @@ import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
 import br.com.fiap.restaurante.infra.database.mappers.RestauranteEntityMapper;
 import br.com.fiap.restaurante.infra.database.mappers.UsuarioEntityMapper;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Optional;
 /**
  * Implementação concreta do core.
  */
+@Component
 public class UsuarioRepositoryAdapter implements IDataStorageUsuario {
 
     private final UsuarioRepository repository;

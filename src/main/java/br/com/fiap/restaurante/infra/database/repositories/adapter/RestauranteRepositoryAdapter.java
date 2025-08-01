@@ -1,19 +1,18 @@
 package br.com.fiap.restaurante.infra.database.repositories.adapter;
 
+import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageRestaurante;
 import br.com.fiap.restaurante.domain.models.Restaurante;
-import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.infra.database.entities.RestauranteEntity;
 import br.com.fiap.restaurante.infra.database.mappers.RestauranteEntityMapper;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.RestauranteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Implementação concreta do core.
- */
+
+@Component
 public class RestauranteRepositoryAdapter implements IDataStorageRestaurante {
 
     private final RestauranteRepository repository;

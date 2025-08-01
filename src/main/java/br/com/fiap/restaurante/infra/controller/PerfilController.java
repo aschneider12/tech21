@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.infra.controller;
 
 import br.com.fiap.restaurante.application.gateways.UsuarioGateway;
+import br.com.fiap.restaurante.application.usecases.usuario.FactoryUsuarioUseCase;
 import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseAdicionarPerfisUsuario;
 import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseBuscarPerfisUsuario;
 import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseRemoverPerfisUsuario;
@@ -24,18 +25,17 @@ public class PerfilController implements PerfilDocController {
 
 //    private static final Logger logger = LoggerFactory.getLogger(PerfilController.class);
 
-    private final UsuarioGateway gateway;
+    private final FactoryUsuarioUseCase factory;
 
-    public PerfilController(UsuarioRepository repository) {
-        gateway = UsuarioGateway.create(new UsuarioRepositoryAdapter(repository));
-//        perfilGateway = PerfilGateway.create(new usuariioper)
+    public PerfilController(FactoryUsuarioUseCase factoryUsuarioUseCase) {
+        factory = factoryUsuarioUseCase;
     }
 
     @Override
     @GetMapping
     public ResponseEntity<PerfilResponseDTO> listarPerfis(@PathVariable Long usuarioId) {
 
-        var uc = UseCaseBuscarPerfisUsuario.create(gateway);
+        var uc = factory.buscarPerfisUsuario();
 
         Set<String> perfis = uc.run(usuarioId);
 
@@ -51,7 +51,7 @@ public class PerfilController implements PerfilDocController {
 
         Set<String> perfisString = dto.perfis().stream().map(Enum::name).collect(Collectors.toSet());
 
-        var uc = UseCaseAdicionarPerfisUsuario.create(gateway);
+        var uc = factory.adicionarPerfisUsuario();
         uc.run(usuarioId, perfisString);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -63,7 +63,7 @@ public class PerfilController implements PerfilDocController {
             @PathVariable Long usuarioId,
             @RequestBody PerfilRequestDTO dto) {
 
-        var uc = UseCaseRemoverPerfisUsuario.create(gateway);
+        var uc = factory.removerPerfisUsuario();
 
         Set<String> perfisDel = dto.perfis().stream().map(Enum::name).collect(Collectors.toSet());
 

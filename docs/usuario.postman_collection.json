@@ -52,7 +52,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"jb \",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis01\",\r\n    \"senha\": \"Denis9@12\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
+							"raw": "{\r\n    \"nome\": \"Run teste 1\",\r\n    \"email\": \"run@email.com\",\r\n    \"login\": \"denis01\",\r\n    \"senha\": \"Denis9@12\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -75,6 +75,21 @@
 				},
 				{
 					"name": "all usuarios",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -182,7 +197,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"jb atualizado\",\r\n    \"email\": \"denis123@email\",\r\n    \"login\": \"denis01\",\r\n    \"perfis\": [\r\n        \"DONO\"\r\n    ],\r\n    \"endereco\": { \r\n        \"rua\": \"Morro do maracuja\",\r\n        \"numero\": \"24\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"estado\": \"RJ\",\r\n        \"cep\": \"RJ\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"jb atualizado ss\",\r\n    \"email\": \"denis123@email.com\",\r\n    \"login\": \"denis01\",\r\n    \"perfis\": [\r\n        \"DONO\"\r\n    ],\r\n    \"endereco\": { \r\n        \"rua\": \"Morro do maracuja\",\r\n        \"numero\": \"24\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"estado\": \"RJ\",\r\n        \"cep\": \"RJ\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -445,7 +460,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"oas\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9\r\n}",
+							"raw": "{\r\n    \"nome\": \"oas7\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -580,6 +595,21 @@
 				},
 				{
 					"name": "all restaurantes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1433,8 +1463,12 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"const responseText = pm.response.text();\r",
 							"\r",
+							"pm.test(\"Status code é 200 - OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const responseText = pm.response.text();\r",
 							"const tokenPrefix = \"Token: \";\r",
 							"const tokenIndex = responseText.indexOf(tokenPrefix);\r",
 							"\r",

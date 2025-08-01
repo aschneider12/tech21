@@ -25,7 +25,7 @@ public class UseCaseBuscarRestaurantePorNomeTest {
     @BeforeEach
     void setup(){
         mock = MockitoAnnotations.openMocks(this);
-        useCase = new UseCaseBuscarRestaurantePorNome(gateway);
+        useCase = UseCaseBuscarRestaurantePorNome.create(gateway);
     }
 
     @AfterEach

@@ -5,6 +5,7 @@ import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class Usuario {
 
@@ -39,22 +40,28 @@ public class Usuario {
         login = login.trim();
     }
 
+    private static final Pattern EMAIL_REGEX = Pattern.compile(
+            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$",
+            Pattern.CASE_INSENSITIVE
+    );
+
     private void validarEmail() {
-        if(!email.contains("@"))
-            throw  new ValidationException("E-mail inválido");
+        if (email == null || !EMAIL_REGEX.matcher(email).matches()) {
+            throw new IllegalArgumentException("E-mail inválido");
+        }
     }
 
     private void validarSenhaForte() {
         if(senha == null)
-            throw new ValidationException("Senha não pode ser nula!");
+            throw new IllegalArgumentException("Senha não pode ser nula!");
         if (!senha.matches(".*[A-Z].*"))
-            throw new ValidationException("Senha deve conter pelo menos uma letra maiúscula!");
+            throw new IllegalArgumentException("Senha deve conter pelo menos uma letra maiúscula!");
         if (!senha.matches(".*\\d.*"))
-            throw new ValidationException("Senha deve conter pelo menos um número.");
+            throw new IllegalArgumentException("Senha deve conter pelo menos um número.");
         if (!senha.matches(".*[^a-zA-Z0-9].*"))
-            throw new ValidationException("Senha deve conter pelo menos um caracter especial.");
+            throw new IllegalArgumentException("Senha deve conter pelo menos um caracter especial.");
         if (senha.length() < 8)
-            throw new ValidationException("Senha deve ter no mínimo 8 caracteres.");
+            throw new IllegalArgumentException("Senha deve ter no mínimo 8 caracteres.");
     }
 
     public Usuario(Long id, String nome, String email, String login,

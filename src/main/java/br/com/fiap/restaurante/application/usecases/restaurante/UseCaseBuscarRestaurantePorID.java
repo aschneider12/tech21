@@ -5,10 +5,12 @@ import br.com.fiap.restaurante.domain.interfaces.gateway.IRestauranteGateway;
 import br.com.fiap.restaurante.domain.models.Restaurante;
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
 
-public class UseCaseBuscarRestaurantePorID extends FactoryRestauranteUseCase {
+public class UseCaseBuscarRestaurantePorID  {
+
+    private final IRestauranteGateway gateway;
 
     private UseCaseBuscarRestaurantePorID(IRestauranteGateway gateway) {
-        super(gateway); // reutiliza a lógica do construtor
+        this.gateway = gateway;
     }
 
     public static UseCaseBuscarRestaurantePorID create(IRestauranteGateway gateway) {

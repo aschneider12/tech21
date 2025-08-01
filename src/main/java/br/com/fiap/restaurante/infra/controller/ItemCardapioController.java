@@ -22,16 +22,16 @@ import java.util.List;
 @RequestMapping("/restaurante/{restauranteId}/cardapio")
 public class ItemCardapioController implements ItemCardapioDocController {
 
-    private final ItemCardapioGateway gateway;
+    private final FactoryCardapioUseCase factoryCardapioUseCase;
 
-    public ItemCardapioController(ItemRepository repository) {
-        gateway = ItemCardapioGateway.create(new ItemCardapioRepositoryAdapter(repository));
+    public ItemCardapioController(FactoryCardapioUseCase factory) {
+        factoryCardapioUseCase = factory;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ItemResponseDTO> buscarPorId(@PathVariable Long restauranteId, @PathVariable Long id) {
 
-        var uc = UseCaseBuscarItemCardapioPorID.create(gateway);
+        var uc = factoryCardapioUseCase.buscarItemCardapioPorID();
         ItemCardapioOutput output = uc.run(restauranteId, id);
 
         ItemResponseDTO dto = ItemCardapioDTOMapper.INSTANCE.toDTO(output);
@@ -43,7 +43,7 @@ public class ItemCardapioController implements ItemCardapioDocController {
     @Override
     public ResponseEntity<List<ItemResponseDTO>> buscarTodos(@PathVariable Long restauranteId) {
 
-        var uc = UseCaseBuscarTodosItemCardapio.create(gateway);
+        var uc = factoryCardapioUseCase.buscarTodosItemCardapio();
 
         List<ItemCardapioOutput> allItensRestaurante = uc.run(restauranteId);
 
@@ -57,7 +57,7 @@ public class ItemCardapioController implements ItemCardapioDocController {
 
         dto.setRestauranteId(restauranteId);
 
-        var uc = UseCaseCadastrarItemCardapio.create(gateway);
+        var uc = factoryCardapioUseCase.cadastrarItemCardapio();
 
         ItemCardapioInput input = ItemCardapioDTOMapper.INSTANCE.toInputApplication(dto);
 
@@ -73,7 +73,7 @@ public class ItemCardapioController implements ItemCardapioDocController {
 
         dto.setRestauranteId(restauranteId);
 
-        var uc = UseCaseAtualizarItemCardapio.create(gateway);
+        var uc = factoryCardapioUseCase.atualizarItemCardapio();
 
         ItemCardapioInput input = ItemCardapioDTOMapper.INSTANCE.toInputApplication(dto);
 
@@ -85,7 +85,7 @@ public class ItemCardapioController implements ItemCardapioDocController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long restauranteId, @PathVariable Long id) {
 
-        var uc = UseCaseDeletarItemCardapio.create(gateway);
+        var uc = factoryCardapioUseCase.deletarItemCardapio();
 
         if(!uc.run(restauranteId, id))
             throw new ValidationException("Não foi possível apagar o item");

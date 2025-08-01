@@ -7,7 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Tag(name = "Controller de autenticação de usuários",
+@Tag(name = "Controle de autenticação de usuários",
         description = "Operações relacionadas a autorização e autenticação de acesso dos usuários")
 public interface AuthDocController {
 

@@ -6,12 +6,17 @@ import br.com.fiap.restaurante.domain.interfaces.gateway.IRestauranteGateway;
 import br.com.fiap.restaurante.domain.models.Restaurante;
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
 
-public class UseCaseBuscarRestaurantePorNome extends FactoryRestauranteUseCase {
+public class UseCaseBuscarRestaurantePorNome {
 
-    protected UseCaseBuscarRestaurantePorNome(IRestauranteGateway gateway) {
-        super(gateway);
+    private final IRestauranteGateway gateway;
+
+    private UseCaseBuscarRestaurantePorNome(IRestauranteGateway gateway) {
+        this.gateway = gateway;
     }
 
+    public static UseCaseBuscarRestaurantePorNome create(IRestauranteGateway gateway) {
+        return new UseCaseBuscarRestaurantePorNome(gateway);
+    }
     /**
      * O run é o metodo principal de cada use case, ele de fato executa o que
      * foi criado para fazer.

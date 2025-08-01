@@ -3,9 +3,11 @@ package br.com.fiap.restaurante.application.gateways;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IItemCardapioGateway;
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageItemCardapio;
 import br.com.fiap.restaurante.domain.models.ItemCardapio;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ItemCardapioGateway implements IItemCardapioGateway {
 
     private final IDataStorageItemCardapio dataStorageItemCardapio;

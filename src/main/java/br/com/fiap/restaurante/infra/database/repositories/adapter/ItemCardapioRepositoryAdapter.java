@@ -1,24 +1,17 @@
 package br.com.fiap.restaurante.infra.database.repositories.adapter;
 
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
-import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageItemCardapio;
-import br.com.fiap.restaurante.domain.interfaces.storage.IDataStorageUsuario;
 import br.com.fiap.restaurante.domain.models.ItemCardapio;
-import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.ItemCardapioEntity;
-import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
 import br.com.fiap.restaurante.infra.database.mappers.ItemCardapioEntityMapper;
-import br.com.fiap.restaurante.infra.database.mappers.UsuarioEntityMapper;
 import br.com.fiap.restaurante.infra.database.repositories.jpa.ItemRepository;
-import br.com.fiap.restaurante.infra.database.repositories.jpa.UsuarioRepository;
-import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-
+@Component
 public class ItemCardapioRepositoryAdapter implements IDataStorageItemCardapio {
 
     private final ItemRepository repository;

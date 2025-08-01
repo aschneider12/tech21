@@ -44,13 +44,13 @@ public class ItemCardapio {
 
     private void validarRestaurante() {
         if(this.restaurante == null || this.restaurante.getId() == null)
-                throw new ValidationException("O item do cardápio obrigatoriamente deve pertencer a um restaurante!");
+                throw new IllegalArgumentException("O item do cardápio obrigatoriamente deve pertencer a um restaurante!");
     }
 
     private void validarPreco() {
         if (this.preco != null)
             if (this.preco.compareTo(BigDecimal.ZERO) < 0)
-                throw new ValidationException("Preço do produto não pode ser menor que zero!");
+                throw new IllegalArgumentException("Preço do produto não pode ser menor que zero!");
     }
 
     public static ItemCardapio create(

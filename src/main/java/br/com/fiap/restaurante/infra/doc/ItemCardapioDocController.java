@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@Tag(name = "Restaurantes", description = "Operações relacionadas ao CRUD dos restaurantes")
+@Tag(name = "Itens do cardápio", description = "Operações relacionadas ao cardápio dos restaurantes")
 public interface ItemCardapioDocController {
 
     @Operation(summary = "Adicionar novo item", description = "Realiza o cadastro de um novo item no cardápio do restaurante")
@@ -17,7 +17,7 @@ public interface ItemCardapioDocController {
     @Operation(summary = "Atualizar item cardápio", description = "Realiza a atualização de um item existente")
     public ResponseEntity<ItemResponseDTO> atualizar(Long restauranteId, Long idItem, ItemRequestDTO dto);
 
-    @Operation(summary = "Deletar item", description = "Realiza a exclusão de um item do cardárpio do restaurante.")
+    @Operation(summary = "Deletar item", description = "Realiza a exclusão de um item do cardápio do restaurante.")
     public ResponseEntity<Void> deletar(Long restauranteId, Long id);
 
     @Operation(summary = "Buscar item por ID", description = "Buscar o cadastro do item do cardápio por ID")
