@@ -123,7 +123,7 @@ public class UseCaseCadastrarItemCardapioTest {
         when(gateway.buscarItemCardapioPorNome(nome)).thenReturn(null);
 
         assertThatThrownBy(() -> useCase.run(itemCardapioInput))
-                .isInstanceOf(ValidationException.class)
+                .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Preço do produto não pode ser menor que zero!");
         verify(gateway, times(1)).buscarItemCardapioPorNome(nome);
         verify(gateway, never()).cadastrar(any(ItemCardapio.class));

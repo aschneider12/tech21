@@ -7,6 +7,8 @@ import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.infra.database.entities.EnderecoEntity;
 import br.com.fiap.restaurante.infra.database.entities.RestauranteEntity;
 import br.com.fiap.restaurante.infra.database.entities.UsuarioEntity;
+import br.com.fiap.restaurante.infra.dtos.EnderecoDTO;
+import br.com.fiap.restaurante.infra.dtos.RestauranteDTO;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -48,9 +50,28 @@ public abstract class Helper {
         return usuario;
     }
 
+
     public static Restaurante gerarRestaurante(){
         Endereco endereco = new Endereco(1L, "Rua teste", "123", "São Paulo", "São Paulo", "00000-000");
         return new Restaurante("Restaurante teste", "Cozinha teste", "Noturno", endereco, gerarUsuario());
+    }
+
+    public static RestauranteDTO gerarRestauranteDTO(Restaurante restaurante){
+        return new RestauranteDTO(
+                restaurante.getId(),
+                restaurante.getNome(),
+                restaurante.getTipoCozinha(),
+                restaurante.getHorarioFuncionamento(),
+                restaurante.getDono().getId(),
+                EnderecoDTO.create(
+                        restaurante.getEndereco().getId(),
+                        restaurante.getEndereco().getRua(),
+                        restaurante.getEndereco().getNumero(),
+                        restaurante.getEndereco().getCidade(),
+                        restaurante.getEndereco().getEstado(),
+                        restaurante.getEndereco().getCep()
+                )
+        );
     }
 
     public static ItemCardapio gerarItemCardapio(){
@@ -62,8 +83,9 @@ public abstract class Helper {
           gerarRestaurante(),
           "./caminhoteste.png"
         );
-
     }
+
+
 
 
 

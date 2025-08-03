@@ -139,7 +139,7 @@ public class UseCaseCadastrarUsuarioTest {
         when(gateway.buscarUsuarioPorLogin(login)).thenReturn(null);
 
         assertThatThrownBy(() -> useCase.run(usuarioInput))
-                .isInstanceOf(ValidationException.class);
+                .isInstanceOf(IllegalArgumentException.class);
         verify(gateway, times(1)).buscarUsuarioPorLogin(login);
         verify(gateway, never()).cadastrar(UsuarioInput.toDomain(usuarioInput));
     }

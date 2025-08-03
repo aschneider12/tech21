@@ -27,7 +27,6 @@ public class RestauranteController implements RestauranteDocController {
     private final FactoryRestauranteUseCase factoryRestauranteUseCase;
 
     public RestauranteController(FactoryRestauranteUseCase factory ) {
-
         factoryRestauranteUseCase = factory;
     }
 
@@ -38,9 +37,9 @@ public class RestauranteController implements RestauranteDocController {
 
         RestauranteInput input = RestauranteDTOMapper.INSTANCE.toInputApplication(dto);
 
-       var uc = factoryRestauranteUseCase.cadastrarRestaurante();
+        var uc = factoryRestauranteUseCase.cadastrarRestaurante();
 
-       var output  = uc.run(input);
+        var output  = uc.run(input);
 
         RestauranteDTO outputDTO = RestauranteDTOMapper.INSTANCE.toDTO(output);
 
