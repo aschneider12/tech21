@@ -1,6 +1,7 @@
 package br.com.fiap.restaurante.infra.controller;
 
 import br.com.fiap.restaurante.application.gateways.UsuarioGateway;
+import br.com.fiap.restaurante.application.usecases.usuario.FactoryUsuarioUseCase;
 import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseGerarTokenUsuario;
 import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseValidarLogin;
 import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseValidarToken;
@@ -19,15 +20,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController implements AuthDocController {
 
-    private JwtService jwtService;
-    private PasswordEncoder passwordEncoder;
-    private UsuarioGateway gateway;
+//    private JwtService jwtService;
+//    private PasswordEncoder passwordEncoder;
+//    private UsuarioGateway gateway;
+    FactoryUsuarioUseCase factory;
 
-    public AuthController(UsuarioRepository repository, PasswordEncoder passwordEncoder,
-                          JwtService jwtService) {
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-        this.gateway = UsuarioGateway.create(new UsuarioRepositoryAdapter(repository));
+    public AuthController(FactoryUsuarioUseCase factory) {
+        this.factory = factory;
+//        this.jwtService = jwtService;
+//        this.gateway = UsuarioGateway.create(new UsuarioRepositoryAdapter(repository));
     }
 
     @Override
@@ -37,11 +38,11 @@ public class AuthController implements AuthDocController {
         String login = loginRequest.getLogin();
         String senha = loginRequest.getSenha();
 
-        var ucValidarLogin = UseCaseValidarLogin.create(gateway, passwordEncoder);
+        var ucValidarLogin = factory.validarLogin();
         boolean valido = ucValidarLogin.run(login, senha);
         if (valido) {
 
-            var ucGerarToken = UseCaseGerarTokenUsuario.create(gateway, jwtService);
+            var ucGerarToken = factory.gerarToken();
             String token = ucGerarToken.run(login);
 
             return ResponseEntity.ok("Usuário: " + login + "\nToken: " + token);
@@ -54,7 +55,7 @@ public class AuthController implements AuthDocController {
     @PostMapping("/validar-token")
     public ResponseEntity<String> validarToken(@RequestHeader String authorization) {
 
-        var ucValidarToken = UseCaseValidarToken.create(gateway, jwtService);
+        var ucValidarToken = factory.validarToken();
         boolean tokenValido = ucValidarToken.run(authorization);
 
         if(tokenValido)

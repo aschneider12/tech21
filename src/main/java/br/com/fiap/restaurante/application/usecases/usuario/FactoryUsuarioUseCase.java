@@ -4,17 +4,25 @@ import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseAdicio
 import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseBuscarPerfisUsuario;
 import br.com.fiap.restaurante.application.usecases.usuario.perfil.UseCaseRemoverPerfisUsuario;
 import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseAlterarSenhaUsuario;
+import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseGerarTokenUsuario;
+import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseValidarLogin;
+import br.com.fiap.restaurante.application.usecases.usuario.senha.UseCaseValidarToken;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
+import br.com.fiap.restaurante.infra.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class FactoryUsuarioUseCase {
 
     private final IUsuarioGateway gateway;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public FactoryUsuarioUseCase(IUsuarioGateway gateway, PasswordEncoder passwordEncoder) {
+    public FactoryUsuarioUseCase(IUsuarioGateway gateway,
+                                 PasswordEncoder passwordEncoder,
+                                 JwtService jwtService) {
         this.gateway = gateway;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public UseCaseAtualizarUsuario atualizarUsuario() {
@@ -51,8 +59,14 @@ public class FactoryUsuarioUseCase {
         return UseCaseAlterarSenhaUsuario.create(gateway, passwordEncoder);
     }
 
+    public UseCaseValidarToken validarToken(){
+        return UseCaseValidarToken.create(jwtService);
+    }
 
-
-
-
+    public UseCaseValidarLogin validarLogin(){
+        return UseCaseValidarLogin.create(gateway,passwordEncoder);
+    }
+    public UseCaseGerarTokenUsuario gerarToken() {
+        return UseCaseGerarTokenUsuario.create(gateway,jwtService);
+    }
 }

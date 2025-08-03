@@ -1,4 +1,4 @@
-package br.com.fiap.restaurante.application.exceptions;
+package br.com.fiap.restaurante.infra.controller.handlers;
 
 
 

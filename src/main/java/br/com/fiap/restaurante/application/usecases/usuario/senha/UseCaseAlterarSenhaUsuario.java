@@ -31,6 +31,9 @@ public class UseCaseAlterarSenhaUsuario {
             if(!passwordEncoder.matches(oldPassword, usuario.getSenha()))
                 throw new ValidationException("Senha antiga não confere.");
 
+            if(passwordEncoder.matches(newPassword, usuario.getSenha()))
+                throw new ValidationException("Nova senha não pode ser a mesma.");
+
             validarSenhaForte(newPassword);
 
             String novaSenhaHash = passwordEncoder.encode(newPassword);
