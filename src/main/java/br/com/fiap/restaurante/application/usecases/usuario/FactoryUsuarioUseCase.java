@@ -38,7 +38,7 @@ public class FactoryUsuarioUseCase {
     }
 
     public UseCaseCadastrarUsuario cadastrarUsuario(){
-        return UseCaseCadastrarUsuario.create(gateway);
+        return UseCaseCadastrarUsuario.create(gateway, passwordEncoder);
     }
 
     public UseCaseDeletarUsuario deletarUsuario(){

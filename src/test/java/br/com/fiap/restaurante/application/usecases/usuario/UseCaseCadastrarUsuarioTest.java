@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -26,6 +27,9 @@ public class UseCaseCadastrarUsuarioTest {
 
     @Mock
     private IUsuarioGateway gateway;
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
 
     private UseCaseCadastrarUsuario useCase;
     AutoCloseable mock;
@@ -33,7 +37,7 @@ public class UseCaseCadastrarUsuarioTest {
     @BeforeEach
     void setup(){
         mock = MockitoAnnotations.openMocks(this);
-        useCase = UseCaseCadastrarUsuario.create(gateway);
+        useCase = UseCaseCadastrarUsuario.create(gateway, passwordEncoder);
     }
 
     @AfterEach

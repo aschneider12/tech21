@@ -6,6 +6,7 @@ import br.com.fiap.restaurante.application.output.UsuarioOutput;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
 import br.com.fiap.restaurante.domain.models.Usuario;
 import br.com.fiap.restaurante.application.exceptions.EntidadeJaExisteException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 
@@ -16,12 +17,15 @@ public class UseCaseCadastrarUsuario {
 
     private final IUsuarioGateway gateway;
 
-    private UseCaseCadastrarUsuario(IUsuarioGateway gateway){
+    private final PasswordEncoder passwordEncoder;
+
+    private UseCaseCadastrarUsuario(IUsuarioGateway gateway, PasswordEncoder passwordEncoder){
         this.gateway = gateway;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public static UseCaseCadastrarUsuario create(IUsuarioGateway gateway) {
-        return new UseCaseCadastrarUsuario(gateway);
+    public static UseCaseCadastrarUsuario create(IUsuarioGateway gateway, PasswordEncoder passwordEncoder) {
+        return new UseCaseCadastrarUsuario(gateway, passwordEncoder);
     }
 
     public UsuarioOutput run(UsuarioInput input) {
@@ -32,11 +36,11 @@ public class UseCaseCadastrarUsuario {
 
         var usuarioCadastrar = UsuarioInput.toDomain(input);
 
-
         usuarioCadastrar.validacoesDominio();
 
-        Set<String> perfisTemp = usuarioCadastrar.getPerfis();
+        usuarioCadastrar.setSenha(passwordEncoder.encode(usuarioCadastrar.getSenha()));
 
+        Set<String> perfisTemp = usuarioCadastrar.getPerfis();
         usuarioCadastrar.setPerfis(null);
 
         Usuario cadastrado = gateway.cadastrar(usuarioCadastrar);
