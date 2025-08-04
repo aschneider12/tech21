@@ -1,26 +1,58 @@
-# tech21 Grupo 83 - Tech Challenge 
+# tech21 Grupo 83 - Tech Challenge - Share Food
 
+## O Projeto
 
-## Como executar o projeto:
+O sistema proposto unifica clientes e donos de restaurantes em uma estrutura multiusuário, mantendo isolamento lógico e controle individualizado dos dados. O sistema foi construído com foco em escalabilidade e fácil manutenção, aplicando os princípios da Clean Architecture.
 
+## A Arquitetura
+
+A estrutura do sistema é baseada na separação em camadas conforme os princípios da Clean Architecture:
+- `domain`: modelos e interfaces centrais da aplicação, totalmente isolados de tecnologias externas.
+- `application`: casos de uso e lógica de negócio, com injeção de dependência via interfaces (Gateways).
+- `infra`: implementações técnicas como repositórios JPA, controllers REST, configuração de segurança, Swagger e persistência.
+
+## Tecnologias utilizadas
+
+- Java 21  
+- Spring Boot 3.4.4  
+- Spring Security (JWT)  
+- PostgreSQL  
+- Flyway  
+- Swagger (SpringDoc)  
+- Docker & Docker Compose
+- MapStruct
+- JUnit 5
+- Mockito
+- MockMvc
+
+## Testes Automatizados
+O projeto possui cobertura automatizada para os principais fluxos com uso de:
+
+- JUnit 5 para estruturação dos testes
+- Mockito para mocks de dependências
+- Spring MockMvc para testes de controladores
+- Helper.java para dados de teste reutilizáveis
+  
+
+## Como executar o projeto
 
 Certifique-se de ter **Docker** e **Docker Compose** instalados.
 
 Execute o comando abaixo na raiz do projeto:
 
-```
-docker compose -f .\docker-compose.yml up -d
+```bash
+docker compose -f ./docker-compose.yml up -d
 ```
 
 Para acompanhar os logs do backend:
 
-```
+```bash
 docker logs -f spring-restaurante
 ```
 
 Para acessar o banco de dados PostgreSQL via terminal:
 
-```
+```bash
 docker exec -it postgres-restaurante psql -U postgres -d restaurante
 ```
 
@@ -30,7 +62,7 @@ docker exec -it postgres-restaurante psql -U postgres -d restaurante
 
 ### 1. Cadastrar um usuário
 
-```
+```bash
 curl -X POST http://localhost:8080/usuarioEntity \
   -H "Content-Type: application/json" \
   -d '{
@@ -46,7 +78,7 @@ curl -X POST http://localhost:8080/usuarioEntity \
 
 ### 2. Realizar login e obter o token JWT
 
-```
+```bash
 curl -X POST http://localhost:8080/auth/login \
   -H "Content-Type: application/json" \
   -d '{
@@ -60,7 +92,7 @@ curl -X POST http://localhost:8080/auth/login \
 
 ### 3. Acessar endpoint protegido com token
 
-```
+```bash
 curl -X GET http://localhost:8080/usuarioEntity \
   -H "Authorization: Bearer SEU_TOKEN_JWT"
 ```
@@ -69,7 +101,7 @@ curl -X GET http://localhost:8080/usuarioEntity \
 
 ## Trocar senha autenticado
 
-```
+```bash
 curl -X PATCH http://localhost:8080/usuarioEntity/mudar-senha/ID_USUARIO \
   -H "Authorization: Bearer SEU_TOKEN_JWT" \
   -H "Content-Type: application/json" \
@@ -81,7 +113,7 @@ curl -X PATCH http://localhost:8080/usuarioEntity/mudar-senha/ID_USUARIO \
 
 Resposta esperada:
 
-```
+```json
 {
   "message": "Senha atualizada com sucesso."
 }
@@ -93,7 +125,7 @@ Resposta esperada:
 
 Se estiver usando o Maven localmente:
 
-```
+```bash
 ./mvnw test
 ```
 
@@ -103,7 +135,7 @@ Se estiver usando o Maven localmente:
 
 Após subir o backend, acesse:
 
-[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+- [Swagger UI](http://localhost:8080/swagger-ui/index.html)
 
 ---
 
@@ -111,24 +143,12 @@ Após subir o backend, acesse:
 
 Arquivo `application.properties`:
 
-```
+```properties
 jwt.secret=${TOKEN_JWT_SECRET}
 jwt.expiration=3600000
 ```
 
-> Em breve o segredo será carregado exclusivamente via variáveis de ambiente para ambientes produtivos.
-
----
-
-## Tecnologias utilizadas
-
-- Java 21  
-- Spring Boot 3.4.4  
-- Spring Security (JWT)  
-- PostgreSQL  
-- Flyway  
-- Swagger (SpringDoc)  
-- Docker & Docker Compose  
+> O segredo JWT será carregado exclusivamente por variáveis de ambiente em ambientes produtivos, conforme boas práticas de segurança.
 
 ---
 
