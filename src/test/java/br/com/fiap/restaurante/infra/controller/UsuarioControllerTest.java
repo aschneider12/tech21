@@ -198,7 +198,7 @@ public class UsuarioControllerTest {
         when(factoryUseCase.alterarSenhaUsuario()).thenReturn(useCaseAlterarSenha);
         doNothing().when(useCaseAlterarSenha).run(idUsuario, dto.senhaAntiga(), dto.senhaNova());
 
-        mockMvc.perform(patch("/usuario/mudar-senha/{id}", idUsuario)
+        mockMvc.perform(patch("/usuario/{id}/mudar-senha", idUsuario)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(dto)))
                 .andDo(print())
