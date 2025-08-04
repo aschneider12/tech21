@@ -77,7 +77,7 @@ public class ItemCardapioController implements ItemCardapioDocController {
 
         ItemCardapioInput input = ItemCardapioDTOMapper.INSTANCE.toInputApplication(dto);
 
-       var atualizado = uc.run(id, input);
+        var atualizado = uc.run(id, input);
 
         return ResponseEntity.ok(ItemCardapioDTOMapper.INSTANCE.toDTO(atualizado));
     }

@@ -49,7 +49,7 @@ public class UsuarioController implements UsuarioDocController {
                                                         @PathVariable(required = true) Long id) {
 
         UsuarioInput input = UsuarioDTOMapper.INSTANCE.toInputApplication(usuarioDTO);
-
+        System.out.println(input);
         UseCaseAtualizarUsuario uc = factory.atualizarUsuario();
         UsuarioOutput output = uc.run(id, input);
 

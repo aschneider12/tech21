@@ -11,9 +11,6 @@ import static org.mockito.Mockito.*;
 public class UseCaseValidarTokenTest {
 
     @Mock
-    private IUsuarioGateway gateway;
-
-    @Mock
     private JwtService jwtService;
 
     private UseCaseValidarToken useCase;
@@ -23,7 +20,7 @@ public class UseCaseValidarTokenTest {
     @BeforeEach
     void setup() {
         mock = MockitoAnnotations.openMocks(this);
-        useCase = UseCaseValidarToken.create(gateway, jwtService); // Agora injeta no construtor
+        useCase = UseCaseValidarToken.create(jwtService); // Agora injeta no construtor
     }
 
 

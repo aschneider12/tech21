@@ -28,8 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-//TODO - Testar possíveis erros tratados pelo ExceptionController
 public class RestauranteControllerTest {
+
     private MockMvc mockMvc;
 
     @Mock
@@ -128,7 +128,7 @@ public class RestauranteControllerTest {
 
 
     @Test
-    void deveDeletarRestauranteComSucesso() throws Exception {
+    void devePermtirDeletarRestaurante() throws Exception {
 
         Long idRestaurante = 1L;
 
@@ -166,7 +166,7 @@ public class RestauranteControllerTest {
 
 
     @Test
-    void deveBuscarRestaurantePorId() throws Exception {
+    void devePermtirBuscarRestaurantePorId() throws Exception {
 
         Long idRestaurante = 1L;
 
@@ -193,7 +193,7 @@ public class RestauranteControllerTest {
     }
 
     @Test
-    void deveListarTodosOsRestaurantesComSucesso() throws Exception {
+    void devePermtirBuscarTodosOsRestaurantes() throws Exception {
 
         var restaurante1 = Helper.gerarRestaurante();
         restaurante1.setId(1L);
@@ -208,7 +208,7 @@ public class RestauranteControllerTest {
                 RestauranteOutput.fromDomain(restaurante2)
         );
 
-        List<RestauranteDTO> dtosEsperados = RestauranteDTOMapper.INSTANCE.toDTO(outputs);
+        List<RestauranteDTO> restaurantesDtoEsperados = RestauranteDTOMapper.INSTANCE.toDTO(outputs);
 
         when(factoryUseCase.buscarTodosRestaurantes()).thenReturn(useCaseBuscarTodosRestaurantes);
         when(useCaseBuscarTodosRestaurantes.run()).thenReturn(outputs);
@@ -218,13 +218,12 @@ public class RestauranteControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(asJsonString(dtosEsperados)));
+                .andExpect(content().json(asJsonString(restaurantesDtoEsperados)));
 
 
         verify(factoryUseCase, times(1)).buscarTodosRestaurantes();
         verify(useCaseBuscarTodosRestaurantes, times(1)).run();
     }
-
 
 
 
