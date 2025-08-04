@@ -52,7 +52,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Run teste 1\",\r\n    \"email\": \"run@email.com\",\r\n    \"login\": \"denis01\",\r\n    \"senha\": \"Denis9@12\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
+							"raw": "{\r\n    \"nome\": \"Run Teste 1\",\r\n    \"email\": \"run@email.com\",\r\n    \"login\": \"run01\",\r\n    \"senha\": \"RunTeste@1\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,6 +68,46 @@
 							"port": "8080",
 							"path": [
 								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mudar senha",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"senhaAntiga\": \"RunTeste@1\",\r\n    \"senhaNova\": \"@New12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuario/{{usuarioId}}/mudar-senha",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"{{usuarioId}}",
+								"mudar-senha"
 							]
 						}
 					},
@@ -197,7 +237,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"jb atualizado ss\",\r\n    \"email\": \"denis123@email.com\",\r\n    \"login\": \"denis01\",\r\n    \"perfis\": [\r\n        \"DONO\"\r\n    ],\r\n    \"endereco\": { \r\n        \"rua\": \"Morro do maracuja\",\r\n        \"numero\": \"24\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"estado\": \"RJ\",\r\n        \"cep\": \"RJ\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"Run Teste Atualizado\",\r\n    \"email\": \"runtest@email.com\",\r\n    \"login\": \"run01\",\r\n    \"perfis\": [\r\n        \"DONO\"\r\n    ],\r\n    \"endereco\": { \r\n        \"rua\": \"Morro do Cuiaba\",\r\n        \"numero\": \"244\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"estado\": \"RJ\",\r\n        \"cep\": \"RJ\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -259,46 +299,6 @@
 							"path": [
 								"usuario",
 								"{{usuarioId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "mudar senha",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenJwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": " {\r\n    \"senhaAntiga\": \"@New1234\",\r\n    \"senhaNova\": \"<NOVASENHAAQUI>\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/usuario/mudar-senha/3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"mudar-senha",
-								"3"
 							]
 						}
 					},
@@ -500,7 +500,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"oas7\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9\r\n}",
+							"raw": "{\r\n    \"nome\": \"Ikigai\",\r\n    \"tipoCozinha\": \"COZINHA CHINESA\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -611,7 +611,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"ohsiro atualizado\",\r\n    \"tipoCozinha\": \"COZINHA DE CANTO\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 9 ,\r\n    \"endereco\": { \r\n             \"rua\": \"Baixada da pqp\",\r\n            \"numero\": \"114\",\r\n            \"cidade\": \"Narnia\",\r\n            \"estado\": \"AC\",\r\n            \"cep\": \"21.922-490.\"        \r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"Ikigai Atualizado\",\r\n    \"tipoCozinha\": \"COZINHA MINEIRA\",\r\n    \"horarioFuncionamento\": \"Atendimento depois das 11h\",\r\n    \"dono\": 3,\r\n    \"endereco\": { \r\n             \"rua\": \"Rua Faria Lima\",\r\n            \"numero\": \"114\",\r\n            \"cidade\": \"Gonçalo\",\r\n            \"estado\": \"MG\",\r\n            \"cep\": \"21.922-490.\"        \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -774,7 +774,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n{    \r\n        \"nome\": \"Panqueca\",\r\n        \"descricao\": \"Melhor franguinho da região\",\r\n        \"preco\": 45.34,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/frangos/\"\r\n}",
+							"raw": "\r\n{    \r\n        \"nome\": \"Panqueca de arroz\",\r\n        \"descricao\": \"Melhor panqueca da região\",\r\n        \"preco\": 45.34,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/panquecas/\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -881,7 +881,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n{\r\n    \r\n        \"nome\": \"Panqueca atualizada\",\r\n        \"descricao\": \"Melhor franguinho da região\",\r\n        \"preco\": 150.00,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/frangos/\"\r\n\r\n}",
+							"raw": "\r\n{\r\n    \r\n        \"nome\": \"Panqueca Atualizada\",\r\n        \"descricao\": \"Panqueca fitness\",\r\n        \"preco\": 150.00,\r\n        \"tipoVenda\": \"DELIVERY\",\r\n        \"pathFoto\": \"c://fotos/nutritivos/\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1527,7 +1527,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"login\": \"admin\",\r\n    \"senha\": \"@New1234\" \r\n}",
+					"raw": "{\r\n    \"login\": \"pedro\",\r\n    \"senha\": \"pedro123\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
