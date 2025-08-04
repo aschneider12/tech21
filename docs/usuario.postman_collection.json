@@ -52,7 +52,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Run Teste 1\",\r\n    \"email\": \"run@email.com\",\r\n    \"login\": \"run01\",\r\n    \"senha\": \"RunTeste@1\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
+							"raw": "{\r\n    \"nome\": \"Run Teste 2\",\r\n    \"email\": \"run@email.com\",\r\n    \"login\": \"run02\",\r\n    \"senha\": \"RunTeste@1\",\r\n    \"perfis\": [\"DONO\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -75,6 +75,23 @@
 				},
 				{
 					"name": "mudar senha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 204 - no content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -500,7 +517,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Ikigai\",\r\n    \"tipoCozinha\": \"COZINHA CHINESA\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": 2\r\n}",
+							"raw": "{\r\n    \"nome\": \"Ikigai\",\r\n    \"tipoCozinha\": \"COZINHA CHINESA\",\r\n    \"horarioFuncionamento\": \"Atendimento 24h\",\r\n    \"dono\": {{usuarioId}}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -857,9 +874,7 @@
 								"exec": [
 									"pm.test(\"Status code é 200 - OK\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"// Define a variável de ambiente \"restauranteId\" com o valor do campo \"id\"\r",
-									"pm.environment.set(\"restauranteId\", response.id);"
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
