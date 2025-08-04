@@ -4,5 +4,6 @@ public enum TipoUsuario {
 
     DONO,
     CLIENTE,
-    ADMINISTRADOR
+    ADMINISTRADOR,
+    ENTREGADOR
 }

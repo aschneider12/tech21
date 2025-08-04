@@ -43,6 +43,7 @@ public class PerfilController implements PerfilDocController {
 
         return ResponseEntity.ok(new PerfilResponseDTO("ID - "+usuarioId, perfisEnum));
     }
+
     @Override
     @PostMapping
     public ResponseEntity<Void> adicionarPerfis(

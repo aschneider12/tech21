@@ -1,17 +1,16 @@
 package br.com.fiap.restaurante.application.usecases.usuario.senha;
 
-import br.com.fiap.restaurante.domain.interfaces.gateway.IUsuarioGateway;
 import br.com.fiap.restaurante.infra.security.JwtService;
-import org.junit.jupiter.api.*;
-import org.mockito.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 public class UseCaseValidarTokenTest {
-
-    @Mock
-    private IUsuarioGateway gateway;
 
     @Mock
     private JwtService jwtService;
@@ -23,7 +22,7 @@ public class UseCaseValidarTokenTest {
     @BeforeEach
     void setup() {
         mock = MockitoAnnotations.openMocks(this);
-        useCase = UseCaseValidarToken.create(gateway, jwtService); // Agora injeta no construtor
+        useCase = UseCaseValidarToken.create(jwtService); // Agora injeta no construtor
     }
 
 

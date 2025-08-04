@@ -3,12 +3,8 @@ package br.com.fiap.restaurante.application.usecases.itemcardapio;
 import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
 import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.application.input.ItemCardapioInput;
-import br.com.fiap.restaurante.application.input.RestauranteInput;
 import br.com.fiap.restaurante.application.output.ItemCardapioOutput;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IItemCardapioGateway;
-import br.com.fiap.restaurante.domain.models.ItemCardapio;
-
-import java.util.List;
 
 public class UseCaseAtualizarItemCardapio {
 

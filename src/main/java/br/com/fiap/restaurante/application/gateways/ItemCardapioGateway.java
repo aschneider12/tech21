@@ -62,13 +62,9 @@ public class ItemCardapioGateway implements IItemCardapioGateway {
     @Override
     public ItemCardapio buscarItemCardapioPorNome(String nomeItem) {
 
-//        ItemCardapioOutput retornoDTO = dataStorageItemCardapio.buscarItemCardapioPorNome(nomeItem);
-//
-//        return ItemCardapioMapper.toDomain(retornoDTO);
+        var retorno = dataStorageItemCardapio.buscarItemCardapioPorNome(nomeItem);
 
-        //.create(retornoDTO.id() ,retornoDTO.nome(), retornoDTO.descricao(), retornoDTO.preco(), retornoDTO.tipoVenda());
-
-        return null;
+        return retorno;
     }
 
     @Override
