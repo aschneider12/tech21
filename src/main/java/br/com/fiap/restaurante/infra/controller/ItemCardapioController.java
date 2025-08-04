@@ -64,8 +64,7 @@ public class ItemCardapioController implements ItemCardapioDocController {
         var cadastrado = uc.run(input);
 
         ItemResponseDTO saida = ItemCardapioDTOMapper.INSTANCE.toDTO(cadastrado);
-
-        return ResponseEntity.ok(saida);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saida);
     }
 
     @PutMapping("/{id}")
