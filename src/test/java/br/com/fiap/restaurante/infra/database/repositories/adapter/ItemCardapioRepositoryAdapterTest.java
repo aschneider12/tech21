@@ -207,22 +207,22 @@ public class ItemCardapioRepositoryAdapterTest {
     class ConsultarItemCardapioPorNome{
         @Test
         void devePermitirConsultarItemCardapioPorNome(){
-//            var id = 1L;
-//            var itemCardapio = Helper.gerarItemCardapio();
-//            itemCardapio.setId(id);
-//            var itemCardapioEntity = ItemCardapioEntityMapper.INSTANCE.toEntity(itemCardapio);
-//
-//            when(repository.findById(any(Long.class))).thenReturn(Optional.of(itemCardapioEntity));
-//
-//            var itemCardapioObtido = adapter.buscarItemCardapioPorIdentificador(id);
-//
-//            assertThat(itemCardapioObtido)
-//                    .isNotNull()
-//                    .isEqualTo(itemCardapio);
-//            verify(repository, times(1)).findById(id);
+            var id = 1L;
+            var nome = "item teste";
+            var itemCardapio = Helper.gerarItemCardapio();
+            itemCardapio.setId(id);
+            itemCardapio.setNome(nome);
 
-            fail("Não implementado");
+            var itemCardapioEntity = ItemCardapioEntityMapper.INSTANCE.toEntity(itemCardapio);
 
+            when(repository.findByNome(any(String.class))).thenReturn(Optional.of(itemCardapioEntity));
+
+            var itemCardapioObtido = adapter.buscarItemCardapioPorNome(nome);
+
+            assertThat(itemCardapioObtido)
+                    .isNotNull()
+                    .isEqualTo(itemCardapio);
+            verify(repository, times(1)).findByNome(nome);
         }
 
 //        @Test

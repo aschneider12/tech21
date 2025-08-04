@@ -139,27 +139,26 @@ public class ItemCardapioGatewayTest {
 
     @Test
     void devePermitirConsultarItemCardapioPorNome() {
-//        String nome = "item teste";
-//        Long idItemCardapio = 1L;
-//        Long idRestaurante = 99L;
-//        var itemCardapio = Helper.gerarItemCardapio();
-//        itemCardapio.setId(idItemCardapio);
-//        itemCardapio.getRestaurante().setId(idRestaurante);
-//
-//        when(dataSource.buscarItemCardapioPorNome(nome)).thenReturn(itemCardapio);
-//
-//        var itemRetornado = gateway.buscarItemCardapioPorNome(nome);
-//
-//        assertThat(itemRetornado)
-//                .isNotNull();
-//        assertThat(itemRetornado.getNome())
-//                .isEqualTo(itemCardapio.getNome());
-//        assertThat(itemRetornado.getId())
-//                .isEqualTo(idItemCardapio);
-//        assertThat(itemRetornado.getRestaurante().getId())
-//                .isEqualTo(idRestaurante);
-//        verify(dataSource, times(1)).buscarItemCardapioPorNome(nome);
-        fail("Não implementado");
+        String nome = "item teste";
+        Long idItemCardapio = 1L;
+        Long idRestaurante = 99L;
+        var itemCardapio = Helper.gerarItemCardapio();
+        itemCardapio.setId(idItemCardapio);
+        itemCardapio.getRestaurante().setId(idRestaurante);
+
+        when(dataSource.buscarItemCardapioPorNome(nome)).thenReturn(itemCardapio);
+
+        var itemRetornado = gateway.buscarItemCardapioPorNome(nome);
+
+        assertThat(itemRetornado)
+                .isNotNull();
+        assertThat(itemRetornado.getNome())
+                .isEqualTo(itemCardapio.getNome());
+        assertThat(itemRetornado.getId())
+                .isEqualTo(idItemCardapio);
+        assertThat(itemRetornado.getRestaurante().getId())
+                .isEqualTo(idRestaurante);
+        verify(dataSource, times(1)).buscarItemCardapioPorNome(nome);
     }
 
 
