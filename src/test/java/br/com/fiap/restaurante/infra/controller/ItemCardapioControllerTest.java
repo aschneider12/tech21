@@ -149,7 +149,7 @@ public class ItemCardapioControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(itemDTO)))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().json(asJsonString(itemCardapioDtoEsperado)));
 
         verify(factoryUseCase, times(1)).cadastrarItemCardapio();

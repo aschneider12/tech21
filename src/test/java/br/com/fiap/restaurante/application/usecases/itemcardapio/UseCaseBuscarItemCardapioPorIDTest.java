@@ -1,5 +1,7 @@
 package br.com.fiap.restaurante.application.usecases.itemcardapio;
 
+import br.com.fiap.restaurante.application.exceptions.EntidadeNaoEncontradaException;
+import br.com.fiap.restaurante.application.exceptions.ValidationException;
 import br.com.fiap.restaurante.application.output.ItemCardapioOutput;
 import br.com.fiap.restaurante.domain.interfaces.gateway.IItemCardapioGateway;
 import br.com.fiap.restaurante.helper.Helper;
@@ -10,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 public class UseCaseBuscarItemCardapioPorIDTest {
@@ -54,4 +57,25 @@ public class UseCaseBuscarItemCardapioPorIDTest {
         verify(gateway, times(1)).buscarItemCardapioPorIdentificador(idItemCardapio);
 
     }
+
+    @Test
+    void deveFalharAoTentarBuscarItemCardapioPorIdCasoIdRestaurantePertencaAOutro(){
+        Long idItemCardapio = 1L;
+        Long idRestaurante = 99L;
+
+        var itemCardapio = Helper.gerarItemCardapio();
+        itemCardapio.setId(idItemCardapio);
+        itemCardapio.getRestaurante().setId(100L);
+
+
+        when(gateway.buscarItemCardapioPorIdentificador(idItemCardapio)).thenReturn(itemCardapio);
+
+        assertThatThrownBy(() -> useCase.run(idRestaurante,idItemCardapio ))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("Item não pertence ao restauranteId informado!");
+        verify(gateway, times(1)).buscarItemCardapioPorIdentificador(idItemCardapio);
+
+    }
+
+
 }
