@@ -92,7 +92,7 @@ public class UsuarioController implements UsuarioDocController {
         return ResponseEntity.status(HttpStatus.OK).body(dtoResponse);
     }
 
-    @PatchMapping("/mudar-senha/{id}")
+    @PatchMapping("/{id}/mudar-senha")
     @Override
     public ResponseEntity<Void> mudarSenha(@RequestBody(required = true) MudarSenhaDTO mudarSenhaDTO, @PathVariable Long id) {
 

@@ -263,6 +263,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "mudar senha",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"senhaAntiga\": \"@New1234\",\r\n    \"senhaNova\": \"<NOVASENHAAQUI>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuario/mudar-senha/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"mudar-senha",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1504,46 +1544,6 @@
 					"path": [
 						"auth",
 						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "MUDAR SENHA",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{tokenJwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": " {\r\n    \"senhaAntiga\": \"@New1234\",\r\n    \"senhaNova\": \"<NOVASENHAAQUI>\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/usuario/mudar-senha/3",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"usuario",
-						"mudar-senha",
-						"3"
 					]
 				}
 			},
