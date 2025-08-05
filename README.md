@@ -55,70 +55,6 @@ Para acessar o banco de dados PostgreSQL via terminal:
 ```bash
 docker exec -it postgres-restaurante psql -U postgres -d restaurante
 ```
-
----
-
-## Autenticação JWT
-
-### 1. Cadastrar um usuário
-
-```bash
-curl -X POST http://localhost:8080/usuarioEntity \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Fazendo Teste",
-    "email": "fazendoteste@fazendoteste.com",
-    "login": "fazendoteste",
-    "senha": "SenhaForte123",
-    "tipoUsuario": "DONO"
-  }'
-```
-
-> Senha precisa ter no mínimo 8 caracteres e conter números.
-
-### 2. Realizar login e obter o token JWT
-
-```bash
-curl -X POST http://localhost:8080/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "login": "fazendoteste",
-    "senha": "SenhaForte123",
-    "tipoUsuario": "DONO"
-  }'
-```
-
-> A resposta conterá o token JWT. Copie somente o valor do token para usar nas próximas requisições.
-
-### 3. Acessar endpoint protegido com token
-
-```bash
-curl -X GET http://localhost:8080/usuarioEntity \
-  -H "Authorization: Bearer SEU_TOKEN_JWT"
-```
-
----
-
-## Trocar senha autenticado
-
-```bash
-curl -X PATCH http://localhost:8080/usuarioEntity/mudar-senha/ID_USUARIO \
-  -H "Authorization: Bearer SEU_TOKEN_JWT" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "senhaAtual": "SenhaForte123",
-    "novaSenha": "NovaSenha456"
-  }'
-```
-
-Resposta esperada:
-
-```json
-{
-  "message": "Senha atualizada com sucesso."
-}
-```
-
 ---
 
 ## Executar testes automatizados
@@ -149,6 +85,7 @@ jwt.expiration=3600000
 ```
 
 > O segredo JWT será carregado exclusivamente por variáveis de ambiente em ambientes produtivos, conforme boas práticas de segurança.
+> Assim como as senhas de banco de dados e outros dados sensíveis.
 
 ---
 

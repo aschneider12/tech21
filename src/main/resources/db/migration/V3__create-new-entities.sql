@@ -1,14 +1,3 @@
-CREATE TABLE IF NOT EXISTS usuario (
-	id serial NOT NULL UNIQUE,
-	nome varchar(255) NOT NULL,
-	email varchar(255) NOT NULL,
-	login varchar(255) NOT NULL UNIQUE,
-	senha varchar(255) NOT NULL,
-	data_ultima_alteracao timestamp with time zone NOT NULL,
-	tipo_usuario varchar(255) NOT NULL,
-	PRIMARY KEY (id)
-);
-
 CREATE TABLE IF NOT EXISTS restaurante (
 	id serial NOT NULL UNIQUE,
 	nome varchar(255) NOT NULL,
@@ -47,9 +36,9 @@ CREATE TABLE IF NOT EXISTS usuario_perfil (
     FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
-ALTER TABLE usuario ADD COLUMN if not exists endereco_id bigint;
 
 ALTER TABLE usuario ADD CONSTRAINT USUARIO_fk3 FOREIGN KEY (endereco_id) REFERENCES endereco(id);
+
 ALTER TABLE restaurante ADD CONSTRAINT RESTAURANTE_fk2 FOREIGN KEY (endereco_id) REFERENCES endereco(id);
 
 ALTER TABLE restaurante ADD CONSTRAINT RESTAURANTE_fk5 FOREIGN KEY (usuario_id) REFERENCES usuario(id);

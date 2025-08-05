@@ -1,6 +1,4 @@
 
--- PARA TESTES
-
 -- inserir somente 1 endereço, sera usado para o restaurante
 insert into endereco (rua, numero, cidade, estado, cep)
 values ('Av. Paulista', 51, 'São Paulo', 'SP', '01.311-000');
@@ -11,7 +9,7 @@ values ('Santo Canto', (select id from endereco limit 1), 'COZINHA ORIENTAL', 'A
 
 -- insere novo endereco, sera usado para todos os usuarios
 insert into endereco (rua, numero, cidade, estado, cep)
-values ('Morro do Dende', 24, 'Rio de Janeiro', 'RJ', '21.922-490.');
+values ('Morro do Maracujá', 24, 'Rio de Janeiro', 'RJ', '21.922-490.');
 
 update usuario set endereco_id = (select id from endereco order by id desc limit 1 );
 
@@ -22,8 +20,7 @@ insert into usuario_perfil (usuario_id, tipo_usuario)
 values ((select id from usuario limit 1), 'CLIENTE');
 
 insert into item (nome, descricao, preco, tipo_venda, restaurante_id)
-values ('Cachorro quente', 'Cachorro preensado 2 salsishas', 15.50, 'LOCAL', (select id from restaurante limit 1));
+values ('Cachorro quente', 'Cachorro preensado com 2 salsishas', 15.50, 'LOCAL', (select id from restaurante limit 1));
 
 insert into item (nome, descricao, preco, tipo_venda, restaurante_id)
-values ('Macarronese com frango', 'Melhor macarronese da região', 103.52, 'DELIVERY', (select id from restaurante limit 1));
-
+values ('Macarronese de frango', 'Melhor macarronese da região', 103.52, 'DELIVERY', (select id from restaurante limit 1));
