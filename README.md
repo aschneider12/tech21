@@ -1,8 +1,12 @@
-# tech21 Grupo 83 - Tech Challenge - Share Food
+# Grupo 83 - Tech Challenge - Share Food
 
 ## O Projeto
 
 O sistema proposto unifica clientes e donos de restaurantes em uma estrutura multiusuário, mantendo isolamento lógico e controle individualizado dos dados. O sistema foi construído com foco em escalabilidade e fácil manutenção, aplicando os princípios da Clean Architecture.
+
+## Vídeo de apresentação
+
+https://drive.google.com/file/d/1W_WagXnEuwkzYLaVTdG9mHI6NxvmKy3k/view?usp=sharing
 
 ## A Arquitetura
 
