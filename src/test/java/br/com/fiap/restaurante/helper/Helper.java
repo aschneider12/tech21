@@ -18,12 +18,13 @@ import java.util.stream.Collectors;
 public abstract class Helper {
     public static UsuarioEntity gerarUsuarioEntity(){
         EnderecoEntity endereco = new EnderecoEntity();
-        endereco.setId(1L);
-        endereco.setNumero("123");
-        endereco.setRua("Rua teste");
+        endereco.setId(9999L);
+        endereco.setNumero("1234");
+        endereco.setRua("Endereço Teste");
         endereco.setCidade("São Paulo");
-        endereco.setEstado("São Paulo");
-        endereco.setCep("00000-000");
+        endereco.setEstado("SP");
+        endereco.setCep("12.345-789");
+
 
 
         UsuarioEntity usuario = new UsuarioEntity();
@@ -75,12 +76,12 @@ public abstract class Helper {
 
     public static UsuarioUpdateDTO gerarUsuarioUpdateDTO(Usuario usuario){
         EnderecoEntity endereco = new EnderecoEntity();
-        endereco.setId(1L);
-        endereco.setNumero("123");
-        endereco.setRua("Rua teste");
+        endereco.setId(9999L);
+        endereco.setNumero("1234");
+        endereco.setRua("Endereço Teste");
         endereco.setCidade("São Paulo");
-        endereco.setEstado("São Paulo");
-        endereco.setCep("00000-000");
+        endereco.setEstado("SP");
+        endereco.setCep("12.345-789");
 
         return new UsuarioUpdateDTO(
           usuario.getNome(),
@@ -115,7 +116,7 @@ public abstract class Helper {
 
 
     public static Restaurante gerarRestaurante(){
-        Endereco endereco = new Endereco(1L, "Rua teste", "123", "São Paulo", "São Paulo", "00000-000");
+        Endereco endereco = new Endereco(9999L, "Endereço Restaurante Teste", "'1234'", "São Paulo", "SP", "12.345-789");
         return new Restaurante("Restaurante teste", "Cozinha teste", "Noturno", endereco, gerarUsuario());
     }
 
@@ -140,7 +141,7 @@ public abstract class Helper {
     public static ItemCardapio gerarItemCardapio(){
         return ItemCardapio.create(
           "item teste",
-          "Descrição teste",
+          "descricao teste",
                 BigDecimal.valueOf(10.00),
           "DELIVERY",
           gerarRestaurante(),

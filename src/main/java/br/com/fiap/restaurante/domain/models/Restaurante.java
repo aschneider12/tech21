@@ -108,4 +108,17 @@ public class Restaurante {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    @Override
+    public String toString() {
+        return "Restaurante{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", tipoCozinha='" + tipoCozinha + '\'' +
+                ", horarioFuncionamento='" + horarioFuncionamento + '\'' +
+                ", endereco=" + endereco +
+                ", dono=" + dono +
+                ", itensCardapio=" + itensCardapio +
+                '}';
+    }
 }
