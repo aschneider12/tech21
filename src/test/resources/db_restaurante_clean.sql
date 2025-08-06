@@ -9,6 +9,7 @@ DELETE FROM usuario WHERE id = 9999;
 DELETE FROM usuario WHERE id = 10000;
 DELETE FROM usuario WHERE id = 1111;
 DELETE FROM endereco WHERE id = 9999;
+DELETE FROM endereco WHERE rua = 'Rua teste';
 DELETE FROM ENDERECO WHERE rua = 'Endereço Restaurante Teste';
 DELETE FROM endereco WHERE id = 10000;
 
