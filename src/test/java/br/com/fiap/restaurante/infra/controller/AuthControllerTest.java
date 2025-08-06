@@ -64,7 +64,7 @@ public class AuthControllerTest {
 
     @Test
     void devePermtirAutenticarUsuarioComCredenciaisValidas() throws Exception {
-        var login = "usuario@teste.com";
+        var login = "usuarioteste";
         var senha = "123456";
         var token = "token123456789";
 
@@ -94,7 +94,7 @@ public class AuthControllerTest {
 
     @Test
     void naoDevePermtirAutenticarUsuarioComCredenciaisInvalidas() throws Exception {
-        var login = "usuario@teste.com";
+        var login = "usuarioteste";
         var senha = "senhaErrada";
 
         LoginRequest loginRequest = new LoginRequest();

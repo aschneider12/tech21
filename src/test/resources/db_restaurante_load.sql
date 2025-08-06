@@ -1,3 +1,4 @@
+
 INSERT INTO endereco(id, rua, numero, cidade, estado, cep)
 VALUES (9999,
         'Endereço Restaurante Teste',
@@ -19,7 +20,7 @@ VALUES( 9999,
         'João Teste',
         'joao@teste.com',
         'joaoteste',
-        'teste',
+        '$2a$10$oMsATmzOka2x64jsj4Y0B.xcd4ouItGufSzQKu6us4mafN7EcelJq', --Teste123*
         NOW(),
         10000);
 
@@ -39,3 +40,26 @@ VALUES(9999,
     'LOCAL',
     9999,
     null);
+
+INSERT INTO usuario(id, nome, email, login, senha, data_ultima_alteracao, endereco_id)
+VALUES( 10000,
+        'Usuário ADMIN para testes',
+        'testes@teste.com',
+        'adminteste',
+        '$2a$10$eK9D.NrnjSDoMF5poXxOpOYg4cdafq3hrtA4yAdkQDII6SuQaaFry', -- a senha criptografada é 'teste'
+        NOW(),
+        10000);
+
+INSERT INTO usuario(id, nome, email, login, senha, data_ultima_alteracao, endereco_id) -- Usuario para testes de perfil
+VALUES( 1111,
+        'João Teste perfil',
+        'joaoperfil@teste.com',
+        'joaotesteperfil',
+        '$2a$10$oMsATmzOka2x64jsj4Y0B.xcd4ouItGufSzQKu6us4mafN7EcelJq', --Teste123*
+        NOW(),
+        10000);
+
+INSERT INTO usuario_perfil(usuario_id, tipo_usuario)
+VALUES( 1111,
+        'DONO'
+     );

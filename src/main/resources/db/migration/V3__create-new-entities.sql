@@ -33,14 +33,14 @@ CREATE TABLE IF NOT EXISTS usuario_perfil (
 	usuario_id bigint NOT NULL,
 	tipo_usuario varchar(255) NOT NULL,
 	PRIMARY KEY (usuario_id, tipo_usuario),
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 
-ALTER TABLE usuario ADD CONSTRAINT USUARIO_fk3 FOREIGN KEY (endereco_id) REFERENCES endereco(id);
+ALTER TABLE usuario ADD CONSTRAINT USUARIO_fk3 FOREIGN KEY (endereco_id) REFERENCES endereco(id) ON DELETE CASCADE;
 
-ALTER TABLE restaurante ADD CONSTRAINT RESTAURANTE_fk2 FOREIGN KEY (endereco_id) REFERENCES endereco(id);
+ALTER TABLE restaurante ADD CONSTRAINT RESTAURANTE_fk2 FOREIGN KEY (endereco_id) REFERENCES endereco(id) ON DELETE CASCADE;
 
-ALTER TABLE restaurante ADD CONSTRAINT RESTAURANTE_fk5 FOREIGN KEY (usuario_id) REFERENCES usuario(id);
+ALTER TABLE restaurante ADD CONSTRAINT RESTAURANTE_fk5 FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE;
 
-ALTER TABLE item ADD CONSTRAINT ITEM_fk5 FOREIGN KEY (restaurante_id) REFERENCES restaurante(id);
+ALTER TABLE item ADD CONSTRAINT ITEM_fk5 FOREIGN KEY (restaurante_id) REFERENCES restaurante(id) ON DELETE CASCADE;

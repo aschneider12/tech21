@@ -2,6 +2,7 @@ package br.com.fiap.restaurante.infra.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 
+
 public class LoginRequest {
 
     @NotBlank
