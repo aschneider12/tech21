@@ -28,6 +28,8 @@ A estrutura do sistema é baseada na separação em camadas conforme os princíp
 - JUnit 5
 - Mockito
 - MockMvc
+- AsserJ
+- Rest Assured
 
 ## Testes Automatizados
 O projeto possui cobertura automatizada para os principais fluxos com uso de:
@@ -35,7 +37,14 @@ O projeto possui cobertura automatizada para os principais fluxos com uso de:
 - JUnit 5 para estruturação dos testes
 - Mockito para mocks de dependências
 - Spring MockMvc para testes de controladores
+- Rest Assured para testes de integração dos Controllers
 - Helper.java para dados de teste reutilizáveis
+
+Execute o comando abaixo na raiz do projeto para rodar os testes unitários e de integração:
+
+```bash
+  mvn verify
+```
   
 
 ## Como executar o projeto
